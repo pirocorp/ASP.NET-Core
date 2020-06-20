@@ -1,7 +1,7 @@
 C# Console Games
 ================
 
-Implementation based on these videos explanations **in Bulgarian**
+Implementations based on these videos explanations **in Bulgarian**
 
 * Cars (2012): http://www.youtube.com/watch?v=bQexyufgclY
 * PingPong (2012): http://www.youtube.com/watch?v=DmkqnjsNKZM
