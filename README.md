@@ -1,2 +1,2 @@
-# ASP.NET-Core
-ASP.NET Core Course
+ASP.NET Core
+================
