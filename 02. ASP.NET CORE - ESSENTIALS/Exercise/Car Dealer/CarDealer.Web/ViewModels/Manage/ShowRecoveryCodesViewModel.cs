@@ -1,4 +1,4 @@
-﻿namespace CarDealer.Web.Models.ManageViewModels
+﻿namespace CarDealer.Web.ViewModels.Manage
 {
     public class ShowRecoveryCodesViewModel
     {

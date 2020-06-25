@@ -12,7 +12,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using Models.ManageViewModels;
+    using ViewModels.Manage;
 
     [Authorize]
     [Route("[controller]/[action]")]

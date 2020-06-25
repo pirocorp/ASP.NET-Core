@@ -1,4 +1,4 @@
-﻿namespace CarDealer.Web.Models.ManageViewModels
+﻿namespace CarDealer.Web.ViewModels.Manage
 {
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Authentication;

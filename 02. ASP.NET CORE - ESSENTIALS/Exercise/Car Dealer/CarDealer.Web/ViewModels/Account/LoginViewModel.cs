@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CarDealer.Web.Models.AccountViewModels
+﻿namespace CarDealer.Web.ViewModels.Account
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class LoginViewModel
     {
         [Required]
