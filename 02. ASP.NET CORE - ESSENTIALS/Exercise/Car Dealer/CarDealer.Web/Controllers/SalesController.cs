@@ -13,8 +13,7 @@
         {
             this._saleService = saleService;
         }
-
-
+        
         [Route("")]
         public IActionResult All()
         {
