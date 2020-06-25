@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Services.Models;
+    using Services.Models.Customers;
 
     public class AllCustomersModel
     {

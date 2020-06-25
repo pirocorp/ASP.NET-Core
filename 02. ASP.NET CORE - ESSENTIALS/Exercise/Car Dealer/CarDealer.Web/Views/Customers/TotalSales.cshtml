@@ -1,0 +1,15 @@
+﻿@using CarDealer.Web.Infrastructure.Extensions
+@model CustomerTotalSalesModel
+
+@{
+    ViewData["Title"] = $"Customer {Model?.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@{
+    var totalCars = Model?.BoughtCars.Count();
+}
+
+<p>@totalCars @(totalCars != 1 ? "Cars" : "Car") Bought</p>
+<p>$@Model?.TotalMoneySpent.ToPrice()</p>

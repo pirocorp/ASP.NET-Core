@@ -1,10 +1,12 @@
 ﻿namespace CarDealer.Web.Controllers
 {
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Services;
     using Services.Models;
     using ViewModels.Customers;
 
+    [Route("customers")]
     public class CustomersController : Controller
     {
         private readonly ICustomerService _customerService;
@@ -14,6 +16,7 @@
             this._customerService = customerService;
         }
 
+        [Route("all/{order?}")]
         public IActionResult All(string order)
         {
             var orderDirection = order?.ToLower() == "desc"
@@ -22,7 +25,7 @@
 
             var allCustomers = this
                 ._customerService
-                .OrderedCustomers(orderDirection);
+                .Ordered(orderDirection);
 
             var result = new AllCustomersModel()
             {
@@ -31,6 +34,16 @@
             };
 
             return this.View(result);
+        }
+
+        [Route("{id}")]
+        public IActionResult TotalSales(int id)
+        {
+            var result = this
+                ._customerService
+                .TotalSalesById(id);
+
+            return this.ViewOrNotFound(result);
         }
     }
 }

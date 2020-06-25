@@ -1,0 +1,15 @@
+﻿@model SaleDetailsModel
+
+@{
+    ViewData["Title"] = $"Sale {Model.Id}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>@Model.CustomerName</h3>
+
+<p>@((Model.Discount + (Model.IsYoungDriver ? 0.05 : 0)).ToPercent())</p>
+
+<p>@Model.DiscountedPrice.ToPrice()</p>
+
+<p>@Model.Car.Make @Model.Car.Model - @Model.Car.TravelledDistance.ToKm()</p>

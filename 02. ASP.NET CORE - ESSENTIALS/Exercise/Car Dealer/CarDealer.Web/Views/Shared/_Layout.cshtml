@@ -31,6 +31,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Customers" asp-action="All">Customers</a></li>
+                    <li><a asp-area="" asp-controller="Cars" asp-action="All">Cars</a></li>
+                    
+                    <li class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sales
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="btn btn-sm dropdown-item" asp-area="" asp-controller="Sales" asp-action="All">All</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="btn btn-sm dropdown-item" asp-area="" asp-controller="Sales" asp-action="Discounted">Discounted</a>
+                        </div>
+                    </li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

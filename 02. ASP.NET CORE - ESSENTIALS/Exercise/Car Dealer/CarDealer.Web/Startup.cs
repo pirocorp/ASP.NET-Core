@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -31,7 +32,7 @@
                 .AddDefaultTokenProviders();
 
             // Add application services.
-            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddDomainServices();
 
             services.AddMvc();
         }
@@ -54,17 +55,7 @@
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "customers",
-                    template: "customers/all/{order}", 
-                    defaults: new {controller = "Customers", action = "All"});
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

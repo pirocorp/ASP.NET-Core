@@ -5,6 +5,9 @@
     using System.Linq;
     using Data;
     using Models;
+    using Models.Cars;
+    using Models.Customers;
+    using Models.Sales;
 
     public class CustomerService : ICustomerService
     {
@@ -15,7 +18,7 @@
             this._db = db;
         }
 
-        public IEnumerable<CustomerModel> OrderedCustomers(OrderDirection order)
+        public IEnumerable<CustomerModel> Ordered(OrderDirection order)
         {
             var customersQuery =
                 this._db
@@ -48,6 +51,22 @@
                 .ToList();
         }
 
-
+        public CustomerTotalSalesModel TotalSalesById(int id)
+            => this._db
+                .Customers
+                .Where(c => c.Id == id)
+                .Select(c => new CustomerTotalSalesModel()
+                {
+                    Name = c.Name,
+                    IsYoungDriver = c.IsYoungDriver,
+                    BoughtCars = c
+                        .Sales
+                        .Select(s => new SaleModel()
+                        {
+                            Price = s.Car.Parts.Sum(p => p.Part.Price),
+                            Discount = s.Discount
+                        })
+                })
+                .FirstOrDefault();
     }
 }
