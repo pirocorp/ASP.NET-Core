@@ -4,8 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Data;
-    using Models;
+    using Data.Models;
     using Models.Cars;
+    using Models.Parts;
 
     public class CarService : ICarService
     {
@@ -35,6 +36,7 @@
         public IEnumerable<CarWithPartsModel> WithParts()
             => this._db
                 .Cars
+                .OrderByDescending(c => c.Id)
                 .Select(c => new CarWithPartsModel()
                 {
                     Make = c.Make,
@@ -52,11 +54,26 @@
         public IEnumerable<CarModel> All()
             => this._db
                 .Cars
+                .OrderByDescending(c => c.Id)
                 .Select(c => new CarModel()
                 {
                     Make = c.Make,
                     Model = c.Model,
                     TravelledDistance = c.TravelledDistance
                 });
+
+        public void Create(string make, 
+            string model, long travelledDistance)
+        {
+            var car = new Car()
+            {
+                Make = make,
+                Model = model,
+                TravelledDistance = travelledDistance
+            };
+
+            this._db.Add(car);
+            this._db.SaveChanges();
+        }
     }
 }

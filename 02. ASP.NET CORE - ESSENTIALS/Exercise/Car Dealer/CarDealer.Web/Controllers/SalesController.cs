@@ -19,7 +19,7 @@
         {
             var result = this._saleService.All();
 
-            this.ViewBag.Type = "All";
+            this.ViewBag.Type = "AllListings";
 
             return this.View(result);
         }

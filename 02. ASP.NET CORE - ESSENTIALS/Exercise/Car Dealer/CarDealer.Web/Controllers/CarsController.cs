@@ -30,7 +30,7 @@
             return this.View(result);
         }
 
-        [Route("parts", Order = 1)]
+        [Route(nameof(Parts), Order = 1)]
         public IActionResult Parts()
         {
             var carsWithParts = this._carService.WithParts();
@@ -38,18 +38,26 @@
             return this.View(carsWithParts);
         }
 
-        [Route("all")]
-        public IActionResult All()
+        [Route(nameof(Create))]
+        public IActionResult Create() => this.View();
+
+        [HttpPost]
+        [Route(nameof(Create))]
+        //if name of model and property of the model are the same
+        //ASP.NET can't bind the model
+        public IActionResult Create(CarFormModel carModel)
         {
-            var cars = this._carService.All();
-
-            var result = new CarsByMakeModel()
+            if (!this.ModelState.IsValid)
             {
-                Make = "All",
-                Cars = cars
-            };
+                return this.View(carModel);
+            }
 
-            return this.View("ByMake", result);
+            this._carService.Create(
+                carModel.Make,
+                carModel.Model,
+                carModel.TravelledDistance);
+
+            return this.RedirectToAction(nameof(this.Parts));
         }
     }
 }

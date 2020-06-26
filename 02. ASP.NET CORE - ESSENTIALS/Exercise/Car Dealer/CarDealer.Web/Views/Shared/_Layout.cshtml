@@ -31,19 +31,50 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Customers" asp-action="All">Customers</a></li>
-                    <li><a asp-area="" asp-controller="Cars" asp-action="All">Cars</a></li>
-                    
                     <li class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Sales
+                        <a class="btn dropdown-toggle" data-toggle="dropdown">
+                            Customers &#x25BC;
                         </a>
 
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="btn btn-sm dropdown-item" asp-area="" asp-controller="Sales" asp-action="All">All</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="btn btn-sm dropdown-item" asp-area="" asp-controller="Sales" asp-action="Discounted">Discounted</a>
-                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Customers" asp-action="All">All</a></li>
+                            <li><a asp-area="" asp-controller="Customers" asp-action="Create">Add</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" href="#">
+                            Cars &#x25BC;
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Cars" asp-action="Parts">All</a></li>
+                            <li><a asp-area="" asp-controller="Cars" asp-action="Create">Add</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" href="#">
+                            Sales &#x25BC;
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Sales" asp-action="All">All</a></li>
+
+                            <li><a asp-area="" asp-controller="Sales" asp-action="Discounted">Discounted</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" href="#">
+                            Parts &#x25BC;
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Parts" asp-action="All">All</a></li>
+                            <li><a asp-area="" asp-controller="Parts" asp-action="Create">Add</a></li>
+                        </ul>
                     </li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")

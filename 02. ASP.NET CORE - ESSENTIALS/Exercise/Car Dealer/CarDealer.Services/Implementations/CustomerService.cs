@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Data;
+    using Data.Models;
     using Models;
-    using Models.Cars;
     using Models.Customers;
     using Models.Sales;
 
@@ -44,6 +44,7 @@
             return customersQuery
                 .Select(c => new CustomerModel()
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     BirthDay = c.BirthDay,
                     IsYoungDriver = c.IsYoungDriver
@@ -68,5 +69,50 @@
                         })
                 })
                 .FirstOrDefault();
+
+        public void Create(string name, DateTime birthday, bool isYoungDriver)
+        {
+            var customer = new Customer()
+            {
+                Name = name,
+                BirthDay = birthday,
+                IsYoungDriver = isYoungDriver
+            };
+
+            this._db.Customers.Add(customer);
+            this._db.SaveChanges();
+        }
+
+        public CustomerModel ById(int id)
+            => this._db
+                .Customers
+                .Where(c => c.Id == id)
+                .Select(c => new CustomerModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    IsYoungDriver = c.IsYoungDriver,
+                    BirthDay = c.BirthDay
+                })
+                .FirstOrDefault();
+
+        public void Edit(int id, string name, DateTime birthDay, bool isYoungDriver)
+        {
+            var existing = this._db.Customers.Find(id);
+
+            if (existing == null)
+            {
+                return;
+            }
+
+            existing.Name = name;
+            existing.BirthDay = birthDay;
+            existing.IsYoungDriver = isYoungDriver;
+
+            this._db.SaveChanges();
+        }
+
+        public bool Exists(int id)
+            => this._db.Customers.Any(c => c.Id == id);
     }
 }

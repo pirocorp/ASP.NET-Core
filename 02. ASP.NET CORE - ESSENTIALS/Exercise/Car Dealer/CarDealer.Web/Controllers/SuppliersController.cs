@@ -37,7 +37,7 @@
 
             var suppliers = this
                 ._supplierService
-                .All(areImporters);
+                .AllListings(areImporters);
 
             var result = new SuppliersModel()
             {

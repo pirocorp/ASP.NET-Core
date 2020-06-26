@@ -10,5 +10,7 @@
         IEnumerable<CarWithPartsModel> WithParts();
 
         IEnumerable<CarModel> All();
+
+        void Create(string make, string model, long travelledDistance);
     }
 }

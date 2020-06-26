@@ -2,9 +2,14 @@
 {
     using System.Collections.Generic;
     using Models;
+    using Models.Suppliers;
 
     public interface ISupplierService
     {
-        IEnumerable<SupplierModel> All(bool areImporters);
+        IEnumerable<SupplierListingModel> AllListings(bool areImporters);
+
+        IEnumerable<SupplierModel> All();
+
+        bool Exists(int modelSupplierId);
     }
 }

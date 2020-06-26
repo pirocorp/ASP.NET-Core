@@ -1,18 +1,19 @@
 ﻿@model AllCustomersModel
 
 @{
-    ViewData["Title"] = "All Customers";
+    ViewData["Title"] = "AllListings Customers";
 }
 
-<h2>All Customers</h2>
+<h2>AllListings Customers</h2>
 <h3>Ordered in @Model.OrderDirection.ToString().ToLower() direction</h3>
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>Name</th>
-            <th>Birthday</th>
+            <th>BirthDay</th>
             <th>Is Young Driver</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,9 @@
                 <td>@customer.Name</td>
                 <td>@customer.BirthDay.ToShortDateString()</td>
                 <td>@(customer.IsYoungDriver ? "Yes" : "No")</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="/customers/edit/@customer.Id">Edit</a>
+                </td>
             </tr>
         }
     </tbody>
