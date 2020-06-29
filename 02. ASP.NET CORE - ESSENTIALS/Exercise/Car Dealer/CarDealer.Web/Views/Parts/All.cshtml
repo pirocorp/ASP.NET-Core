@@ -1,0 +1,39 @@
+﻿@model PartPageListingModel
+
+@{
+    ViewData["Title"] = "All Parts";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@Html.Partial("_PartPagination", Model)
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Supplier</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var part in Model.Parts)
+        {
+            <tr>
+                <td>@part.Name</td>
+                <td>@part.Price.ToPrice()</td>
+                <td>@part.Quantity</td>
+                <td>@part.SupplierName</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="/parts/edit/@part.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" href="/parts/delete/@part.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Partial("_PartPagination", Model)
+
