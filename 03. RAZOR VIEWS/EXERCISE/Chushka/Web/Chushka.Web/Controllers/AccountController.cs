@@ -9,11 +9,15 @@
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserService _userService;
 
-        public AccountController(SignInManager<User> signInManager, IUserService userService)
+        public AccountController(SignInManager<User> signInManager, 
+            RoleManager<IdentityRole> roleManager,
+            IUserService userService)
         {
             this._signInManager = signInManager;
+            this._roleManager = roleManager;
             this._userService = userService;
         }
 
@@ -62,6 +66,11 @@
 
             if (result.Succeeded)
             {
+                if (this._userService.Count() == 1)
+                {
+                    
+                }
+
                 return this.RedirectToAction("Index", "Home");
             }
 
