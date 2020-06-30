@@ -1,6 +1,7 @@
 ﻿namespace Chushka.Web.Controllers
 {
     using System.Diagnostics;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using ViewModels;
@@ -19,6 +20,7 @@
             return this.View();
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return this.View();

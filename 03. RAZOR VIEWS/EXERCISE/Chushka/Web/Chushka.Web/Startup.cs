@@ -46,13 +46,6 @@ namespace Chushka.Web
                 options.SignIn.RequireConfirmedEmail = false;
             });
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Account/Login";
-                options.LogoutPath = "/Account/Logout";
-                options.AccessDeniedPath = "/Account/AccessDenied";
-            });
-
             // Add application services.
             services.AddDomainServices();
 
