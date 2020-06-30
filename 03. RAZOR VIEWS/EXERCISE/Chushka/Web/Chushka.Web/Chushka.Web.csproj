@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Chushka.Web.Infrastructure\Chushka.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Services\Chushka.Services\Chushka.Services.csproj" />
+    <ProjectReference Include="..\Chushka.Web.Infrastructure\Chushka.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

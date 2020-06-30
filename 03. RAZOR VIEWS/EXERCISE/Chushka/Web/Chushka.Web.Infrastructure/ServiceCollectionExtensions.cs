@@ -1,17 +1,23 @@
 ﻿namespace Chushka.Web.Infrastructure
 {
+    using System;
     using System.Linq;
     using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;
-    using Services.Contracts;
 
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Add all services in IoC Container from target Assembly
+        /// </summary>
+        /// <param name="services">IoC Container</param>
+        /// <param name="type">Type from target Assembly</param>
+        /// <returns></returns>
         public static IServiceCollection AddDomainServices(
-            this IServiceCollection services)
+            this IServiceCollection services, Type type)
         {
             Assembly
-                .GetAssembly(typeof(IService))
+                .GetAssembly(type)
                 .GetTypes()
                 .Where(t => t.IsClass
                             && t.GetInterfaces()

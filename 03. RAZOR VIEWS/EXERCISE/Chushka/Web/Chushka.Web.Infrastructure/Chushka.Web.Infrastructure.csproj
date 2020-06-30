@@ -8,8 +8,4 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Services\Chushka.Services\Chushka.Services.csproj" />
-  </ItemGroup>
-
 </Project>
