@@ -1,5 +1,6 @@
 ﻿namespace Chushka.Web.Controllers
 {
+    using System.Linq;
     using Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -9,15 +10,12 @@
     public class AccountController : Controller
     {
         private readonly SignInManager<User> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserService _userService;
 
         public AccountController(SignInManager<User> signInManager, 
-            RoleManager<IdentityRole> roleManager,
             IUserService userService)
         {
             this._signInManager = signInManager;
-            this._roleManager = roleManager;
             this._userService = userService;
         }
 
@@ -64,17 +62,27 @@
                 .CreateAsync(user, model.Password)
                 .Result;
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                if (this._userService.Count() == 1)
-                {
-                    
-                }
+                return this.View();
+            }
 
+            if (this._userService.Count() != 1)
+            {
                 return this.RedirectToAction("Index", "Home");
             }
 
-            return this.View();
+            var roleResult = this._signInManager
+                .UserManager
+                .AddToRoleAsync(user, "Administrator")
+                .Result;
+
+            if (roleResult.Errors.Any())
+            {
+                return this.View();
+            }
+
+            return this.RedirectToAction("Index", "Home");
         }
 
         public IActionResult Logout()

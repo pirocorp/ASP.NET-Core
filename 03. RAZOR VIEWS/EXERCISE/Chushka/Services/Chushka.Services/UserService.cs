@@ -15,5 +15,11 @@
 
         public bool Exists(string username)
             => this._db.Users.Any(u => u.UserName == username);
+
+        public bool Any()
+            => this._db.Users.Any();
+
+        public int Count()
+            => this._db.Users.Count();
     }
 }
