@@ -27,7 +27,18 @@
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            return null;
+            var user = this._signInManager
+                .PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false)
+                .Result;
+
+            if (!user.Succeeded)
+            {
+                this.ModelState.AddModelError(string.Empty, "Invalid credentials");
+
+                return this.View();
+            }
+
+            return this.RedirectToAction("Index", "Home");
         }
 
         public IActionResult Register()
@@ -67,27 +78,31 @@
                 return this.View();
             }
 
-            if (this._userService.Count() != 1)
+            if (this._userService.Count() == 1)
             {
-                return this.RedirectToAction("Index", "Home");
+                var roleResult = this._signInManager
+                    .UserManager
+                    .AddToRoleAsync(user, "Administrator")
+                    .Result;
+
+                if (roleResult.Errors.Any())
+                {
+                    return this.View();
+                }
             }
 
-            var roleResult = this._signInManager
-                .UserManager
-                .AddToRoleAsync(user, "Administrator")
-                .Result;
-
-            if (roleResult.Errors.Any())
-            {
-                return this.View();
-            }
-
+            this._signInManager.SignInAsync(user, false);
             return this.RedirectToAction("Index", "Home");
         }
 
         public IActionResult Logout()
         {
-            return null;
+            this._signInManager
+                .SignOutAsync()
+                .GetAwaiter()
+                .GetResult();
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }
