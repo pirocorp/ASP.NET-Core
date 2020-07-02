@@ -10,7 +10,7 @@
     public class ContactModel : PageModel
     {
         [BindProperty]
-        public ContactInput Input { get; set; }
+        public InputModel Input { get; set; }
 
         public string Info { get; set; }
 
@@ -31,7 +31,7 @@
             }
         }
 
-        public class ContactInput
+        public class InputModel
         {
             [Required]
             [MinLength(3)]
