@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Services;
@@ -44,6 +45,7 @@
             return this.View(carsWithParts);
         }
 
+        [Authorize]
         [Route(nameof(Create))]
         public IActionResult Create()
         {
@@ -56,6 +58,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         [Route(nameof(Create))]
         //if name of model and property of the model are the same
         //ASP.NET can't bind the model
