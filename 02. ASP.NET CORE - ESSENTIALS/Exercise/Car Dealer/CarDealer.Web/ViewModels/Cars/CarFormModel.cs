@@ -1,6 +1,8 @@
 ﻿namespace CarDealer.Web.ViewModels.Cars
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class CarFormModel
     {
@@ -15,5 +17,10 @@
         [Display(Name = "Travelled Distance")]
         [Range(0, long.MaxValue, ErrorMessage = "{2} must be positive number")]
         public long TravelledDistance { get; set; }
+
+        public IEnumerable<int> SelectedParts { get; set; }
+
+        [Display(Name = "Parts")]
+        public IEnumerable<SelectListItem> AllParts { get; set; }
     }
 }

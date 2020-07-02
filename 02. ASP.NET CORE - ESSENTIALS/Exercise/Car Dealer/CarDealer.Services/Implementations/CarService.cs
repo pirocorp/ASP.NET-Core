@@ -62,15 +62,34 @@
                     TravelledDistance = c.TravelledDistance
                 });
 
-        public void Create(string make, 
-            string model, long travelledDistance)
+        public void Create(
+            string make, 
+            string model, 
+            long travelledDistance,
+            IEnumerable<int> parts)
         {
+            var existingPartIds = this._db
+                .Parts
+                .Where(p => parts.Contains(p.Id))
+                .Select(p => p.Id)
+                .ToList();
+
             var car = new Car()
             {
                 Make = make,
                 Model = model,
                 TravelledDistance = travelledDistance
             };
+
+            foreach (var partId in existingPartIds)
+            {
+                var partCar = new PartCar()
+                {
+                    PartId = partId,
+                };
+
+                car.Parts.Add(partCar);
+            }
 
             this._db.Add(car);
             this._db.SaveChanges();

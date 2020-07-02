@@ -5,7 +5,9 @@
 
     public interface IPartsService
     {
-        IEnumerable<PartListingModel> All(int page = 1, int pageSize = 10);
+        IEnumerable<PartListingModel> AllListings(int page = 1, int pageSize = 10);
+
+        IEnumerable<PartBasicModel> All();
 
         void Create(string modelName, decimal modelPrice, int modelQuantity, int modelSupplierId);
         

@@ -16,7 +16,7 @@
             this._db = db;
         }
 
-        public IEnumerable<PartListingModel> All(int page = 1, int pageSize = 10)
+        public IEnumerable<PartListingModel> AllListings(int page = 1, int pageSize = 10)
             => this._db
                 .Parts
                 .OrderByDescending(p => p.Id)
@@ -29,6 +29,17 @@
                     Price = p.Price,
                     Quantity = p.Quantity,
                     SupplierName = p.Supplier.Name
+                })
+                .ToList();
+
+        public IEnumerable<PartBasicModel> All()
+            => this._db
+                .Parts
+                .OrderBy(p => p.Name)
+                .Select(p => new PartBasicModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name
                 })
                 .ToList();
 

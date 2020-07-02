@@ -31,7 +31,7 @@
 
             var parts = this
                 ._partsService
-                .All(page, PAGE_SIZE);
+                .AllListings(page, PAGE_SIZE);
 
             var totalParts = this._partsService.Count();
             var totalPages = Math.Ceiling(totalParts / (double) PAGE_SIZE);
