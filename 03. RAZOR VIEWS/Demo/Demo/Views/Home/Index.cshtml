@@ -1,0 +1,15 @@
+﻿@model Demo.ViewModels.Home.IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Hello</h1>
+    <h2 greeting-string="@Model.Message"></h2>
+    <h3 greeting-string="@Model.Year"></h3>
+    <p>@ViewData["name"]</p>
+    <p>@ViewBag.Name and @ViewBag.Func()</p>
+    <br />
+    <p>@this.Context.Request.Headers["User-Agent"]</p>
+</div>
