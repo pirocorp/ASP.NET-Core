@@ -53,7 +53,6 @@
       ]
     },
     {
-      "provider": "unpkg",
       "library": "font-awesome-5-css@5.4.1",
       "destination": "wwwroot/lib/fontawesome",
       "files": [
@@ -62,7 +61,31 @@
         "css/brands.css",
         "css/brands.min.css",
         "css/fa-solid.css",
-        "css/fa-solid.min.css"
+        "css/fa-solid.min.css",
+        "webfonts/fa-brands-400.eot",
+        "webfonts/fa-brands-400.svg",
+        "webfonts/fa-brands-400.ttf",
+        "webfonts/fa-brands-400.woff",
+        "webfonts/fa-brands-400.woff2",
+        "webfonts/fa-regular-400.eot",
+        "webfonts/fa-regular-400.svg",
+        "webfonts/fa-regular-400.ttf",
+        "webfonts/fa-regular-400.woff",
+        "webfonts/fa-regular-400.woff2",
+        "webfonts/fa-solid-900.eot",
+        "webfonts/fa-solid-900.svg",
+        "webfonts/fa-solid-900.ttf",
+        "webfonts/fa-solid-900.woff",
+        "webfonts/fa-solid-900.woff2"
+      ]
+    },
+    {
+      "library": "popper.js@1.14.7",
+      "destination": "wwwroot/lib/popper/",
+      "files": [
+        "dist/popper.js",
+        "dist/popper.js.map",
+        "dist/popper.min.js"
       ]
     }
   ]
