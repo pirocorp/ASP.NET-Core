@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace BookLibrary.Web
 {
+    using Microsoft.AspNetCore.Http;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -26,6 +28,12 @@ namespace BookLibrary.Web
         {
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
+
+            services.Configure<CookiePolicyOptions>(opt =>
+            {
+                opt.CheckConsentNeeded = context => true;
+                opt.MinimumSameSitePolicy = SameSiteMode.None;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

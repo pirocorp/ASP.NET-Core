@@ -10,9 +10,13 @@
 {
     <div id="cookieConsent">
         <!-- CUSTOMIZED MESSAGE IN COOKIE POPUP -->
-        <button type="button" data-dismiss="alert" data-cookie-string="@cookieString">
-            <span aria-hidden="true">Accept</span>
-        </button>
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            This site use <strong>cookies</strong>.
+            <button type="button" class="close" aria-label="Accept" data-dismiss="alert" data-cookie-string="@cookieString" id="cookieConsent">
+                <span class="" aria-hidden="true">Accept</span>
+            </button>
+        </div>
+        
     </div>
     <script>
         (function () {
