@@ -45,6 +45,8 @@ namespace BookLibrary.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseCookiePolicy();
+
             app.UseRouting();
 
             app.UseAuthorization();
