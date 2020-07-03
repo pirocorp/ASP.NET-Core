@@ -12,7 +12,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace BookLibrary.Web
 {
+    using Data;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
 
     public class Startup
     {
@@ -29,6 +31,10 @@ namespace BookLibrary.Web
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
 
+            services.AddDbContext<BookLibraryDbContext>(options =>
+                options
+                    .UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+
             services.Configure<CookiePolicyOptions>(opt =>
             {
                 opt.CheckConsentNeeded = context => true;
@@ -37,8 +43,13 @@ namespace BookLibrary.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            BookLibraryDbContext context)
         {
+            context.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

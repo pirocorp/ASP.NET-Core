@@ -18,4 +18,8 @@
     <Folder Include="Pages\Books\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\BookLibrary.Data\BookLibrary.Data.csproj" />
+  </ItemGroup>
+
 </Project>
