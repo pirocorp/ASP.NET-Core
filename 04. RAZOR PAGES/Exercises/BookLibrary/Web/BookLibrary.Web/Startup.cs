@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace BookLibrary.Web
 {
-    using Data;
+    using System;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
+    using Data;
 
     public class Startup
     {
@@ -48,7 +43,10 @@ namespace BookLibrary.Web
             IWebHostEnvironment env,
             BookLibraryDbContext context)
         {
-            context.Database.Migrate();
+            if (env.IsDevelopment())
+            {
+                context.Database.Migrate();
+            }
 
             if (env.IsDevelopment())
             {
