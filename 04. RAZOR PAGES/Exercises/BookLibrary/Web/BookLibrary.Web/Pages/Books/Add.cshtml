@@ -1,8 +1,46 @@
 ﻿@page
-@model BookLibrary.Web.Pages.Books.AddModel
+@model AddModel
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Add Book";
 }
 
-<h1>Add</h1>
+<h2>@ViewData["Title"]</h2>
 
+<div class="col-md-6">
+    <form method="post">
+        <div class="form-group row">
+            <label asp-for="Input.Title" class="col-sm-4 col-form-label"></label>
+            <div class="col-sm-8">
+                <input asp-for="Input.Title" class="form-control" />
+            </div>
+            <span asp-validation-for="Input.Title"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Input.Description" class="col-sm-4 col-form-label"></label>
+            <div class="col-sm-8">
+                <input asp-for="Input.Description" class="form-control" />
+            </div>
+            <span asp-validation-for="Input.Description"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Input.CoverImage" class="col-sm-4 col-form-label"></label>
+            <div class="col-sm-8">
+                <input asp-for="Input.CoverImage" class="form-control" />
+            </div>
+            <span asp-validation-for="Input.CoverImage"></span>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Input.Author" class="col-sm-4 col-form-label"></label>
+            <div class="col-sm-8">
+                <input asp-for="Input.Author" class="form-control" />
+            </div>
+            <span asp-validation-for="Input.Author"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-8 offset-sm-4">
+                <input type="submit" class="btn btn-success ml-auto" value="Add"/>
+            </div>
+        </div>
+    </form>
+</div>
