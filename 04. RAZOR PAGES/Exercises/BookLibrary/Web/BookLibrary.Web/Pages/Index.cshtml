@@ -4,8 +4,36 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    
-</div>
+<h1>Book Library</h1>
+
+<a class="btn btn-success" asp-page="/Books/Add">Add new book</a>
+
+<table class="container table table-bordered table-hover table-striped mt-5">
+    <thead class="thead-light">
+        <tr class="d-flex">
+            <th class="col-6">Title</th>
+            <th class="col-4">Author</th>
+            <th class="col-2">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr class="d-flex">
+                <td class="col-6">
+                    <a asp-page="/Books/Details" asp-route-id="@book.BookId">
+                        @book.Title
+                    </a>
+                </td>
+                <td class="col-4">
+                    <a asp-page="/Authors/Details" asp-route-id="@book.AuthorId">
+                        @book.AuthorName
+                    </a>
+                </td>
+                <td class="col-2 @book.Status.FriendlyToColor()">
+                    @book.Status.FriendlyToString()
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
