@@ -1,0 +1,25 @@
+﻿@page
+@model BookLibrary.Web.Pages.SearchModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search results: "@Model.Output.SearchTerm"</h1>
+
+<ul>
+    @foreach (var item in Model.Output.Listings)
+    {
+    <li>
+        @if (item.Source == "author")
+        {
+            <a asp-page="/Authors/Details" asp-route-id="@item.Id">@item.Name</a>
+            <span>(@item.Source)</span>
+        }
+        else if (item.Source == "book")
+        {
+            <a asp-page="/Books/Details" asp-route-id="@item.Id">@item.Name</a>
+            <span>(@item.Source)</span>
+        }
+    </li>
+    }
+</ul>

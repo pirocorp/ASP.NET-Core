@@ -1,0 +1,17 @@
+﻿@page  "{id:int}"
+@model DetailsModel
+@{
+    ViewData["Title"] = "Author Details";
+}
+
+<h1>@Model.Output.AuthorName</h1>
+
+<ul>
+    @foreach (var book in Model.Output.Books)
+    {
+        <li>
+            <a asp-page="/Books/Details" asp-route-id="@book.Id">@book.Title</a>
+            <span class="@book.Status.FriendlyToColor()">(@book.Status.FriendlyToString())</span>
+        </li>
+    }
+</ul>
