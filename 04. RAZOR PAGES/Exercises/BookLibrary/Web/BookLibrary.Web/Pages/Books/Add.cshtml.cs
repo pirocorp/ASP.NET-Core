@@ -1,28 +1,80 @@
 ﻿namespace BookLibrary.Web.Pages.Books
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using Data;
+    using Data.Models;
+
     public class AddModel : PageModel
     {
+        private readonly BookLibraryDbContext _db;
+
+        public AddModel(BookLibraryDbContext db)
+        {
+            this._db = db;
+        }
+
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            return this.Page();
         }
 
+        public IActionResult OnPost()
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Page();
+            }
+
+            var author = this._db
+                .Authors
+                .FirstOrDefault(a => a.Name == this.Input.AuthorName);
+
+            if (author is null)
+            {
+                author = new Author()
+                {
+                    Name = this.Input.AuthorName
+                };
+            }
+
+            var book = new Book()
+            {
+                Title = this.Input.Title,
+                Description = this.Input.Description,
+                CoverImage = this.Input.ImageUrl,
+                Author = author
+            };
+
+            this._db.Books.Add(book);
+            this._db.SaveChanges();
+
+            return this.RedirectToPage("Details", "Books", new {id = book.Id});
+        }
 
         public class InputModel
         {
+            [Required]
             public string Title { get; set; }
 
+            [Required]
             public string Description { get; set; }
 
-            public string CoverImage { get; set; }
+            [Required]
+            [Display(Name = "Image URL")]
+            [DataType(DataType.Url)]
+            public string ImageUrl { get; set; }
 
-            public string Author { get; set; }
+            [Required]
+            [Display(Name = "Author")]
+            public string AuthorName { get; set; }
         }
     }
 }

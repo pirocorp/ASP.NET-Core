@@ -17,6 +17,8 @@
 
         public string CoverImage { get; set; }
 
+        public BookStatus Status { get; set; }
+
         public int AuthorId { get; set; }
 
         public Author Author { get; set; }

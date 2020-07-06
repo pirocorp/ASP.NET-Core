@@ -1,0 +1,27 @@
+﻿@page  "{id}"
+@model DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<article class="row">
+    <aside class="col-md-4">
+        <img class="align-self-start mr-5 mb-5 img-fluid" src="@Model.Output.ImageUrl" alt="book cover">
+    </aside>
+    <section class="col-md-8">
+        <h5 class="mt-0">@Model.Output.Title</h5>
+        <h6>by @Model.Output.AuthorName</h6>
+        
+        @{
+            var lines = Model.Output.Description
+                .Split(new[] {"\n", "\r\n"}, StringSplitOptions.None);
+
+            foreach (var line in lines)
+            {
+                <p>@line</p>
+            }
+        }
+
+        <p><strong>Status: </strong><span class="@Model.Output.StatusColor">@Model.Output.StatusText</span></p>
+    </section>
+</article>
