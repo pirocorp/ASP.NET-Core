@@ -4,19 +4,15 @@
     using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
 
     using Data;
     using Data.Models;
 
-    public class AddModel : PageModel
+    public class AddModel : BasePageModel
     {
-        private readonly BookLibraryDbContext _db;
-
         public AddModel(BookLibraryDbContext db)
-        {
-            this._db = db;
-        }
+            : base(db)
+        { }
 
         [BindProperty]
         public InputModel Input { get; set; }

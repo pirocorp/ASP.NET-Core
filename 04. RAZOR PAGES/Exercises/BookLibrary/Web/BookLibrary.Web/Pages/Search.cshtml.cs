@@ -3,29 +3,31 @@
     using System.Collections.Generic;
     using System.Linq;
     using Data;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.AspNetCore.Mvc;
 
-    public class SearchModel : PageModel
+    public class SearchModel : BasePageModel
     {
-        private readonly BookLibraryDbContext _db;
-
         public SearchModel(BookLibraryDbContext db)
+            : base(db)
         {
-            this._db = db;
-
             this.Output = new OutputModel();
         }
 
-        public OutputModel Output { get; set; }
+        public OutputModel Output { get; private set; }
 
-        public void OnGet(string searchTerm)
+        public IActionResult OnGet(string searchTerm)
         {
-            var results = new List<ListingModel>();
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return this.RedirectToPage("Index");
+            }
+
+            var results = new List<OutputModel.ListingModel>();
 
             var authors = this._db
                 .Authors
                 .Where(a => a.Name.ToLower().Contains(searchTerm.ToLower()))
-                .Select(a => new ListingModel()
+                .Select(a => new OutputModel.ListingModel()
                 {
                     Id = a.Id,
                     Name = a.Name,
@@ -36,7 +38,7 @@
             var books = this._db
                 .Books
                 .Where(b => b.Title.ToLower().Contains(searchTerm.ToLower()))
-                .Select(b =>  new ListingModel()
+                .Select(b =>  new OutputModel.ListingModel()
                 {
                     Id = b.Id,
                     Name = b.Title,
@@ -47,8 +49,14 @@
             results.AddRange(authors);
             results.AddRange(books);
 
+            results = results
+                .OrderBy(l => l.Name)
+                .ToList();
+
             this.Output.Listings = results;
             this.Output.SearchTerm = searchTerm;
+
+            return this.Page();
         }
 
         public class OutputModel
@@ -56,15 +64,15 @@
             public IEnumerable<ListingModel> Listings { get; set; }
 
             public string SearchTerm { get; set; }
-        }
 
-        public class ListingModel
-        {
-            public int Id { get; set; }
+            public class ListingModel
+            {
+                public int Id { get; set; }
 
-            public string Name { get; set; }
+                public string Name { get; set; }
 
-            public string Source { get; set; }
+                public string Source { get; set; }
+            }
         }
     }
 }

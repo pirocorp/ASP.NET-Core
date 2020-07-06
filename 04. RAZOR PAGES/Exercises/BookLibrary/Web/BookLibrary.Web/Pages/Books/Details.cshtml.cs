@@ -2,21 +2,17 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-
-    using Microsoft.AspNetCore.Mvc.RazorPages;
-
+    
     using Data;
     using Data.Models;
     using Extensions;
     using Microsoft.AspNetCore.Mvc;
 
-    public class DetailsModel : PageModel
+    public class DetailsModel : BasePageModel
     {
-        private readonly BookLibraryDbContext _db;
-
         public DetailsModel(BookLibraryDbContext db)
+            : base(db)
         {
-            this._db = db;
         }
 
         public OutputModel Output { get; set; }

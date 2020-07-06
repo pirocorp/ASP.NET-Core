@@ -5,15 +5,12 @@
     using Data;
     using Data.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
 
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
-        private readonly BookLibraryDbContext _db;
-
         public IndexModel(BookLibraryDbContext db)
+            : base(db)
         {
-            this._db = db;
         }
 
         public List<BookDisplayModel> Books { get; set; }
