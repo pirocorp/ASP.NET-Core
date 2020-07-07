@@ -39,6 +39,8 @@
                 <a class="btn btn-lg btn-outline-secondary disabled" asp-page="/Books/Borrow" asp-route-id="@Model.Output.Id">Borrow</a>
                 <a class="btn btn-lg btn-success" asp-page="/Books/Return" asp-route-id="@Model.Output.Id">Return</a>
             }
+
+        <a class="btn btn-lg btn-info" asp-page="/Books/Status" asp-route-id="@Model.Output.Id">Show History</a>
         </p>
     </section>
 </article>
