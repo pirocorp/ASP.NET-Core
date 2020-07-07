@@ -10,7 +10,7 @@
         public void Configure(EntityTypeBuilder<BookBorrower> builder)
         {
             builder
-                .HasKey(bb => new {bb.BookId, bb.BorrowerId});
+                .HasKey(bb => bb.Id);
 
             builder
                 .HasOne(bb => bb.Book)

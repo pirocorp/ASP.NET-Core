@@ -22,12 +22,23 @@
 
         public OutputModel Output { get; set; }
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int? id)
         {
-            var bookTitle = this._db
+            if (id is null)
+            {
+                return this.NotFound();
+            }
+
+            var book = this._db
                 .Books
-                .Find(id)
-                .Title;
+                .Find(id);
+
+            if (book is null)
+            {
+                return this.NotFound();
+            }
+
+            var bookTitle = book.Title;
 
             var borrowers = this._db
                 .Borrowers
@@ -41,7 +52,9 @@
 
             this.Output.Title = bookTitle;
             this.Output.Borrowers = borrowers;
-            this.Output.BookId = id;
+            this.Output.BookId = id.Value;
+
+            return this.Page();
         }
 
         public IActionResult OnPost()
@@ -51,11 +64,29 @@
                 return this.Page();
             }
 
+            var inputBook = this._db
+                .Books
+                .Find(this.Input.BookId);
+
+            if (inputBook is null)
+            {
+                return this.NotFound();
+            }
+
+            var inputBorrower = this._db
+                .Borrowers
+                .Find(this.Input.BorrowerId);
+
+            if (inputBorrower is null)
+            {
+                return this.NotFound();
+            }
+
             var bookBorrower = new BookBorrower()
             {
                 BorrowerId = this.Input.BorrowerId,
                 BookId = this.Input.BookId,
-                StartDate = this.Input.StartDate
+                StartDate = DateTime.UtcNow,
             };
 
             var book = this._db.Books.Find(this.Input.BookId);
@@ -82,9 +113,6 @@
 
             [Display(Name = "Borrower")]
             public int BorrowerId { get; set; }
-
-            [Display(Name = "Start Date")]
-            public DateTime StartDate { get; set; }
         }
     }
 }
