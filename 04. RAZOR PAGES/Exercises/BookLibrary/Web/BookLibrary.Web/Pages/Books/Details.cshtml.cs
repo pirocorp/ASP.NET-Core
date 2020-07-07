@@ -23,6 +23,7 @@
                 .Where(b => b.Id == id)
                 .Select(b => new OutputModel()
                 {
+                    Id = b.Id,
                     Title = b.Title,
                     AuthorName = b.Author.Name,
                     Description = b.Description,
@@ -42,6 +43,8 @@
 
         public class OutputModel
         {
+            public int Id { get; set; }
+
             public string Title { get; set; }
 
             [Display(Name = "Author")]

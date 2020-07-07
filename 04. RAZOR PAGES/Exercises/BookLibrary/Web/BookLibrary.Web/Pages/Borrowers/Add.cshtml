@@ -1,0 +1,33 @@
+﻿@page
+@model AddModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="col-md-6">
+    <form method="post">
+        <div class="form-group row">
+            <label asp-for="Input.Name" class="col-sm-4 col-form-label"></label>
+            <div class="col-sm-8">
+                <input asp-for="Input.Name" class="form-control" />
+            </div>
+            <span class="offset-sm-4 col-sm-8 text-danger" asp-validation-for="Input.Name"></span>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Input.Address" class="col-sm-4 col-form-label"></label>
+            <div class="col-sm-8">
+                <input asp-for="Input.Address" class="form-control" />
+            </div>
+            <span class="offset-sm-4 col-sm-8 text-danger" asp-validation-for="Input.Address"></span>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-sm-8 offset-sm-4">
+                <input type="submit" class="btn btn-success ml-auto" value="Add Book" />
+            </div>
+        </div>
+    </form>
+</div>
