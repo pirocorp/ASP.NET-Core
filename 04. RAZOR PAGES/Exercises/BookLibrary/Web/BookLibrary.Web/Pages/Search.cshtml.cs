@@ -1,6 +1,8 @@
 ﻿namespace BookLibrary.Web.Pages
 {
+    using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Data;
     using Microsoft.AspNetCore.Mvc;
@@ -51,6 +53,18 @@
 
             results = results
                 .OrderBy(l => l.Name)
+                .Select(s =>
+                {
+                    var startIndex = s.Name.IndexOf(searchTerm, StringComparison.InvariantCultureIgnoreCase);
+
+                    var term = s.Name.Substring(startIndex, searchTerm.Length);
+
+                    s.Name = s.Name
+                        .Replace(searchTerm, @$"<strong class=""text-danger"">{term}</strong>", true,
+                        CultureInfo.InvariantCulture);
+
+                    return s;
+                })
                 .ToList();
 
             this.Output.Listings = results;

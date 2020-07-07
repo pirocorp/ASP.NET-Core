@@ -1,0 +1,12 @@
+﻿@model SearchModel.OutputModel.ListingModel
+
+@if (Model.Source == "author")
+{
+    <a asp-page="/Authors/Details" asp-route-id="@Model.Id">@Html.Raw(Model.Name)</a>
+    <span>(@Model.Source)</span>
+}
+else if (Model.Source == "book")
+{
+    <a asp-page="/Books/Details" asp-route-id="@Model.Id">@Html.Raw(Model.Name)e</a>
+    <span>(@Model.Source)</span>
+}

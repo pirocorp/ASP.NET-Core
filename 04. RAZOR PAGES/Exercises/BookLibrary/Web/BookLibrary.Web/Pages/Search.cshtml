@@ -10,16 +10,8 @@
     @foreach (var item in Model.Output.Listings)
     {
     <li>
-        @if (item.Source == "author")
-        {
-            <a asp-page="/Authors/Details" asp-route-id="@item.Id">@item.Name</a>
-            <span>(@item.Source)</span>
-        }
-        else if (item.Source == "book")
-        {
-            <a asp-page="/Books/Details" asp-route-id="@item.Id">@item.Name</a>
-            <span>(@item.Source)</span>
-        }
+        <!-- Using display template -->
+        @Html.DisplayFor(model => item, "SearchResultItem");
     </li>
     }
 </ul>
