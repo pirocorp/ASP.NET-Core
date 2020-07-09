@@ -1,4 +1,4 @@
-namespace Demo
+namespace Middlewares
 {
     using System;
     using Microsoft.AspNetCore.Builder;

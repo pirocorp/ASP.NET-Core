@@ -1,4 +1,4 @@
-﻿namespace Demo.Middlewares
+﻿namespace Middlewares.Middlewares
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
