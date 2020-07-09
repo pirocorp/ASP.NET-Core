@@ -1,5 +1,6 @@
 ﻿namespace Filters.Controllers
 {
+    using System;
     using System.Diagnostics;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
@@ -20,16 +21,20 @@
             return View();
         }
 
+        [AddHeader("X-My-Custom-Header", "Some-Header-Value")]
+        [RedirectException]
         public IActionResult Form() => this.View();
 
         [HttpPost]
         [ValidateModel]
+        [RedirectException(typeof(InvalidOperationException))]
         public IActionResult Form(RandomModel model)
         {
             return this.RedirectToAction(nameof(this.Index));
         }
 
         [MyHttpsOnly]
+        [Log]
         public IActionResult Privacy()
         {
             return View();
