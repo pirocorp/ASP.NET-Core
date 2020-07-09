@@ -3,7 +3,9 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class CameraBazaarDbContext : IdentityDbContext
+    using Models;
+
+    public class CameraBazaarDbContext : IdentityDbContext<User>
     {
         public CameraBazaarDbContext(DbContextOptions<CameraBazaarDbContext> options)
             : base(options)
