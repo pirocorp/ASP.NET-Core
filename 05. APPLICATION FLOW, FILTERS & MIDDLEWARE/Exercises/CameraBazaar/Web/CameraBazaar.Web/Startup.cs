@@ -43,11 +43,6 @@ namespace CameraBazaar.Web
                 .AddEntityFrameworkStores<CameraBazaarDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.SignIn.RequireConfirmedEmail = false;
-            });
-
             // Add application services.
             services.AddDomainServices(typeof(IService));
 
