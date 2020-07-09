@@ -11,8 +11,8 @@ namespace CameraBazaar.Web
     using Data;
     using Data.Models;
     using Services;
-    using Infrastructure;
-    
+    using Infrastructure.Extensions;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -56,13 +56,12 @@ namespace CameraBazaar.Web
         // Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app, 
-            IWebHostEnvironment env,
-            CameraBazaarDbContext context)
+            IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 //Automatic migrations in Development environment 
-                context.Database.Migrate();
+                app.UseDatabaseMigration<CameraBazaarDbContext>();
 
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();

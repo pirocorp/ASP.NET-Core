@@ -1,9 +1,8 @@
-﻿namespace CameraBazaar.Web.Infrastructure
+﻿namespace CameraBazaar.Web.Infrastructure.Extensions
 {
     using System;
     using System.Linq;
     using System.Reflection;
-
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceCollectionExtensions
