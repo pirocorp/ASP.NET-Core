@@ -51,8 +51,8 @@ namespace CameraBazaar.Web
             // Add application services.
             services.AddDomainServices(typeof(IService));
 
-            //services.AddControllersWithViews();
-            //services.AddRazorPages();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
         }
