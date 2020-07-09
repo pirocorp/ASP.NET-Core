@@ -40,8 +40,8 @@ namespace CameraBazaar.Web
                     options.Password.RequiredUniqueChars = 0;
                     options.Password.RequiredLength = 3;
                 })
-                .AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<CameraBazaarDbContext>();
+                .AddEntityFrameworkStores<CameraBazaarDbContext>()
+                .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -51,10 +51,10 @@ namespace CameraBazaar.Web
             // Add application services.
             services.AddDomainServices(typeof(IService));
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            //services.AddControllersWithViews();
+            //services.AddRazorPages();
 
-            services.AddMvc();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime.
@@ -86,13 +86,7 @@ namespace CameraBazaar.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
