@@ -9,6 +9,7 @@ namespace CameraBazaar.Web
     using Microsoft.Extensions.Hosting;
 
     using Data;
+    using Data.Models;
     using Services;
     using Infrastructure;
     
@@ -28,14 +29,32 @@ namespace CameraBazaar.Web
             services.AddDbContext<CameraBazaarDbContext>(options =>
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services
+                .AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.SignIn.RequireConfirmedEmail = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequiredLength = 3;
+                })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<CameraBazaarDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+            });
+
+            // Add application services.
+            services.AddDomainServices(typeof(IService));
 
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            // Add application services.
-            services.AddDomainServices(typeof(IService));
+            services.AddMvc();
         }
 
         // This method gets called by the runtime.
