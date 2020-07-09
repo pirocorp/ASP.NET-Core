@@ -1,0 +1,11 @@
+﻿@model RandomModel
+@{
+    ViewData["Title"] = "Form";
+}
+
+<h1>Form</h1>
+
+<form method="post">
+    @Html.EditorForModel()
+    <input type="submit" value="Submit" />
+</form>
