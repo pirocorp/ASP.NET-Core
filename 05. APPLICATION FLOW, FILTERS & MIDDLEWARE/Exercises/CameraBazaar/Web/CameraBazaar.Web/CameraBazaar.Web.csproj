@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Services\CameraBazaar.Services\CameraBazaar.Services.csproj" />
+    <ProjectReference Include="..\CameraBazaar.Web.Infrastructure\CameraBazaar.Web.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

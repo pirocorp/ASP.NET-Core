@@ -1,5 +1,3 @@
-using System;
-
 namespace CameraBazaar.Web.Models
 {
     public class ErrorViewModel
