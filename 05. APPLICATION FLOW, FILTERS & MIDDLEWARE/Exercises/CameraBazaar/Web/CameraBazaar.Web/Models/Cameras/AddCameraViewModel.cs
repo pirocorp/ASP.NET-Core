@@ -10,6 +10,11 @@
 
     public class AddCameraViewModel
     {
+        public AddCameraViewModel()
+        {
+            this.LightMeterings = new List<LightMetering>();
+        }
+
         [Display(Name = MakeDisplay)]
         public CameraMake Make { get; set; }
 
@@ -50,7 +55,7 @@
         public string VideoResolution { get; set; }
 
         [Display(Name = LightMeteringDisplay)]
-        public IEnumerable<LightMetering> LightMetering { get; set; }
+        public IEnumerable<LightMetering> LightMeterings { get; set; }
 
         [Required]
         [StringLength(DescriptionMaxLength)]

@@ -1,4 +1,5 @@
 ﻿@using static CameraBazaar.Common.ValidationConstants.Camera;
+@using CameraBazaar.Data.Models.Extensions
 @model AddCameraViewModel
 @{
     ViewData["Title"] = "Add Camera";
@@ -123,23 +124,19 @@
             </div>
 
             <div class="row form-group">
-                
-
                 <div class="col-sm-4">
-                    <label asp-for="LightMetering" class="mr-2"></label>
+                    <label asp-for="LightMeterings" class="mr-2"></label>
                 </div>
                 <div class="col-sm-8">
                     <!-- TODO Make a loop for checkboxes-->
-                    <input type="checkbox" id="light-metering-spot" name="LightMetering" value="@((int)LightMetering.Spot)" />
-                    <label for="light-metering-spot" class="mr-1">Spot</label>
+                    
+                    @foreach (var lightMetering in Enum.GetValues(typeof(LightMetering)).Cast<LightMetering>().Where(l => l != LightMetering.None))
+                    {
+                        <input type="checkbox" id="light-metering-@lightMetering.ToFriendlyName()" name="LightMeterings" value="@((int)lightMetering)" />
+                        <label for="light-metering-@lightMetering.ToFriendlyName()" class="mr-1">@lightMetering.ToFriendlyName()</label>
+                    }
 
-                    <input type="checkbox" id="light-metering-center" name="LightMetering" value="@((int)LightMetering.CenterWeighted)" />
-                    <label for="light-metering-center" class="mr-1">Center-Weighted</label>
-
-                    <input type="checkbox" id="light-metering-evaluative" name="LightMetering" value="@((int)LightMetering.Evaluative)" />
-                    <label for="light-metering-evaluative" class="mr-1">Evaluative</label>
-
-                    <span asp-validation-for="LightMetering" class="text-danger"></span>
+                    <span asp-validation-for="LightMeterings" class="text-danger"></span>
                 </div>
             </div>
 
