@@ -1,12 +1,13 @@
-﻿namespace CameraBazaar.Data.Models
+﻿namespace CameraBazaar.Web.Models.Cameras
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.ValidationConstants.Camera;
-    public class Camera
-    {
-        public int Id { get; set; }
+    using Data.Models;
 
+    using static Common.ValidationConstants.Camera;
+
+    public class AddCameraViewModel
+    {
         public CameraMake Make { get; set; }
 
         [Required]
@@ -46,9 +47,5 @@
         [MinLength(ImageUrlMinLength)]
         [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; }
-
-        public string UserId { get; set; }
-
-        public User User { get; set; }
     }
 }
