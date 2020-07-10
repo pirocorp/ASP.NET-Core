@@ -11,6 +11,8 @@
             : base(options)
         { }
 
+        public DbSet<Camera> Cameras { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration
