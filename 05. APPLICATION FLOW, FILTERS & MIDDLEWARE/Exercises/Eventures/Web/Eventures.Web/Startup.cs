@@ -13,6 +13,7 @@ namespace Eventures.Web
     using Infrastructure.Extensions;
     using Services;
 
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -29,15 +30,18 @@ namespace Eventures.Web
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
             
             services
-                .AddDefaultIdentity<EventuresUser>(options =>
+                .AddIdentity<EventuresUser, IdentityRole>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = false;
+
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredUniqueChars = 0;
                     options.Password.RequiredLength = 3;
+
+                    options.User.RequireUniqueEmail = true;
                 })
                 .AddEntityFrameworkStores<EventuresDbContext>()
                 .AddDefaultTokenProviders();

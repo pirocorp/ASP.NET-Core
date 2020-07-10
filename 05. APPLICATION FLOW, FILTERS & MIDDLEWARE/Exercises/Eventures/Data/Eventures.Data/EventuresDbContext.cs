@@ -1,10 +1,11 @@
 ﻿namespace Eventures.Data
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Models;
 
-    public class EventuresDbContext : IdentityDbContext<EventuresUser>
+    public class EventuresDbContext : IdentityDbContext<EventuresUser, IdentityRole, string>
     {
         public EventuresDbContext(DbContextOptions<EventuresDbContext> options)
             : base(options)
