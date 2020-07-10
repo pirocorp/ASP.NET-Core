@@ -56,7 +56,6 @@ namespace CameraBazaar.Web
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 });
             
-
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
