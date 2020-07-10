@@ -49,7 +49,19 @@ namespace CameraBazaar.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services
+                .AddMvc(options => options.EnableEndpointRouting = false)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
         }
 
         // This method gets called by the runtime.

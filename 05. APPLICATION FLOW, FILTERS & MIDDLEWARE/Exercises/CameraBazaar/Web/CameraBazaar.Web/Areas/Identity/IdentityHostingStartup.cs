@@ -1,16 +1,11 @@
-﻿using System;
-using CameraBazaar.Data;
-using CameraBazaar.Data.Models;
+﻿using CameraBazaar.Web.Areas.Identity;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(CameraBazaar.Web.Areas.Identity.IdentityHostingStartup))]
+[assembly: HostingStartup(typeof(IdentityHostingStartup))]
 namespace CameraBazaar.Web.Areas.Identity
 {
+    using Microsoft.AspNetCore.Hosting;
+
     public class IdentityHostingStartup : IHostingStartup
     {
         public void Configure(IWebHostBuilder builder)

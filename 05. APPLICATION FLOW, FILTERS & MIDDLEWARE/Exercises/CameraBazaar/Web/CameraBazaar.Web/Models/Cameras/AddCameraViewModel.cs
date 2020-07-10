@@ -11,7 +11,7 @@
         public CameraMake Make { get; set; }
 
         [Required]
-        [MaxLength(ModelMaxLength)]
+        [StringLength(ModelMaxLength)]
         public string Model { get; set; }
 
         public decimal Price { get; set; }
@@ -34,18 +34,17 @@
         public bool IsFullFrame { get; set; }
 
         [Required]
-        [MaxLength(VideoResolutionMaxLength)]
+        [StringLength(VideoResolutionMaxLength)]
         public string VideoResolution { get; set; }
 
         public LightMetering LightMetering { get; set; }
 
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]
-        [MinLength(ImageUrlMinLength)]
-        [MaxLength(ImageUrlMaxLength)]
+        [StringLength(ImageUrlMaxLength, MinimumLength = ImageUrlMinLength)]
         public string ImageUrl { get; set; }
     }
 }
