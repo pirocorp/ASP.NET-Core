@@ -1,6 +1,5 @@
 ﻿namespace Eventures.Web.Infrastructure.Filters
 {
-    using System.Security.Claims;
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.Logging;
 
