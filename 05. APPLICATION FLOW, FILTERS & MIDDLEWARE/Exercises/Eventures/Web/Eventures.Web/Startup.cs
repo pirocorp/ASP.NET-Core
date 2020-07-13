@@ -9,10 +9,10 @@ namespace Eventures.Web
     using Microsoft.Extensions.Hosting;
 
     using Data;
-    using Eventures.Data.Models;
+    using Data.Models;
     using Infrastructure.Extensions;
+    using Infrastructure.Filters;
     using Services;
-
 
     public class Startup
     {
@@ -51,6 +51,11 @@ namespace Eventures.Web
             
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddMvc(options =>
+            {
+                //options.Filters.Add(typeof(AdminActivityLoggerFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,10 +63,10 @@ namespace Eventures.Web
         {
             if (env.IsDevelopment())
             {
-                //Automatic migrations in Development environment 
+                //Automatic migrations middleware in Development environment 
                 app.UseDatabaseMigration<EventuresDbContext>();
 
-                //Automatically seed roles if they missing
+                //Automatically seed roles middleware in Development environment
                 app.SeedRoles();
 
                 app.UseDeveloperExceptionPage();
@@ -73,6 +78,7 @@ namespace Eventures.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

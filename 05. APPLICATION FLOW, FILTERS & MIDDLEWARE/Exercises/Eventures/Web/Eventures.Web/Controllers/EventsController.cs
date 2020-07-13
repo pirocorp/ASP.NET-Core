@@ -2,6 +2,8 @@
 {
     using System.Globalization;
     using System.Linq;
+    using Data.Models;
+    using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Services;
     using ViewModels.Events;
@@ -39,6 +41,7 @@
         }
 
         [HttpPost]
+        [TypeFilter(typeof(AdminActivityLoggerFilter))]
         public IActionResult Create(EventCreateModel model)
         {
             if (!this.ModelState.IsValid)
