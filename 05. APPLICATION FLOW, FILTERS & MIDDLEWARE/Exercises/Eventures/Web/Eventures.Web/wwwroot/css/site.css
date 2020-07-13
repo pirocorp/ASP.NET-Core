@@ -6,6 +6,23 @@
     background-color: #AFEEEE;
 }
 
+.table-eventures {
+    border-top: 2px solid #AFEEEE;
+    border-bottom: 2px solid #AFEEEE;
+    border-left: none;
+    border-right: none;
+    border-collapse: initial;
+}
+
+.table-eventures th,
+.table-eventures td,
+.table-eventures tr,
+.table-evemtures thead,
+.table-evemtures tbody
+{
+    border: none;
+}
+
 hr.hr-2 {
     height: 2px;
 }
