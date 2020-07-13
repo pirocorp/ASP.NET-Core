@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Eventures.Data\Eventures.Data.csproj" />
+    <ProjectReference Include="..\Eventures.Services.Models\Eventures.Services.Models.csproj" />
+  </ItemGroup>
+
 </Project>

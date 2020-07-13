@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Eventures.Common\Eventures.Common.csproj" />
-    <ProjectReference Include="..\..\Data\Eventures.Data\Eventures.Data.csproj" />
     <ProjectReference Include="..\..\Services\Eventures.Services\Eventures.Services.csproj" />
     <ProjectReference Include="..\Eventures.Web.Infrastructure\Eventures.Web.Infrastructure.csproj" />
   </ItemGroup>
