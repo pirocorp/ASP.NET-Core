@@ -37,18 +37,20 @@
             var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
             var adminRoleExists = roleManager.RoleExistsAsync(ADMIN_ROLE_NAME).Result;
 
-            if (!adminRoleExists)
+            if (adminRoleExists)
             {
-                roleManager
-                    .CreateAsync(new IdentityRole(ADMIN_ROLE_NAME))
-                    .GetAwaiter()
-                    .GetResult();
-
-                roleManager
-                    .CreateAsync(new IdentityRole(USER_ROLE_NAME))
-                    .GetAwaiter()
-                    .GetResult();
+                return app;
             }
+
+            roleManager
+                .CreateAsync(new IdentityRole(ADMIN_ROLE_NAME))
+                .GetAwaiter()
+                .GetResult();
+
+            roleManager
+                .CreateAsync(new IdentityRole(USER_ROLE_NAME))
+                .GetAwaiter()
+                .GetResult();
 
             return app;
         }
