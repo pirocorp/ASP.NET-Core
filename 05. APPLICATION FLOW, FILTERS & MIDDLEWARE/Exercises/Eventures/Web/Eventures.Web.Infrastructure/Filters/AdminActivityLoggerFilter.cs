@@ -1,5 +1,6 @@
 ﻿namespace Eventures.Web.Infrastructure.Filters
 {
+    using System;
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.Logging;
 
@@ -18,8 +19,14 @@
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            var name = context.HttpContext.User.Identity.Name;
-            this._logger.LogInformation($"Administrator: {name} created new event");
+            var username = context.HttpContext.User.Identity.Name;
+
+            var eventName = context.ModelState["Name"].AttemptedValue;
+            var eventStart = context.ModelState["Start"].AttemptedValue;
+            var eventEnd = context.ModelState["End"].AttemptedValue;
+
+            var message = $"[{DateTime.UtcNow}] Administrator {username} create event {eventName} ({eventStart} / {eventEnd})";
+            this._logger.LogInformation(message);
         }
     }
 }
