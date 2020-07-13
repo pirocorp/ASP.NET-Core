@@ -61,6 +61,9 @@ namespace Eventures.Web
                 //Automatic migrations in Development environment 
                 app.UseDatabaseMigration<EventuresDbContext>();
 
+                //Automatically seed roles if they missing
+                app.SeedRoles();
+
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }

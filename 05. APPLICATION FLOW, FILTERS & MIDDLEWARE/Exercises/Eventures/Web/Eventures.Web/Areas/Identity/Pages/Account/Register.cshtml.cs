@@ -77,26 +77,42 @@
         {
             returnUrl ??= this.Url.Content("~/");
             this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (this.ModelState.IsValid)
+            
+            if (!this.ModelState.IsValid)
             {
-                var user = new EventuresUser
+                return this.Page();
+            }
+
+            var user = new EventuresUser
+            {
+                UserName = this.Input.Username, 
+                Email = this.Input.Email,
+                Firstname = this.Input.Firstname,
+                Lastname = this.Input.Lastname,
+                Ucn = this.Input.Ucn
+            };
+
+            var result = await this._userManager
+                .CreateAsync(user, this.Input.Password);
+            
+            if (result.Succeeded)
+            {
+                if (this._userManager.Users.Count() == 1)
                 {
-                    UserName = this.Input.Username, 
-                    Email = this.Input.Email,
-                    Firstname = this.Input.Firstname,
-                    Lastname = this.Input.Lastname,
-                    Ucn = this.Input.Ucn
-                };
-                var result = await this._userManager.CreateAsync(user, this.Input.Password);
-                if (result.Succeeded)
-                {
-                    await this._signInManager.SignInAsync(user, isPersistent: false);
-                    return this.LocalRedirect(returnUrl);
+                    await this._userManager.AddToRoleAsync(user, "Admin");
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    this.ModelState.AddModelError(string.Empty, error.Description);
+                    await this._userManager.AddToRoleAsync(user, "User");
                 }
+
+                await this._signInManager.SignInAsync(user, isPersistent: false);
+                return this.LocalRedirect(returnUrl);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                this.ModelState.AddModelError(string.Empty, error.Description);
             }
 
             // If we got this far, something failed, redisplay form

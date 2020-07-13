@@ -35,7 +35,7 @@
     <div class="container-fluid">
         <header class="bg-eventures">
             <nav class="font-weight-bold navbar navbar-expand-lg navbar-light w-75 mx-auto">
-                <a class="navbar-brand" href="#">Eventures</a>
+                <a class="navbar-brand" href="/">Eventures</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -46,12 +46,43 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                        </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <div class="dropdown show">
+                                    <a class="nav-link dropdown-toggle" 
+                                       href="#" 
+                                       role="button" 
+                                       id="dropdownMenuLink" 
+                                       data-toggle="dropdown" 
+                                       aria-haspopup="true" 
+                                       aria-expanded="false">
+                                        Events
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" asp-controller="Events" asp-action="All">All</a>
+                                        @if (this.User.IsInRole("Admin"))
+                                        {
+                                            <a class="dropdown-item" asp-controller="Events" asp-action="Create">Create</a>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li class="nav-item active">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </nav>
