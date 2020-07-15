@@ -1,5 +1,6 @@
 namespace Demo
 {
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,14 @@ namespace Demo
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            var account = new Account(
+                this.Configuration["Cloudinary:CloudName"],
+                this.Configuration["Cloudinary:ApiKey"],
+                this.Configuration["Cloudinary:ApiSecret"]);
+
+            var cloudinary = new CloudinaryDotNet.Cloudinary(account);
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

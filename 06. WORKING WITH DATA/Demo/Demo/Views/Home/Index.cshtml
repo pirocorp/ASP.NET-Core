@@ -2,33 +2,39 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
+<div class="text-center">
 
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
-        @if (this.User.Identity.IsAuthenticated)
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        if (this.User.IsInRole("admin"))
         {
-            if (this.User.IsInRole("admin"))
-            {
-                <p>Admin</p>
-            }
-            else if (this.User.IsInRole("moderator"))
-            {
-                <p>Moderator</p>
-            }
-            else if (this.User.IsInRole("user"))
-            {
-                <p>User</p>
-            }
+            <p>Admin</p>
         }
-        else
+        else if (this.User.IsInRole("moderator"))
         {
-            <p>Anonymous</p>
+            <p>Moderator</p>
         }
+        else if (this.User.IsInRole("user"))
+        {
+            <p>User</p>
+        }
+    }
+    else
+    {
+        <p>Anonymous</p>
+    }
 
-        @if (this.User.IsInRole("admin"))
-        {
-            <a asp-area="Administration" asp-controller="Payments" asp-action="Index">Go</a>
-        }
-    </div>
+    @if (this.User.IsInRole("admin"))
+    {
+        <a asp-area="Administration" asp-controller="Payments" asp-action="Index">Go</a>
+    }
+</div>
+<div>
+    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Upload">
+        <input type="file" name="files" multiple />
+        <button type="submit">Upload</button>
+    </form>
+</div>
