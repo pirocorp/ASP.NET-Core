@@ -52,7 +52,7 @@
             await this._userManager
                 .CreateAsync(new IdentityUser()
                 {
-                    UserName = "admin",
+                    UserName = "admin@admin.admin",
                     Email = "admin@admin.admin",
                     EmailConfirmed = true
                 }, "admin");
@@ -60,7 +60,7 @@
             await this._userManager
                 .CreateAsync(new IdentityUser()
                 {
-                    UserName = "moderator",
+                    UserName = "moderator@admin.admin",
                     Email = "moderator@admin.admin",
                     EmailConfirmed = true
                 }, "moderator");
@@ -68,7 +68,7 @@
             await this._userManager
                 .CreateAsync(new IdentityUser()
                 {
-                    UserName = "user",
+                    UserName = "user@abv.bg",
                     Email = "user@abv.bg",
                     EmailConfirmed = true
                 }, "123");
@@ -105,7 +105,7 @@
 
         private async Task SeedUserToRolesAsync()
         {
-            var user = await this._userManager.FindByNameAsync("admin");
+            var user = await this._userManager.FindByNameAsync("admin@admin.admin");
             var role = await this._roleManager.FindByNameAsync("admin");
 
             if (this._dbContext.UserRoles.Any())
@@ -119,7 +119,7 @@
                 UserId = user.Id
             });
 
-            user = await this._userManager.FindByNameAsync("moderator");
+            user = await this._userManager.FindByNameAsync("moderator@admin.admin");
             role = await this._roleManager.FindByNameAsync("moderator");
 
             this._dbContext.Add(new IdentityUserRole<string>()
@@ -131,7 +131,8 @@
             role = await this._roleManager.FindByNameAsync("user");
 
             this._dbContext.Users
-                .Where(u => u.UserName != "admin" && u.UserName != "moderator")
+                .Where(u => u.UserName != "admin@admin.admin" 
+                         && u.UserName != "moderator@admin.admin")
                 .ToList()
                 .ForEach(u =>
                 {

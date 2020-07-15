@@ -3,9 +3,32 @@
 }
 
     <div class="text-center">
-        
+
         <h1 class="display-4">Welcome</h1>
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    
-        <a asp-area="Administration" asp-controller="Payments" asp-action="Index">Go</a>
+
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            if (this.User.IsInRole("admin"))
+            {
+                <p>Admin</p>
+            }
+            else if (this.User.IsInRole("moderator"))
+            {
+                <p>Moderator</p>
+            }
+            else if (this.User.IsInRole("user"))
+            {
+                <p>User</p>
+            }
+        }
+        else
+        {
+            <p>Anonymous</p>
+        }
+
+        @if (this.User.IsInRole("admin"))
+        {
+            <a asp-area="Administration" asp-controller="Payments" asp-action="Index">Go</a>
+        }
     </div>
