@@ -8,6 +8,9 @@
     using SendGrid;
     using SendGrid.Helpers.Mail;
 
+    /// <summary>
+    /// Uses SendGrid platform to send emails.
+    /// </summary>
     public class SendGridEmailSender : IEmailSender
     {
         private readonly SendGridClient client;

@@ -7,6 +7,7 @@ namespace ForumSystem.Data.Models
     using ForumSystem.Data.Common.Models;
     using Microsoft.AspNetCore.Identity;
 
+    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
         public ApplicationUser()

@@ -8,6 +8,10 @@
     using ForumSystem.Data.Models;
     using ForumSystem.Data.Repositories;
     using ForumSystem.Data.Seeding;
+    using ForumSystem.Services.Data;
+    using ForumSystem.Services.Mapping;
+    using ForumSystem.Services.Messaging;
+    using ForumSystem.Web.ViewModels;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -16,10 +20,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using ForumSystem.Services.Data;
-    using ForumSystem.Services.Mapping;
-    using ForumSystem.Services.Messaging;
-    using ForumSystem.Web.ViewModels;
 
     public class Startup
     {
