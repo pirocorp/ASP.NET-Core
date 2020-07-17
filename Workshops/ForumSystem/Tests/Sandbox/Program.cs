@@ -46,6 +46,7 @@
             }
         }
 
+        // ReSharper disable once UnusedParameter.Local
         private static async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         {
             var sw = Stopwatch.StartNew();
