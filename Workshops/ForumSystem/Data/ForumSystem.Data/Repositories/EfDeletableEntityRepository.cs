@@ -32,7 +32,7 @@
 
         public void HardDelete(TEntity entity) => base.Delete(entity);
 
-        public void Undelete(TEntity entity)
+        public void UnDelete(TEntity entity)
         {
             entity.IsDeleted = false;
             entity.DeletedOn = null;
