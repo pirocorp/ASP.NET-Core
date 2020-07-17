@@ -7,6 +7,10 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
+    /// <summary>
+    /// Calls all seeders which implement ISeeder interface.
+    /// In order of registration.
+    /// </summary>
     public class ApplicationDbContextSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
@@ -27,6 +31,7 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new CategoriesSeeder(),
                           };
 
             foreach (var seeder in seeders)

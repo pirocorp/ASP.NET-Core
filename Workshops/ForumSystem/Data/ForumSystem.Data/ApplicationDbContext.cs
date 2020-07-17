@@ -25,17 +25,42 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+        /// <see cref="SaveChanges(bool)"/>
         public override int SaveChanges() => this.SaveChanges(true);
 
+        /// <summary>
+        /// Overrides default method adding auto auditing rules.
+        /// </summary>
+        /// <remarks>
+        /// Automatically adjust CreatedOn and ModifiedOn properties.
+        /// </remarks>
+        /// <param name="acceptAllChangesOnSuccess">Default implementation.</param>
+        /// <returns></returns>
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             this.ApplyAuditInfoRules();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
+        /// <see cref="SaveChangesAsync(bool, CancellationToken)"/>
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
             this.SaveChangesAsync(true, cancellationToken);
 
+        /// <summary>
+        /// Overrides default method adding auto auditing rules.
+        /// </summary>
+        /// <remarks>
+        /// Automatically adjust CreatedOn and ModifiedOn properties.
+        /// </remarks>
+        /// <param name="acceptAllChangesOnSuccess">Default implementation.</param>
+        /// <param name="cancellationToken">Default implementation</param>
+        /// <returns></returns>
         public override Task<int> SaveChangesAsync(
             bool acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = default)
@@ -44,6 +69,10 @@
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        /// <summary>
+        /// This method is invoked by EF Core to apply EF Core configurations
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration
@@ -58,6 +87,7 @@
             // Set global query filter for not deleted entities only
             var deletableEntityTypes = entityTypes
                 .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType));
+
             foreach (var deletableEntityType in deletableEntityTypes)
             {
                 var method = SetIsDeletedQueryFilterMethod.MakeGenericMethod(deletableEntityType.ClrType);
@@ -85,10 +115,16 @@
             builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
         }
 
-        // Applies configurations
+        /// <summary>
+        /// Applies all entity configurations which implements IEntityTypeConfiguration.
+        /// </summary>
+        /// <param name="builder">ModelBuilder.</param>
         private void ConfigureUserIdentityRelations(ModelBuilder builder)
              => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
+        /// <summary>
+        /// Modifies CreatedOn ModifiedOn properties if entity implements IAuditInfo.
+        /// </summary>
         private void ApplyAuditInfoRules()
         {
             var changedEntries = this.ChangeTracker
