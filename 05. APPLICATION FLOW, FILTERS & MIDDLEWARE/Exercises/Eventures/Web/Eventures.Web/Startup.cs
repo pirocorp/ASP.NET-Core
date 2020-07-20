@@ -11,7 +11,6 @@ namespace Eventures.Web
     using Data;
     using Data.Models;
     using Infrastructure.Extensions;
-    using Infrastructure.Filters;
     using Services;
 
     public class Startup

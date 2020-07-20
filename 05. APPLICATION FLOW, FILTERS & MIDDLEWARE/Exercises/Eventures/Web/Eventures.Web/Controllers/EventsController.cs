@@ -2,7 +2,6 @@
 {
     using System.Globalization;
     using System.Linq;
-    using Data.Models;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Services;
@@ -10,18 +9,18 @@
 
     public class EventsController : Controller   
     {
-        private readonly IEventsService _eventsService;
+        private readonly IEventsService eventsService;
         private const string DATE_TIME_FORMAT = "dd-MMM-yyyy HH:mm";
 
         public EventsController(IEventsService eventsService)
         {
-            this._eventsService = eventsService;
+            this.eventsService = eventsService;
         }
 
         public IActionResult All()
         {
             var events = this
-                ._eventsService
+                .eventsService
                 .All()
                 .Select(e => new EventListingViewModel()
                 {
@@ -49,7 +48,7 @@
                 return this.View();
             }
 
-            this._eventsService.Create(
+            this.eventsService.Create(
                 model.Name,
                 model.Place,
                 model.Start,

@@ -14,15 +14,15 @@
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<EventuresUser> _signInManager;
-        private readonly UserManager<EventuresUser> _userManager;
+        private readonly SignInManager<EventuresUser> signInManager;
+        private readonly UserManager<EventuresUser> userManager;
 
         public RegisterModel(
             UserManager<EventuresUser> userManager,
             SignInManager<EventuresUser> signInManager)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         [BindProperty]
@@ -70,13 +70,13 @@
         public async Task OnGetAsync(string returnUrl = null)
         {
             this.ReturnUrl = returnUrl;
-            this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= this.Url.Content("~/");
-            this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             
             if (!this.ModelState.IsValid)
             {
@@ -92,21 +92,21 @@
                 Ucn = this.Input.Ucn
             };
 
-            var result = await this._userManager
+            var result = await this.userManager
                 .CreateAsync(user, this.Input.Password);
             
             if (result.Succeeded)
             {
-                if (this._userManager.Users.Count() == 1)
+                if (this.userManager.Users.Count() == 1)
                 {
-                    await this._userManager.AddToRoleAsync(user, "Admin");
+                    await this.userManager.AddToRoleAsync(user, "Admin");
                 }
                 else
                 {
-                    await this._userManager.AddToRoleAsync(user, "User");
+                    await this.userManager.AddToRoleAsync(user, "User");
                 }
 
-                await this._signInManager.SignInAsync(user, isPersistent: false);
+                await this.signInManager.SignInAsync(user, isPersistent: false);
                 return this.LocalRedirect(returnUrl);
             }
 

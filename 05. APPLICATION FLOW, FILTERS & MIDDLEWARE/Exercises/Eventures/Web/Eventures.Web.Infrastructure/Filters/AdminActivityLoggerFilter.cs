@@ -6,12 +6,12 @@
 
     public class AdminActivityLoggerFilter: IActionFilter
     {
-        private readonly ILogger<AdminActivityLoggerFilter> _logger;
+        private readonly ILogger<AdminActivityLoggerFilter> logger;
 
         public AdminActivityLoggerFilter(
             ILogger<AdminActivityLoggerFilter> logger)
         {
-            this._logger = logger;
+            this.logger = logger;
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
@@ -26,7 +26,7 @@
             var eventEnd = context.ModelState["End"].AttemptedValue;
 
             var message = $"[{DateTime.UtcNow}] Administrator {username} create event {eventName} ({eventStart} / {eventEnd})";
-            this._logger.LogInformation(message);
+            this.logger.LogInformation(message);
         }
     }
 }

@@ -9,11 +9,11 @@
 
     public class EventsService : IEventsService
     {
-        private readonly EventuresDbContext _db;
+        private readonly EventuresDbContext db;
 
         public EventsService(EventuresDbContext db)
         {
-            this._db = db;
+            this.db = db;
         }
 
         public void Create(
@@ -34,12 +34,12 @@
                 Price = price
             };
 
-            this._db.Events.Add(@event);
-            this._db.SaveChanges();
+            this.db.Events.Add(@event);
+            this.db.SaveChanges();
         }
 
         public IEnumerable<EventListingModel> All()
-            => this._db
+            => this.db
                 .Events
                 .Select(e => new EventListingModel()
                 {

@@ -6,21 +6,20 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.Extensions.Logging;
 
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<EventuresUser> _signInManager;
+        private readonly SignInManager<EventuresUser> signInManager;
 
-        public LogoutModel(SignInManager<EventuresUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<EventuresUser> signInManager)
         {
-            this._signInManager = signInManager;
+            this.signInManager = signInManager;
         }
 
         public async Task<IActionResult> OnGet()
         {
-            await this._signInManager.SignOutAsync();
+            await this.signInManager.SignOutAsync();
 
             return this.Redirect("/");
         }
