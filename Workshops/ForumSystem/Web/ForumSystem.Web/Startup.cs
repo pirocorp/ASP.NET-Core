@@ -103,6 +103,10 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                        // Custom route : Categories.ByName action will be called for route /f/name where name is required parameter
+                        endpoints.MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" });
+                        
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

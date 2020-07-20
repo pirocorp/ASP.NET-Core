@@ -16,7 +16,7 @@
     public abstract class DeletableEntityService<TEntity> : IDeletableEntityService<TEntity>
         where TEntity : class, IDeletableEntity
     {
-        private readonly IDeletableEntityRepository<TEntity> entityRepository;
+        protected readonly IDeletableEntityRepository<TEntity> entityRepository;
 
         protected DeletableEntityService(IDeletableEntityRepository<TEntity> entityRepository)
         {
