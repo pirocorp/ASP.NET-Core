@@ -7,6 +7,7 @@
     {
         [Required]
         [Display(Name = "Name")]
+        [MinLength(10)]
         public string Name { get; set; }
 
         [Required]

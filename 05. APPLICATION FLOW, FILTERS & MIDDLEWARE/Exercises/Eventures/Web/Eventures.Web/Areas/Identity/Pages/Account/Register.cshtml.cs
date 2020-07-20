@@ -36,6 +36,8 @@
         {
             [Required]
             [Display(Name = "Username")]
+            [MinLength(3)]
+            [RegularExpression("[a-zA-Z-_.*~]{3,}")]
             public string Username { get; set; }
 
             [Required]
@@ -64,6 +66,7 @@
 
             [Required]
             [Display(Name = "UCN")]
+            [StringLength(10, MinimumLength = 10)]
             public string Ucn { get; set; }
         }
 
