@@ -9,7 +9,28 @@
     public interface IDeletableEntityService<TEntity>
         where TEntity : class, IDeletableEntity
     {
-        IEnumerable<TOut> GetAll<TOut, TOrder>(int? count, Expression<Func<TEntity, TOrder>> order = null)
+        IEnumerable<TOut> GetAll<TOut>();
+
+        IEnumerable<TOut> GetAll<TOut>(int count);
+
+        IEnumerable<TOut> GetAll<TOut>(
+            Expression<Func<TEntity,
+                bool>> filter);
+
+        IEnumerable<TOut> GetAll<TOut>(
+            int count,
+            Expression<Func<TEntity,
+                bool>> filter);
+
+        IEnumerable<TOut> GetAll<TOut, TOrder>(
+            Expression<Func<TEntity, bool>> filter,
+            Expression<Func<TEntity, TOrder>> order)
+            where TOrder : IComparable<TOrder>;
+
+        IEnumerable<TOut> GetAll<TOut, TOrder>(
+            int? count,
+            Expression<Func<TEntity, bool>> filter,
+            Expression<Func<TEntity, TOrder>> order)
             where TOrder : IComparable<TOrder>;
     }
 }

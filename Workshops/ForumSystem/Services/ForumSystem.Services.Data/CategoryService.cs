@@ -3,7 +3,7 @@
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
 
-    public class CategoryService : DeletableEntityService<Category>, ICategoryService, IDeletableEntityService<Category>
+    public class CategoryService : DeletableEntityService<Category>, ICategoryService
     {
         public CategoryService(IDeletableEntityRepository<Category> entityRepository)
             : base(entityRepository)
