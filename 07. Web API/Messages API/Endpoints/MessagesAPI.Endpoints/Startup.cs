@@ -8,6 +8,7 @@ namespace MessagesAPI.Endpoints
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Services.Data;
 
     public class Startup
     {
@@ -26,6 +27,7 @@ namespace MessagesAPI.Endpoints
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddTransient<IMessagesService, MessagesService>();
             services.AddControllers();
         }
 
