@@ -4,6 +4,7 @@ namespace MessagesAPI.Endpoints
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -12,7 +13,7 @@ namespace MessagesAPI.Endpoints
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -20,6 +21,11 @@ namespace MessagesAPI.Endpoints
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MessagesDbContext>(options =>
+            {
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddControllers();
         }
 
