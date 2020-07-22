@@ -22,7 +22,7 @@
         public async Task<IActionResult> All()
         {
             var messages = await this.messagesService
-                .AllAsync();
+                .AllAsync(23);
 
             return this.Ok(messages);
         }

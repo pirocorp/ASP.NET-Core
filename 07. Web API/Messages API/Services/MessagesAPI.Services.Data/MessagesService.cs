@@ -7,6 +7,7 @@
     using MessagesAPI.Data;
     using MessagesAPI.Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Models;
 
     public class MessagesService : IMessagesService
     {
@@ -32,12 +33,27 @@
             return message;
         }
 
-        public async Task<IEnumerable<Message>> AllAsync()
+        public async Task<IEnumerable<MessageServiceListingModel>> AllAsync(int? count)
         {
-            var messages = await this.db
+            var query = this.db
                 .Messages
-                .OrderBy(m => m.CreatedOn)
+                .OrderByDescending(m => m.CreatedOn)
+                .Select(m => new MessageServiceListingModel()
+                {
+                    Content = m.Content,
+                    User = m.User,
+                });
+
+            if (count.HasValue)
+            {
+                query = query
+                    .Take(count.Value);
+            }
+
+            var messages = await query
                 .ToListAsync();
+
+            messages.Reverse(0, messages.Count);
 
             return messages;
         }

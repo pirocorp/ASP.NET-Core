@@ -12,6 +12,8 @@ namespace MessagesAPI.Endpoints
 
     public class Startup
     {
+        private const string MY_ALLOW_SPECIFIC_ORIGINS = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
@@ -25,6 +27,18 @@ namespace MessagesAPI.Endpoints
             services.AddDbContext<MessagesDbContext>(options =>
             {
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MY_ALLOW_SPECIFIC_ORIGINS,
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
             });
 
             services.AddTransient<IMessagesService, MessagesService>();
@@ -43,6 +57,8 @@ namespace MessagesAPI.Endpoints
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MY_ALLOW_SPECIFIC_ORIGINS);
 
             app.UseAuthorization();
 

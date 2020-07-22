@@ -4,11 +4,12 @@
     using System.Threading.Tasks;
 
     using MessagesAPI.Data.Models;
+    using Models;
 
     public interface IMessagesService
     {
         Task<Message> CreateAsync(string content, string user);
 
-        Task<IEnumerable<Message>> AllAsync();
+        Task<IEnumerable<MessageServiceListingModel>> AllAsync(int? count);
     }
 }
