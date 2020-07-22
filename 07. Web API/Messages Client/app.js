@@ -27,7 +27,7 @@ async function renderMessages() {
             += `<div class="message d-flex justify-content-start"><strong>${message.user}</strong>: ${message.content}</div>`
     }
 
-    window.scrollTo(0, messagesElement.scrollHeight);
+    messagesElement.scrollTo(0, messagesElement.scrollHeight);
 };
 
 async function createMessage(opts) {
@@ -47,7 +47,7 @@ async function createMessage(opts) {
 };
 
 function sendMessage(){
-    if(username === null){
+    if(username === null || username === ""){
         console.error("empty user");
         return;
     }
