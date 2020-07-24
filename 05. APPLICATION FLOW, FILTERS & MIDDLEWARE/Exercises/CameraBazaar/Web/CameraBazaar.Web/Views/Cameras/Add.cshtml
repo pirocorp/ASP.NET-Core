@@ -102,11 +102,10 @@
                     <label asp-for="IsFullFrame" class="mr-2"></label>
                 </div>
                 <div class="col-sm-8">
-                    <div>
-                    
-                        <input id="is-full-frame-yes" name="@nameof(Model.IsFullFrame)" type="radio" value="True" class="input-validation-error" data-val="true" data-val-required="The Full Frame field is required.">
+                    <div>                    
+                        <input id="is-full-frame-yes" name="@nameof(Model.IsFullFrame)" type="radio" value="True"  data-val="true" data-val-required="The Full Frame field is required.">
                         <label for="is-full-frame-yes">Yes</label>
-                        <input id="is-full-frame-no" name="@nameof(Model.IsFullFrame)" type="radio" value="False" class="input-validation-error">
+                        <input id="is-full-frame-no" name="@nameof(Model.IsFullFrame)" type="radio" value="False" >
                         <label for="is-full-frame-no">No</label>
                     </div>
                     <span asp-validation-for="IsFullFrame" class="text-danger"></span>
@@ -130,6 +129,7 @@
                 <div class="col-sm-8">
                     <!-- TODO Make a loop for checkboxes-->
                     
+                    @* ReSharper disable once Html.IdNotResolved *@
                     @foreach (var lightMetering in Enum.GetValues(typeof(LightMetering)).Cast<LightMetering>().Where(l => l != LightMetering.None))
                     {
                         <input type="checkbox" id="light-metering-@lightMetering.ToFriendlyName()" name="LightMeterings" value="@((int)lightMetering)" />

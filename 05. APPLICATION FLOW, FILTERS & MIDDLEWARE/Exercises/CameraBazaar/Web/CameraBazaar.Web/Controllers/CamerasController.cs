@@ -9,15 +9,15 @@
 
     public class CamerasController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly ICameraService _cameraService;
+        private readonly UserManager<User> userManager;
+        private readonly ICameraService cameraService;
 
         public CamerasController(
             UserManager<User> userManager,
             ICameraService cameraService)
         {
-            this._userManager = userManager;
-            this._cameraService = cameraService;
+            this.userManager = userManager;
+            this.cameraService = cameraService;
         }
 
         [Authorize]
@@ -35,9 +35,9 @@
                 return this.View(cameraModel);
             }
 
-            var userId = this._userManager.GetUserId(this.User);
+            var userId = this.userManager.GetUserId(this.User);
 
-            this._cameraService
+            this.cameraService
                 .Create(
                     cameraModel.Make,
                     cameraModel.Model,

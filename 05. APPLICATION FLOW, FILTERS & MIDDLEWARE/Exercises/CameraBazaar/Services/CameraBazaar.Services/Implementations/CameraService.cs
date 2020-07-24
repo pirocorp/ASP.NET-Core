@@ -7,11 +7,11 @@
 
     public class CameraService : ICameraService
     {
-        private readonly CameraBazaarDbContext _db;
+        private readonly CameraBazaarDbContext db;
 
         public CameraService(CameraBazaarDbContext db)
         {
-            this._db = db;
+            this.db = db;
         }
 
         public void Create(
@@ -49,8 +49,8 @@
                 UserId = userId
             };
 
-            this._db.Cameras.Add(camera);
-            this._db.SaveChanges();
+            this.db.Cameras.Add(camera);
+            this.db.SaveChanges();
         }
     }
 }
