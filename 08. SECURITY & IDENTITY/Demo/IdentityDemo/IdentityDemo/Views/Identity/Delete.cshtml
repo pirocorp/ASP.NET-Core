@@ -1,0 +1,9 @@
+﻿@model AdminDeleteUserViewModel
+@{
+    ViewData["Title"] = "Delete user";
+}
+
+<h2>Are you sure you want to delete user @Model.Email</h2>
+
+<a class="btn btn-danger" asp-controller="Identity" asp-action="Destroy" asp-route-id="@Model.Id">Yes!</a>
+<a class="btn btn-primary" asp-controller="Identity" asp-action="All">Back</a>
