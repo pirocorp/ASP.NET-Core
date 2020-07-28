@@ -12,6 +12,7 @@ namespace CameraBazaar.Web
     using Data.Models;
     using Services;
     using Infrastructure.Extensions;
+    using Infrastructure.Filters;
 
     public class Startup
     {
@@ -47,10 +48,21 @@ namespace CameraBazaar.Web
             services.AddDomainServices(typeof(IService));
 
             services.AddControllersWithViews();
-            services.AddRazorPages();
+
+            services.AddRazorPages()
+                .AddMvcOptions(options =>
+                {
+                    options.Filters.Add(new LogAttribute());
+                    options.Filters.Add<MeasureTimeAttribute>();
+                });
 
             services
-                .AddMvc(options => options.EnableEndpointRouting = false)
+                .AddMvc(options =>
+                {
+                    options.Filters.Add<LogAttribute>();
+                    options.Filters.Add<MeasureTimeAttribute>();
+                    options.EnableEndpointRouting = false;
+                })
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");

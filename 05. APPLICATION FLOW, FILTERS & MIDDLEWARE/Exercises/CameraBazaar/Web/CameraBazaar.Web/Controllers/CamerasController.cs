@@ -1,6 +1,7 @@
 ﻿namespace CameraBazaar.Web.Controllers
 {
     using Data.Models;
+    using Infrastructure.Filters;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
