@@ -2,9 +2,9 @@
 {
     using System;
 
-    using WebApi.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using WebApi.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

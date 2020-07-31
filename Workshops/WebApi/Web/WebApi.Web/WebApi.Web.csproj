@@ -29,8 +29,8 @@
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\WebApi.Data.Models\WebApi.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\WebApi.Data\WebApi.Data.csproj" />
+    <ProjectReference Include="..\..\Services\WebApi.Services.Data\WebApi.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\WebApi.Services.Messaging\WebApi.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\WebApi.Services\WebApi.Services.csproj" />
     <ProjectReference Include="..\WebApi.Web.Infrastructure\WebApi.Web.Infrastructure.csproj" />

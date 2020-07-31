@@ -13,5 +13,9 @@
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta009" PrivateAssets="All" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\WebApi.Data.Models\WebApi.Data.Models.csproj" />
+    <ProjectReference Include="..\WebApi.Services.Models\WebApi.Services.Models.csproj" />
+  </ItemGroup>
 
 </Project>

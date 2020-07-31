@@ -31,6 +31,7 @@
     using WebApi.Data.Models;
     using WebApi.Data.Repositories;
     using WebApi.Data.Seeding;
+    using WebApi.Services.Data;
     using WebApi.Services.Messaging;
     using WebApi.Web.Infrastructure.Middlewares.Auth;
     using WebApi.Web.ViewModels.TodoItems;
@@ -104,6 +105,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISmsSender, NullMessageSender>();
+            services.AddTransient<IArticleService, ArticleService>();
 
             // Identity stores
             services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();

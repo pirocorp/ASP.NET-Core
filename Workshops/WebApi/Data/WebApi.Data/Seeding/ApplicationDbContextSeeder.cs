@@ -3,11 +3,11 @@
     using System;
     using System.Linq;
 
-    using WebApi.Common;
-    using WebApi.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using WebApi.Common;
+    using WebApi.Data.Models;
 
     public static class ApplicationDbContextSeeder
     {

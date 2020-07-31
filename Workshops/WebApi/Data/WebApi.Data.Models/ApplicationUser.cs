@@ -1,12 +1,13 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+// ReSharper disable ClassWithVirtualMembersNeverInherited.Global
 namespace WebApi.Data.Models
 {
     using System;
     using System.Collections.Generic;
 
-    using WebApi.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using WebApi.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -16,6 +17,7 @@ namespace WebApi.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Articles = new HashSet<Article>();
         }
 
         // Audit info
@@ -33,5 +35,8 @@ namespace WebApi.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        // Business entities
+        public virtual ICollection<Article> Articles { get; set; }
     }
 }

@@ -6,11 +6,11 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using WebApi.Data.Common.Models;
-    using WebApi.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
+    using WebApi.Data.Common.Models;
+    using WebApi.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +25,8 @@
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
+
+        public DbSet<Article> Articles { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

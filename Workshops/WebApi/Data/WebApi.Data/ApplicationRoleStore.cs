@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
     using WebApi.Data.Models;
-    
+
     public class ApplicationRoleStore : RoleStore<
         ApplicationRole,
         ApplicationDbContext,
