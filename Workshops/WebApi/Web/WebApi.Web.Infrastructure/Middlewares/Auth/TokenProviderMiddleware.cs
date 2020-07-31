@@ -9,12 +9,12 @@
     using System.Security.Principal;
     using System.Threading.Tasks;
 
-    using WebApi.Common;
-
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
 
     using Newtonsoft.Json;
+
+    using WebApi.Common;
 
     public class TokenProviderMiddleware
     {

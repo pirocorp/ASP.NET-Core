@@ -2,11 +2,11 @@
 {
     using System.Security.Claims;
 
-    using WebApi.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
+    using WebApi.Data.Models;
+    
     public class ApplicationRoleStore : RoleStore<
         ApplicationRole,
         ApplicationDbContext,
