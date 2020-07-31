@@ -8,7 +8,7 @@
 
     public interface IMessagesService
     {
-        Task<Message> CreateAsync(string content, string user);
+        Task<Message> CreateAsync(string content, User user);
 
         Task<IEnumerable<MessageServiceListingModel>> AllAsync(int? count);
     }

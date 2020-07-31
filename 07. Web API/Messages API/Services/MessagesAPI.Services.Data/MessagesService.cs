@@ -18,7 +18,7 @@
             this.db = db;
         }
 
-        public async Task<Message> CreateAsync(string content, string user)
+        public async Task<Message> CreateAsync(string content, User user)
         {
             var message = new Message()
             {
@@ -41,7 +41,7 @@
                 .Select(m => new MessageServiceListingModel()
                 {
                     Content = m.Content,
-                    User = m.User,
+                    User = m.User.Username,
                 });
 
             if (count.HasValue)

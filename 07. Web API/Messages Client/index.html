@@ -22,29 +22,59 @@
         <h2 class="text-center">A simple messenger, to do you good.</h2>
         <hr style="height: 2px" class="bg-dark"/>
         <h2 class="text-center">Choose your username to begin chatting!</h2>
-        <hr style="height: 2px" class="bg-dark"/>
-        <div id="reset-data">
+        <hr style="height: 2px;" class="bg-dark"/>
+        <div id="alerts"></div>
+        <div id="logged-in-data" style="display: none;">
             <div class="form-group w-50 mx-auto">
-                <label for="username" class="font-weight-bold">Username</label>
-                <h3 id="username-choice"></h3>
+                <label for="username-logged-in" class="font-weight-bold">Username</label>
+                <h3 id="username-logged-in"></h3>
             </div>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-dark" id="reset">Reset</button>
+                <button class="btn btn-dark" id="logout">Logout</button>
             </div>
         </div>
-        <div id="choose-data">
-            <div class="form-group w-50 mx-auto">
-                <label for="username" class="font-weight-bold">Username</label>
-                <input class="form-control" name="username" id="username" type="text">
+        <div id="anonymous-data">
+            <div id="guest-navbar" class="d-flex justify-content-around">
+                <button id="login" class="btn btn-dark">Login</button>
+                <button id="register" class="btn btn-dark">Register</button>
             </div>
-            <div class="d-flex justify-content-center">
-                <button class="btn btn-dark" id="choose">Choose</button>
+            <hr style="height: 2px" class="bg-dark"/>
+            <div id="login-data" style="display: none;">
+                <h2 class="text-center">Login</h2>
+                <div class="form-group w-50 mx-auto">
+                    <label for="username-login" class="font-weight-bold">Username</label>
+                    <input type="text" class="form-control" name="username" id="username-login">
+                </div>
+                <div class="form-group w-50 mx-auto">
+                    <label for="password-login" class="font-weight-bold">Password</label>
+                    <input type="password" class="form-control" name="password" id="password-login"> 
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-dark" id="login-form-btn" onclick="postLogin(appUrl)">Login</button>
+                </div>
+            </div>
+            <div id="register-data" style="display: none;">
+                <h2 class="text-center">Register</h2>
+                <div class="form-group w-50 mx-auto">
+                    <label for="username-register" class="font-weight-bold">Username</label>
+                    <input type="text" class="form-control" name="username" id="username-register">
+                </div>
+                <div class="form-group w-50 mx-auto">
+                    <label for="password-register" class="font-weight-bold">Password</label>
+                    <input type="password" class="form-control" name="password" id="password-register"> 
+                </div>
+                <div class="form-group w-50 mx-auto">
+                    <label for="confirm-password-register" class="font-weight-bold">Confirm Password</label>
+                    <input type="password" class="form-control" name="confirm-password" id="confirm-password-register"> 
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-dark" id="register-form-btn" onclick="postRegister(appUrl)">Register</button>
+                </div>
             </div>
         </div>
     </div>
     <div id="chat-field" class="w-50">
         <div id="messages" class="d-flex flex-column px-5 overflow-auto" style="height:570px;">
-            <!-- <div class="message d-flex justify-content-start"><strong>Pesho</strong>: Hello!</div> -->
         </div>
         <hr style="height: 2px" class="bg-dark mx-5"/>
         <div id="message-input" class="mt-3">
@@ -55,6 +85,8 @@
         </div>
     </div>
 </div>
+<script src="users.js"></script>
+<script src="messages.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

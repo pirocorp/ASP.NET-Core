@@ -8,6 +8,6 @@
         public string Content { get; set; }
 
         [Required]
-        public string User { get; set; }
+        public string Username { get; set; }
     }
 }
