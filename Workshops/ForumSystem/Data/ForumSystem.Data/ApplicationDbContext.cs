@@ -35,13 +35,15 @@
         public override int SaveChanges() => this.SaveChanges(true);
 
         /// <summary>
-        /// Overrides default method adding auto auditing rules.
+        ///     Overrides default method adding auto auditing rules.
         /// </summary>
         /// <remarks>
-        /// Automatically adjust CreatedOn and ModifiedOn properties.
+        ///     Automatically adjust CreatedOn and ModifiedOn properties.
         /// </remarks>
         /// <param name="acceptAllChangesOnSuccess">Default implementation.</param>
-        /// <returns></returns>
+        /// <returns>
+        ///     The number of state entities written to database.
+        /// </returns>
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             this.ApplyAuditInfoRules();
@@ -53,10 +55,10 @@
             this.SaveChangesAsync(true, cancellationToken);
 
         /// <summary>
-        /// Overrides default method adding auto auditing rules.
+        ///     Overrides default method adding auto auditing rules.
         /// </summary>
         /// <remarks>
-        /// Automatically adjust CreatedOn and ModifiedOn properties.
+        ///     Automatically adjust CreatedOn and ModifiedOn properties.
         /// </remarks>
         /// <param name="acceptAllChangesOnSuccess">Default implementation.</param>
         /// <param name="cancellationToken">Default implementation</param>
@@ -104,7 +106,7 @@
         }
 
         /// <summary>
-        /// Filter only none deleted entities. When entity is IDeletableEntity.
+        ///     Filter only none deleted entities. When entity is IDeletableEntity.
         /// </summary>
         /// <remarks>Applies EF Core Global filter.</remarks>
         /// <typeparam name="T">Entity type.</typeparam>
@@ -116,14 +118,14 @@
         }
 
         /// <summary>
-        /// Applies all entity configurations which implements IEntityTypeConfiguration.
+        ///     Applies all entity configurations which implements IEntityTypeConfiguration.
         /// </summary>
         /// <param name="builder">ModelBuilder.</param>
         private void ConfigureUserIdentityRelations(ModelBuilder builder)
              => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
         /// <summary>
-        /// Modifies CreatedOn ModifiedOn properties if entity implements IAuditInfo.
+        ///     Modifies CreatedOn ModifiedOn properties if entity implements IAuditInfo.
         /// </summary>
         private void ApplyAuditInfoRules()
         {
