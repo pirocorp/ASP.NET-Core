@@ -7,7 +7,7 @@ namespace WebApi.Data.Migrations
     using Microsoft.EntityFrameworkCore.Metadata;
 
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
