@@ -34,5 +34,26 @@
             var article = await this.articleService.CreateAsync<ArticleCreateViewModel>(serviceModel);
             return this.Created($"articles/{article.Id}", article);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var articles = await this
+                .articleService
+                .GetAllAsync<ArticleListingModel>();
+
+            return this.Ok(articles);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var article = await this
+                .articleService
+                .GetArticleByIdAsync<ArticleViewModel>(id);
+
+            return this.Ok(article);
+        }
     }
 }

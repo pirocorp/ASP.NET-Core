@@ -1,5 +1,6 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
 // ReSharper disable ClassWithVirtualMembersNeverInherited.Global
+// ReSharper disable MemberCanBeProtected.Global
 namespace WebApi.Data.Models
 {
     using System;
@@ -18,6 +19,7 @@ namespace WebApi.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Articles = new HashSet<Article>();
+            this.Comments = new HashSet<Comment>();
         }
 
         // Audit info
@@ -38,5 +40,7 @@ namespace WebApi.Data.Models
 
         // Business entities
         public virtual ICollection<Article> Articles { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

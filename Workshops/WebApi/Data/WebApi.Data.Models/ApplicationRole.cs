@@ -3,9 +3,8 @@ namespace WebApi.Data.Models
 {
     using System;
 
-    using WebApi.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using WebApi.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {
