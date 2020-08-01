@@ -46,7 +46,9 @@
 
         public async Task<Article> GetArticleByIdAsync(int id)
             => await this.articlesRepository
-                .GetByIdAsync(id);
+                .All()
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
 
         public async Task<TResult> GetArticleByIdAsync<TResult>(int id)
             where TResult : IMapFrom<Article>
