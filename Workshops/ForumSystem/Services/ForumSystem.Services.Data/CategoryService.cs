@@ -15,7 +15,7 @@
 
         public TEntity GetByName<TEntity>(string name)
         {
-            var category = this.entityRepository
+            var category = this.EntityRepository
                 .All()
                 .Where(x => x.Name == name)
                 .To<TEntity>()

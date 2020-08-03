@@ -16,12 +16,12 @@
     public abstract class DeletableEntityService<TEntity> : IDeletableEntityService<TEntity>
         where TEntity : class, IDeletableEntity
     {
-        protected readonly IDeletableEntityRepository<TEntity> entityRepository;
-
         protected DeletableEntityService(IDeletableEntityRepository<TEntity> entityRepository)
         {
-            this.entityRepository = entityRepository;
+            this.EntityRepository = entityRepository;
         }
+
+        protected IDeletableEntityRepository<TEntity> EntityRepository { get; }
 
         /// <summary>
         /// Project data from database to desired TOut model.
@@ -40,7 +40,7 @@
         /// <param name="filter">Function expression returning bool.</param>
         /// <returns>Projected elements. IEnumerable&lt;TOut&gt;.</returns>
         public IEnumerable<TOut> GetAll<TOut>(
-            Expression<Func<TEntity, 
+            Expression<Func<TEntity,
                 bool>> filter)
         {
             return this.GetAll<TOut, string>(null, filter, null);
@@ -111,7 +111,7 @@
             Expression<Func<TEntity, TOrder>> order)
             where TOrder : IComparable<TOrder>
         {
-            var query = this.entityRepository
+            var query = this.EntityRepository
                 .All();
 
             if (filter != null)
