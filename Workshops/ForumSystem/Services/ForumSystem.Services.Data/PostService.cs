@@ -1,9 +1,11 @@
 ﻿namespace ForumSystem.Services.Data
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
+    using ForumSystem.Services.Mapping;
 
     public class PostService : DeletableEntityService<Post>, IPostService
     {
@@ -31,5 +33,12 @@
 
             return post.Id;
         }
+
+        public TResult GetById<TResult>(int id)
+            => this.EntityRepository
+                .All()
+                .Where(x => x.Id == id)
+                .To<TResult>()
+                .FirstOrDefault();
     }
 }

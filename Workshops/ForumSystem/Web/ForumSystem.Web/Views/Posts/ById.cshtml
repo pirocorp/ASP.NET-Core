@@ -1,0 +1,53 @@
+﻿@model PostViewModel
+
+@{
+    this.ViewData["Title"] = Model.Title;
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block rounded-circle" alt="">
+                        <div class="media-body ml-3">
+                            <span data-abc="true">@Model.UserUserName</span>
+                            <div class="text-muted small">@Model.CreatedOn</div>
+                        </div>
+                        <div class="text-muted small ml-3">
+                            <span><i class="far fa-thumbs-up text-primary"></i></span>
+                            &nbsp;
+                            <span><i class="far fa-thumbs-down text-danger"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @Html.Raw(Model.SanitizedContent)
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    <div class="px-4 pt-3">
+                        <span href="javascript:void(0)" class="text-muted d-inline-flex align-items-center align-middle" data-abc="true">
+                            <i class="fa fa-heart text-danger"></i>
+                            &nbsp;
+                            <span class="align-middle">0</span>
+                        </span>
+                        <span class="text-muted d-inline-flex align-items-center align-middle ml-4">
+                            <i class="fa fa-eye text-muted"></i>
+                            &nbsp; 
+                            <span class="align-middle">0</span>
+                        </span>
+                    </div>
+                    <div class="px-4 pt-3">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-pen"></i>
+                            &nbsp; Reply
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

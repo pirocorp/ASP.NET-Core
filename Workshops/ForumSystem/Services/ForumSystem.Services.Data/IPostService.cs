@@ -7,5 +7,7 @@
     public interface IPostService : IDeletableEntityService<Post>
     {
         Task<int> CreateAsync(string title, string content, int categoryId, string userId);
+
+        TResult GetById<TResult>(int id);
     }
 }

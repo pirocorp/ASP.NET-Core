@@ -1,5 +1,4 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace ForumSystem.Data.Models
+﻿namespace ForumSystem.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +6,9 @@ namespace ForumSystem.Data.Models
     using ForumSystem.Data.Common.Models;
     using Microsoft.AspNetCore.Identity;
 
+    // ReSharper disable VirtualMemberCallInConstructor
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
+    // ReSharper disable MemberCanBeProtected.Global
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
         public ApplicationUser()
@@ -19,6 +20,7 @@ namespace ForumSystem.Data.Models
 
             this.Posts = new HashSet<Post>();
             this.Comments = new HashSet<Comment>();
+            this.Votes = new HashSet<Vote>();
         }
 
         // Audit info
@@ -40,5 +42,7 @@ namespace ForumSystem.Data.Models
         public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

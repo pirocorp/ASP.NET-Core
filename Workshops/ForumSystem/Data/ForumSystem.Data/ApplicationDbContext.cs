@@ -31,6 +31,8 @@
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<Vote> Votes { get; set; }
+
         /// <see cref="SaveChanges(bool)"/>
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -61,7 +63,7 @@
         ///     Automatically adjust CreatedOn and ModifiedOn properties.
         /// </remarks>
         /// <param name="acceptAllChangesOnSuccess">Default implementation.</param>
-        /// <param name="cancellationToken">Default implementation</param>
+        /// <param name="cancellationToken">Default cancellation token.</param>
         /// <returns></returns>
         public override Task<int> SaveChangesAsync(
             bool acceptAllChangesOnSuccess,
@@ -72,7 +74,7 @@
         }
 
         /// <summary>
-        /// This method is invoked by EF Core to apply EF Core configurations
+        /// This method is invoked by EF Core to apply EF Core configurations.
         /// </summary>
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)

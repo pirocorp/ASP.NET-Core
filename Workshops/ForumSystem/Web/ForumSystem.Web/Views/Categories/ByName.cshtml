@@ -12,7 +12,9 @@
 @foreach (var post in Model.Posts)
 {
     <div class="media-body">
-        <h4 class="mt-0">@post.Title</h4>
+        <h4 class="mt-0">
+            <a asp-controller="Posts" asp-action="ById" asp-route-id="@post.Id">@post.Title</a>
+        </h4>
         <p>@post.ShortContent</p>
         <ul class="text-right list-inline list-unstyled">
             <li class="list-inline-item">

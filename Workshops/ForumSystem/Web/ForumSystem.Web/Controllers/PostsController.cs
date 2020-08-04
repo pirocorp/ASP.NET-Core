@@ -29,8 +29,16 @@
 
         public IActionResult ById(int id)
         {
-            // TODO: read post
-            return this.View();
+            var model = this
+                .postService
+                .GetById<PostViewModel>(id);
+
+            if (model is null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(model);
         }
 
         [Authorize]
