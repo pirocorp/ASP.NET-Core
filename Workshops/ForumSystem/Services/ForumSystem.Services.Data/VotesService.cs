@@ -5,6 +5,7 @@
 
     using ForumSystem.Data.Common.Repositories;
     using ForumSystem.Data.Models;
+    using ForumSystem.Services.Mapping;
 
     public class VotesService : IVotesService
     {
@@ -49,6 +50,14 @@
         public int GetDownVotesCount(int postId)
             => this.GetPostVotes(postId)
                 .Count(v => v.Type == VoteType.DownVote);
+
+        public TResult GetUserVoteForPost<TResult>(string userId, int postId)
+            where TResult : IMapFrom<Vote>
+            => this.votesRepository
+                .All()
+                .Where(v => v.UserId == userId && v.PostId == postId)
+                .To<TResult>()
+                .FirstOrDefault();
 
         private IQueryable<Vote> GetPostVotes(int postId)
             => this.votesRepository

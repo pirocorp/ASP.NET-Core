@@ -15,15 +15,18 @@
     {
         private readonly IPostService postService;
         private readonly ICategoryService categoryService;
+        private readonly IVotesService votesService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public PostsController(
             IPostService postService,
             ICategoryService categoryService,
+            IVotesService votesService,
             UserManager<ApplicationUser> userManager)
         {
             this.postService = postService;
             this.categoryService = categoryService;
+            this.votesService = votesService;
             this.userManager = userManager;
         }
 
@@ -36,6 +39,15 @@
             if (model is null)
             {
                 return this.NotFound();
+            }
+
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var userId = this.userManager.GetUserId(this.User);
+
+                var userVote = this.votesService.GetUserVoteForPost<PostUserVoteViewModel>(userId, id);
+
+                model.UserVote = userVote;
             }
 
             return this.View(model);

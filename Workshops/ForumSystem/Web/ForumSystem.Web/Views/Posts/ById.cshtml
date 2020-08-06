@@ -20,8 +20,15 @@
                         <div class="text-muted small ml-3 d-flex">
                             <form class="mx-2" asp-controller="Votes" asp-action="Post">
                                 <span>
-                                    <a href="#" onclick="sendVote(@Model.Id, true)">
-                                        <i class="far fa-thumbs-up text-primary"></i>
+                                    <a href="#" onclick="sendVote(this, @Model.Id, true)">
+                                        @if (Model.UserVoteIsUp)
+                                        {
+                                            <i class="fas fa-thumbs-up text-primary"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-thumbs-up text-primary"></i>
+                                        }
                                     </a>
                                     <span id="up-votes">@Model.UpVotes</span>
                                 </span>
@@ -29,8 +36,15 @@
 
                             <form class="mx-2" asp-controller="Votes" asp-action="Post">
                                 <span>
-                                    <a href="#" onclick="sendVote(@Model.Id, false)">
-                                        <i class="far fa-thumbs-down text-danger"></i>
+                                    <a href="#" onclick="sendVote(this, @Model.Id, false)">
+                                        @if (Model.UserVoteIsDown)
+                                        {
+                                            <i class="fas fa-thumbs-down text-danger"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-thumbs-down text-danger"></i>
+                                        }
                                     </a>
                                     <span id="down-votes">@Model.DownVotes</span>
                                 </span>

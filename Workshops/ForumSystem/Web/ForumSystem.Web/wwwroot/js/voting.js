@@ -1,4 +1,4 @@
-﻿async function sendVote(postId, isUpVote) {
+﻿async function sendVote(that, postId, isUpVote) {
     let csrfTokenElement = document.getElementsByName("__RequestVerificationToken")[0];
 
     let json = {
@@ -30,6 +30,16 @@
             upVoteElement.textContent = data.upVotes;
             downVoteElement.textContent = data.downVotes;
             votesScoreElement.textContent = data.votesScore;
+
+            let iElement = that.getElementsByTagName('i')[0];
+
+            if (iElement.classList.contains('fas')) {
+                iElement.classList.remove('fas');
+                iElement.classList.add('far');
+            } else {
+                iElement.classList.remove('far');
+                iElement.classList.add('fas');
+            }
         }
 
     } catch (err) {

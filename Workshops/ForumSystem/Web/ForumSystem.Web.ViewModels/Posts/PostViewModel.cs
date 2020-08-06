@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using AutoMapper;
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
 
@@ -32,5 +31,11 @@
         public int VotesScore => this.UpVotes - this.DownVotes;
 
         public ICollection<PostVoteViewModel> Votes { get; set; }
+
+        public PostUserVoteViewModel UserVote { get; set; }
+
+        public bool UserVoteIsUp => this.UserVote?.Type == VoteType.UpVote;
+
+        public bool UserVoteIsDown => this.UserVote?.Type == VoteType.DownVote;
     }
 }
