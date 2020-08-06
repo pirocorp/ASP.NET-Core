@@ -37,6 +37,14 @@
                 iElement.classList.remove('fas');
                 iElement.classList.add('far');
             } else {
+                let voteElements = document
+                    .querySelectorAll('#votes-display i.fas');
+
+                for (let element of voteElements) {
+                    element.classList.remove('fas');
+                    element.classList.add('far');
+                }
+
                 iElement.classList.remove('far');
                 iElement.classList.add('fas');
             }

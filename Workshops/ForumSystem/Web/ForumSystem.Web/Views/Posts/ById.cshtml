@@ -17,7 +17,7 @@
                             <span data-abc="true">@Model.UserUserName</span>
                             <div class="text-muted small">@Model.CreatedOn</div>
                         </div>
-                        <div class="text-muted small ml-3 d-flex">
+                        <div id="votes-display" class="text-muted small ml-3 d-flex">
                             <form class="mx-2" asp-controller="Votes" asp-action="Post">
                                 <span>
                                     <a href="#" onclick="sendVote(this, @Model.Id, true)">
@@ -81,5 +81,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/voting.min.js" asp-append-version="true"></script>
+    <script src="~/js/voting.js" asp-append-version="true"></script>
 }
