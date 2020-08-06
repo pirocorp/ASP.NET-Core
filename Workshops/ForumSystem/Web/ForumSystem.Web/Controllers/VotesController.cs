@@ -1,7 +1,8 @@
 ﻿namespace ForumSystem.Web.Controllers
 {
     using System.Threading.Tasks;
-    using Data.Models;
+
+    using ForumSystem.Data.Models;
     using ForumSystem.Services.Data;
     using ForumSystem.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Authorization;
@@ -23,6 +24,25 @@
             this.userManager = userManager;
         }
 
+        #pragma warning disable SA1629 // Documentation text should end with a period
+        #pragma warning disable SA1028 // Code should not contain trailing whitespace
+        /// <summary>
+        /// POST /api/votes
+        /// 
+        /// Request body: {
+        ///     "postId": 1,
+        ///     "isUpVote": true
+        /// };
+        /// 
+        /// Response body: {
+        ///     "votesCount": 16
+        /// };
+        /// 
+        /// </summary>
+        /// <param name="model">Post data model.</param>
+        /// <returns>JSON object from VoteResponseModel.</returns>
+        #pragma warning restore SA1028 // Code should not contain trailing whitespace
+        #pragma warning restore SA1629 // Documentation text should end with a period
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<VoteResponseModel>> Post(VoteInputModel model)
@@ -35,12 +55,18 @@
 
             await this.votesService.VoteAsync(model.PostId, userId, voteType);
 
-            var votes = this.votesService.GetVotes(model.PostId);
+            var postId = model.PostId;
 
-            return new VoteResponseModel()
+            var upVotes = this.votesService.GetUpVotesCount(postId);
+            var downVotes = this.votesService.GetDownVotesCount(postId);
+
+            var response = new VoteResponseModel()
             {
-                VotesCount = votes,
+                UpVotes = upVotes,
+                DownVotes = downVotes,
             };
+
+            return response;
         }
     }
 }

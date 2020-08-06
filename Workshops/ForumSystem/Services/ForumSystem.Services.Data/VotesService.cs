@@ -1,6 +1,5 @@
 ﻿namespace ForumSystem.Services.Data
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -43,10 +42,17 @@
             await this.votesRepository.SaveChangesAsync();
         }
 
-        public int GetVotes(int postId)
+        public int GetUpVotesCount(int postId)
+            => this.GetPostVotes(postId)
+                .Count(v => v.Type == VoteType.UpVote);
+
+        public int GetDownVotesCount(int postId)
+            => this.GetPostVotes(postId)
+                .Count(v => v.Type == VoteType.DownVote);
+
+        private IQueryable<Vote> GetPostVotes(int postId)
             => this.votesRepository
                 .All()
-                .Where(x => x.PostId == postId)
-                .Sum(x => (int)x.Type);
+                .Where(v => v.PostId == postId);
     }
 }

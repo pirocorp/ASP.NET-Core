@@ -8,6 +8,8 @@
     {
         Task VoteAsync(int postId, string userId, VoteType voteType);
 
-        int GetVotes(int postId);
+        int GetUpVotesCount(int postId);
+
+        int GetDownVotesCount(int postId);
     }
 }

@@ -17,10 +17,24 @@
                             <span data-abc="true">@Model.UserUserName</span>
                             <div class="text-muted small">@Model.CreatedOn</div>
                         </div>
-                        <div class="text-muted small ml-3">
-                            <span><i class="far fa-thumbs-up text-primary"></i></span>
-                            &nbsp;
-                            <span><i class="far fa-thumbs-down text-danger"></i></span>
+                        <div class="text-muted small ml-3 d-flex">
+                            <form class="mx-2" asp-controller="Votes" asp-action="Post">
+                                <span>
+                                    <a href="#" onclick="sendVote(@Model.Id, true)">
+                                        <i class="far fa-thumbs-up text-primary"></i>
+                                    </a>
+                                    <span id="up-votes">@Model.UpVotes</span>
+                                </span>
+                            </form>
+
+                            <form class="mx-2" asp-controller="Votes" asp-action="Post">
+                                <span>
+                                    <a href="#" onclick="sendVote(@Model.Id, false)">
+                                        <i class="far fa-thumbs-down text-danger"></i>
+                                    </a>
+                                    <span id="down-votes">@Model.DownVotes</span>
+                                </span>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -32,11 +46,11 @@
                         <span href="javascript:void(0)" class="text-muted d-inline-flex align-items-center align-middle" data-abc="true">
                             <i class="fa fa-heart text-danger"></i>
                             &nbsp;
-                            <span class="align-middle">0</span>
+                            <span id="votes-score" class="align-middle">@Model.VotesScore</span>
                         </span>
                         <span class="text-muted d-inline-flex align-items-center align-middle ml-4">
                             <i class="fa fa-eye text-muted"></i>
-                            &nbsp; 
+                            &nbsp;
                             <span class="align-middle">0</span>
                         </span>
                     </div>
@@ -51,3 +65,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/voting.min.js" asp-append-version="true"></script>
+}
