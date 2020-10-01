@@ -1,5 +1,6 @@
 ﻿namespace ForumSystem.Web
 {
+    using System;
     using System.Reflection;
 
     using ForumSystem.Data;
@@ -23,6 +24,7 @@
 
     public class Startup
     {
+        private const string CORSPOLICY = "Cors";
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -45,6 +47,31 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: CORSPOLICY,
+                    builder =>
+                    {
+                        builder
+                            .WithOrigins(
+                                "http://192.168.0.197:5001",
+                                "https://192.168.0.197:5001",
+                                "http://loclahost:5001",
+                                "https://loclahost:5001")
+                            .WithHeaders(
+                                "authorization",
+                                "content-type",
+                                "accept")
+                            .WithMethods(
+                                "GET",
+                                "POST",
+                                "PUT",
+                                "DELETE",
+                                "OPTIONS");
+                    });
+            });
 
             services.AddControllersWithViews(
                 options =>
@@ -98,6 +125,9 @@
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseCors(CORSPOLICY);
+            app.UseJsonApi();
 
             app.UseRouting();
 
