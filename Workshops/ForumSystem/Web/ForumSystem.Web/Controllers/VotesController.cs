@@ -1,11 +1,13 @@
 ﻿namespace ForumSystem.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Data;
     using ForumSystem.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -43,8 +45,10 @@
         /// <returns>JSON object from VoteResponseModel.</returns>
         #pragma warning restore SA1028 // Code should not contain trailing whitespace
         #pragma warning restore SA1629 // Documentation text should end with a period
+
         [Authorize]
         [HttpPost]
+        [EnableCors]
         public async Task<ActionResult<VoteResponseModel>> Post(VoteInputModel model)
         {
             var voteType = model.IsUpVote

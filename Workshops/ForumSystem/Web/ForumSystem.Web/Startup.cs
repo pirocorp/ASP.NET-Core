@@ -24,7 +24,7 @@
 
     public class Startup
     {
-        private const string CORSPOLICY = "Cors";
+        private readonly string myPolicy = "MyCors";
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -35,11 +35,15 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+            services
+                .AddDbContext<ApplicationDbContext>(
+                options => options
+                    .UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services
+                .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -51,34 +55,24 @@
             services.AddCors(options =>
             {
                 options.AddPolicy(
-                    name: CORSPOLICY,
+                    name: this.myPolicy,
                     builder =>
-                    {
-                        builder
-                            .WithOrigins(
-                                "http://192.168.0.197:5001",
-                                "https://192.168.0.197:5001",
-                                "http://loclahost:5001",
-                                "https://loclahost:5001")
-                            .WithHeaders(
-                                "authorization",
-                                "content-type",
-                                "accept")
-                            .WithMethods(
-                                "GET",
-                                "POST",
-                                "PUT",
-                                "DELETE",
-                                "OPTIONS");
-                    });
+                        {
+                            builder
+                                .WithOrigins(
+                                    "https://192.168.0.197",
+                                    "https://loclahost")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                        });
             });
 
             services.AddControllersWithViews(
                 options =>
-                    {
-                        // Auto validation of CSRF tokens
-                        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                    })
+                {
+                    // Auto validation of CSRF tokens
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                })
                 .AddRazorRuntimeCompilation();
 
             services.AddRazorPages();
@@ -126,14 +120,9 @@
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseCors(CORSPOLICY);
-
-            #pragma warning disable SA1512 // Single-line comments should not be followed by blank line
-            #pragma warning disable SA1515 // Single-line comment should be preceded by blank line
-            // app.UseJsonApi();
-            #pragma warning restore SA1512 // Single-line comments should not be followed by blank line
-            #pragma warning restore SA1515 // Single-line comment should be preceded by blank line
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -141,11 +130,18 @@
             app.UseEndpoints(
                 endpoints =>
                     {
-                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                        endpoints
+                            .MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+                            .RequireCors(this.myPolicy);
 
                         // Custom route : Categories.ByName action will be called for route /f/name where name is required parameter
-                        endpoints.MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" });
-                        endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        endpoints
+                            .MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" });
+
+                        endpoints
+                            .MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}")
+                            .RequireCors(this.myPolicy);
+
                         endpoints.MapRazorPages();
                     });
         }
