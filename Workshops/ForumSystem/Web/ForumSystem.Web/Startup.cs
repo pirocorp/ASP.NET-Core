@@ -127,8 +127,12 @@
             app.UseCookiePolicy();
 
             app.UseCors(CORSPOLICY);
-            app.UseJsonApi();
 
+            #pragma warning disable SA1512 // Single-line comments should not be followed by blank line
+            #pragma warning disable SA1515 // Single-line comment should be preceded by blank line
+            // app.UseJsonApi();
+            #pragma warning restore SA1512 // Single-line comments should not be followed by blank line
+            #pragma warning restore SA1515 // Single-line comment should be preceded by blank line
             app.UseRouting();
 
             app.UseAuthentication();
