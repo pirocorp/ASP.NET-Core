@@ -34,7 +34,7 @@
             this.process.Start();
         }
 
-        public string RootUri { get; set; }
+        public string RootUri { get; private set; }
 
         protected override TestServer CreateServer(IWebHostBuilder builder)
         {

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Moq" Version="4.14.6" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ForumSystem.Data\ForumSystem.Data.csproj" />
     <ProjectReference Include="..\..\Services\ForumSystem.Services.Data\ForumSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\ForumSystem.Web\ForumSystem.Web.csproj" />
   </ItemGroup>
 
 </Project>

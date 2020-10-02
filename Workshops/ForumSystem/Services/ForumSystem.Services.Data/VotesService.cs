@@ -59,7 +59,7 @@
                 .To<TResult>()
                 .FirstOrDefault();
 
-        private IQueryable<Vote> GetPostVotes(int postId)
+        public IQueryable<Vote> GetPostVotes(int postId)
             => this.votesRepository
                 .All()
                 .Where(v => v.PostId == postId);
