@@ -1,6 +1,5 @@
 ﻿namespace ForumSystem.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using ForumSystem.Data.Models;

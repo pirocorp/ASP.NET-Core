@@ -1,6 +1,5 @@
 ﻿namespace ForumSystem.Web
 {
-    using System;
     using System.Reflection;
 
     using ForumSystem.Data;
@@ -13,6 +12,7 @@
     using ForumSystem.Services.Mapping;
     using ForumSystem.Services.Messaging;
     using ForumSystem.Web.ViewModels;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -24,7 +24,7 @@
 
     public class Startup
     {
-        private readonly string myPolicy = "MyCors";
+        private const string MYPOLICY = "MyCors";
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -55,7 +55,7 @@
             services.AddCors(options =>
             {
                 options.AddPolicy(
-                    name: this.myPolicy,
+                    name: MYPOLICY,
                     builder =>
                         {
                             builder
@@ -63,7 +63,8 @@
                                     "https://192.168.0.197",
                                     "https://loclahost")
                                 .AllowAnyHeader()
-                                .AllowAnyMethod();
+                                .AllowAnyMethod()
+                                .AllowCredentials();
                         });
             });
 
@@ -132,15 +133,16 @@
                     {
                         endpoints
                             .MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}")
-                            .RequireCors(this.myPolicy);
+                            .RequireCors(MYPOLICY);
 
                         // Custom route : Categories.ByName action will be called for route /f/name where name is required parameter
                         endpoints
-                            .MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" });
+                            .MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" })
+                            .RequireCors(MYPOLICY);
 
                         endpoints
                             .MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}")
-                            .RequireCors(this.myPolicy);
+                            .RequireCors(MYPOLICY);
 
                         endpoints.MapRazorPages();
                     });
