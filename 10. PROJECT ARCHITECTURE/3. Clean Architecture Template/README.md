@@ -1,6 +1,6 @@
 This demo is from https://github.com/jasontaylordev/CleanArchitecture 
  
- <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/JasonGT/DefaultTemplate/master/.github/icon.png" />
+ <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/jasontaylordev/CleanArchitecture/master/.github/icon.png" />
  
  # Clean Architecture Solution Template
 [![Clean.Architecture.Solution.Template NuGet Package](https://img.shields.io/badge/nuget-1.0.4-blue)](https://www.nuget.org/packages/Clean.Architecture.Solution.Template)
