@@ -1,4 +1,4 @@
-Demos are from here https://github.com/ivaylokenov/ASP.NET-Server-Architectures
+Demos, readme, etc are from here https://github.com/ivaylokenov/ASP.NET-Server-Architectures
 
 # Server Architectures
 
