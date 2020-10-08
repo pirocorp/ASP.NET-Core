@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.SRP", "01.SRP", "{E6F4FFC1-97A7-4971-8D66-8F9A289C21A8}"
 EndProject
@@ -78,6 +78,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03. Database-After", "05. DIP\P03. Database-After\P03. Database-After.csproj", "{626471E9-E68B-44C4-BA7A-9C2043BD8570}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P03. Database-Before", "05. DIP\P03. Database-Before\P03. Database-Before.csproj", "{B402B26A-737E-413B-B500-908B2651AEFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "P02. Virtuals", "P02. Virtuals", "{C38C552F-372E-44D7-8C42-29C78E9BBE29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P02. Virtuals-Before", "03. Liskov Substitution\P02. Virtuals-Before\P02. Virtuals-Before.csproj", "{F50ACAEE-FEE3-4A73-A13B-07BC55CE7FC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +177,10 @@ Global
 		{B402B26A-737E-413B-B500-908B2651AEFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B402B26A-737E-413B-B500-908B2651AEFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B402B26A-737E-413B-B500-908B2651AEFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F50ACAEE-FEE3-4A73-A13B-07BC55CE7FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F50ACAEE-FEE3-4A73-A13B-07BC55CE7FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F50ACAEE-FEE3-4A73-A13B-07BC55CE7FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F50ACAEE-FEE3-4A73-A13B-07BC55CE7FC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -211,6 +219,8 @@ Global
 		{7B9226D6-ABD5-48D4-8521-5CB03EBF7F54} = {7572EA3B-E2CD-48FB-AD19-06200B1FA1C5}
 		{626471E9-E68B-44C4-BA7A-9C2043BD8570} = {C209A499-6716-4212-92FA-4D5B22C4A5F7}
 		{B402B26A-737E-413B-B500-908B2651AEFD} = {C209A499-6716-4212-92FA-4D5B22C4A5F7}
+		{C38C552F-372E-44D7-8C42-29C78E9BBE29} = {A1466FD5-A7D9-4EB6-8423-C88151407544}
+		{F50ACAEE-FEE3-4A73-A13B-07BC55CE7FC1} = {C38C552F-372E-44D7-8C42-29C78E9BBE29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBE5E594-CBFC-4D7E-B53B-A9F4477E1E92}
