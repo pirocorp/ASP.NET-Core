@@ -1,5 +1,6 @@
 ﻿namespace ForumSystem.Web
 {
+    using System;
     using System.Reflection;
 
     using ForumSystem.Data;
@@ -24,7 +25,7 @@
 
     public class Startup
     {
-        private const string MYPOLICY = "MyCors";
+        private const string Mypolicy = "MyCors";
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -39,6 +40,26 @@
                 .AddDbContext<ApplicationDbContext>(
                 options => options
                     .UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CacheRecords";
+            });
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromDays(2);
+                options.Cookie.HttpOnly = true; // XSS Security
+                options.Cookie.IsEssential = true; // GDPR
+            });
+
+            services.AddResponseCaching();
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
 
             services
                 .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
@@ -55,7 +76,7 @@
             services.AddCors(options =>
             {
                 options.AddPolicy(
-                    name: MYPOLICY,
+                    name: Mypolicy,
                     builder =>
                         {
                             builder
@@ -117,6 +138,10 @@
                 app.UseHsts();
             }
 
+            app.UseResponseCaching();
+            app.UseResponseCompression();
+
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -133,16 +158,16 @@
                     {
                         endpoints
                             .MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}")
-                            .RequireCors(MYPOLICY);
+                            .RequireCors(Mypolicy);
 
                         // Custom route : Categories.ByName action will be called for route /f/name where name is required parameter
                         endpoints
                             .MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" })
-                            .RequireCors(MYPOLICY);
+                            .RequireCors(Mypolicy);
 
                         endpoints
                             .MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}")
-                            .RequireCors(MYPOLICY);
+                            .RequireCors(Mypolicy);
 
                         endpoints.MapRazorPages();
                     });

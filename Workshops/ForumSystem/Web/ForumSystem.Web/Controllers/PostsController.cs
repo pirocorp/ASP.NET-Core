@@ -13,6 +13,8 @@
 
     public class PostsController : Controller
     {
+        private const string InfoMessage = "InfoMessage";
+
         private readonly IPostService postService;
         private readonly ICategoryService categoryService;
         private readonly IVotesService votesService;
@@ -83,6 +85,8 @@
                 model.Content,
                 model.CategoryId,
                 user.Id);
+
+            this.TempData[InfoMessage] = "Forum post created.";
 
             return this.RedirectToAction(nameof(this.ById), new { id = postId });
         }

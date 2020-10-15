@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
 
+    // using Microsoft.Extensions.Logging;
     public static class Program
     {
         public static void Main(string[] args)
@@ -18,6 +19,10 @@
                     webBuilder.UseKestrel();
                     webBuilder.UseIIS();
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureLogging(options =>
+                {
+                    // options.ClearProviders();
                 });
     }
 }
