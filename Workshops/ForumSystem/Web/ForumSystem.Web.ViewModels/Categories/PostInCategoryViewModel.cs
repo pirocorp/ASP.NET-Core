@@ -9,7 +9,7 @@
 
     public class PostInCategoryViewModel : IMapFrom<Post>
     {
-        private const string PATTERN = @"<[^>]*>";
+        private const string Pattern = @"<[^>]*>";
 
         public int Id { get; set; }
 
@@ -29,7 +29,7 @@
             {
                 var content = Regex.Replace(
                     this.Content,
-                    PATTERN,
+                    Pattern,
                     string.Empty);
 
                 content = WebUtility.HtmlDecode(content);

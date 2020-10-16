@@ -1,5 +1,6 @@
 ﻿namespace ForumSystem.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -33,6 +34,30 @@
 
             return post.Id;
         }
+
+        public IEnumerable<TModel> GetByCategoryId<TModel>(int categoryId, int? take = null, int skip = 0)
+        {
+            var query = this
+                .EntityRepository
+                .All()
+                .OrderByDescending(p => p.CreatedOn)
+                .Where(p => p.CategoryId == categoryId)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query
+                .To<TModel>()
+                .ToList();
+        }
+
+        public int GetCountByCategoryId(int categoryId)
+            => this.EntityRepository
+                .All()
+                .Count(p => p.CategoryId == categoryId);
 
         public TResult GetById<TResult>(int id)
             => this.EntityRepository

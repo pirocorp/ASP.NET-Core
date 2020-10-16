@@ -13,12 +13,12 @@
         {
         }
 
-        public TEntity GetByName<TEntity>(string name)
+        public TModel GetByName<TModel>(string name)
         {
             var category = this.EntityRepository
                 .All()
                 .Where(x => x.Name == name)
-                .To<TEntity>()
+                .To<TModel>()
                 .FirstOrDefault();
 
             return category;

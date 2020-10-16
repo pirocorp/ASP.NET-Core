@@ -155,22 +155,22 @@
 
             app.UseEndpoints(
                 endpoints =>
-                    {
-                        endpoints
-                            .MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}")
-                            .RequireCors(Mypolicy);
+                {
+                    // Custom route: Categories.ByName action will be called for route /f/name where name is category name
+                    endpoints
+                        .MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" })
+                        .RequireCors(Mypolicy);
 
-                        // Custom route : Categories.ByName action will be called for route /f/name where name is required parameter
-                        endpoints
-                            .MapControllerRoute("forumCategory", "f/{name:minLength(3)}", new { controller = "Categories", action = "ByName" })
-                            .RequireCors(Mypolicy);
+                    endpoints
+                        .MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+                        .RequireCors(Mypolicy);
 
-                        endpoints
-                            .MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}")
-                            .RequireCors(Mypolicy);
+                    endpoints
+                        .MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}")
+                        .RequireCors(Mypolicy);
 
-                        endpoints.MapRazorPages();
-                    });
+                    endpoints.MapRazorPages();
+                });
         }
     }
 }

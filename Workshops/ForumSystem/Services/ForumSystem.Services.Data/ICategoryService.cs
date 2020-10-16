@@ -4,6 +4,6 @@
 
     public interface ICategoryService : IDeletableEntityService<Category>
     {
-        TEntity GetByName<TEntity>(string name);
+        TModel GetByName<TModel>(string name);
     }
 }
