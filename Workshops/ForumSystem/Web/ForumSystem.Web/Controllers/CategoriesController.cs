@@ -8,7 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController
     {
         private const int ItemsPerPage = 5;
 

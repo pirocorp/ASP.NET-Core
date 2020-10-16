@@ -2,7 +2,7 @@
 {
     using ForumSystem.Data.Models;
 
-    public interface ICategoryService : IDeletableEntityService<Category>
+    public interface ICategoryService : IDeletableEntityService<Category, int>
     {
         TModel GetByName<TModel>(string name);
     }

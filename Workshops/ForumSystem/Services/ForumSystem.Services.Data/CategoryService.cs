@@ -6,7 +6,7 @@
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
 
-    public class CategoryService : DeletableEntityService<Category>, ICategoryService
+    public class CategoryService : DeletableEntityService<Category, int>, ICategoryService
     {
         public CategoryService(IDeletableEntityRepository<Category> entityRepository)
             : base(entityRepository)

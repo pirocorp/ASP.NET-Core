@@ -22,14 +22,15 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "wwwroot/js/voting.min.js",
+    "outputFileName": "wwwroot/js/post.js",
     "inputFiles": [
-      "wwwroot/js/voting.js"
+      "wwwroot/js/voting.js",
+      "wwwroot/js/reply.js"
     ],
     // Optionally specify minification options
     "minify": {
-      "enabled": true,
-      "renameLocals": true
+      "enabled": false,
+      "renameLocals": false
     },
     // Optionally generate .map file
     "sourceMap": false

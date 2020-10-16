@@ -5,7 +5,7 @@
 
     using ForumSystem.Data.Models;
 
-    public interface IPostService : IDeletableEntityService<Post>
+    public interface IPostService : IDeletableEntityService<Post, int>
     {
         Task<int> CreateAsync(string title, string content, int categoryId, string userId);
 

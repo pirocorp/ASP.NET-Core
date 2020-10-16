@@ -8,7 +8,7 @@
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
 
-    public class PostService : DeletableEntityService<Post>, IPostService
+    public class PostService : DeletableEntityService<Post, int>, IPostService
     {
         public PostService(IDeletableEntityRepository<Post> postRepository)
             : base(postRepository)

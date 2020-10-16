@@ -24,15 +24,17 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public ICollection<PostVoteViewModel> Votes { get; set; }
+
+        public PostUserVoteViewModel UserVote { get; set; }
+
+        public IEnumerable<PostCommentViewModel> Comments { get; set; }
+
         public int UpVotes => this.Votes.Count(v => v.Type == VoteType.UpVote);
 
         public int DownVotes => this.Votes.Count(v => v.Type == VoteType.DownVote);
 
         public int VotesScore => this.UpVotes - this.DownVotes;
-
-        public ICollection<PostVoteViewModel> Votes { get; set; }
-
-        public PostUserVoteViewModel UserVote { get; set; }
 
         public bool UserVoteIsUp => this.UserVote?.Type == VoteType.UpVote;
 

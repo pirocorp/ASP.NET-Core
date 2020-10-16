@@ -2,6 +2,7 @@
 {
     using ForumSystem.Data.Common.Models;
 
+    // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public class Comment : BaseDeletableModel<int>
     {
         public string Content { get; set; }

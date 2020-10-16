@@ -11,7 +11,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class PostsController : Controller
+    public class PostsController : BaseController
     {
         private const string InfoMessage = "InfoMessage";
 

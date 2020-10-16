@@ -6,8 +6,8 @@
 
     using ForumSystem.Data.Common.Models;
 
-    public interface IDeletableEntityService<TEntity>
-        where TEntity : class, IDeletableEntity
+    public interface IDeletableEntityService<TEntity, in TKey>
+        where TEntity : BaseDeletableModel<TKey>, IDeletableEntity
     {
         IEnumerable<TOut> GetAll<TOut>();
 
@@ -32,5 +32,7 @@
             Expression<Func<TEntity, bool>> filter,
             Expression<Func<TEntity, TOrder>> order)
             where TOrder : IComparable<TOrder>;
+
+        bool Exists(TKey key);
     }
 }

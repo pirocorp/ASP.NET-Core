@@ -13,8 +13,9 @@
     ///     Base service class for all entities supporting soft delete.
     /// </summary>
     /// <typeparam name="TEntity">Entity(Domain model).</typeparam>
-    public abstract class DeletableEntityService<TEntity> : IDeletableEntityService<TEntity>
-        where TEntity : class, IDeletableEntity
+    /// <typeparam name="TKey">Type of Entity's key.</typeparam>
+    public abstract class DeletableEntityService<TEntity, TKey> : IDeletableEntityService<TEntity, TKey>
+        where TEntity : BaseDeletableModel<TKey>, IDeletableEntity
     {
         protected DeletableEntityService(IDeletableEntityRepository<TEntity> entityRepository)
         {
@@ -116,7 +117,7 @@
             where TOrder : IComparable<TOrder>
         {
             var query = this.EntityRepository
-                .All();
+                .AllAsNoTracking();
 
             if (filter != null)
             {
@@ -140,5 +141,15 @@
                 .To<TOut>()
                 .ToList();
         }
+
+        /// <summary>
+        ///     Check if object with given key exists in database.
+        /// </summary>
+        /// <param name="key">Searched key</param>
+        /// <returns>True if object with given key exists</returns>
+        public bool Exists(TKey key)
+            => this.EntityRepository
+                .AllAsNoTracking()
+                .Any(e => e.Id.Equals(key));
     }
 }
