@@ -78,6 +78,15 @@
         "dist/jquery.validate.unobtrusive.js",
         "dist/jquery.validate.unobtrusive.min.js"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "moment-js@1.1.15",
+      "destination": "wwwroot/lib/moment-js/",
+      "files": [
+        "build/moment.js",
+        "build/moment.min.js"
+      ]
     }
   ]
 }
