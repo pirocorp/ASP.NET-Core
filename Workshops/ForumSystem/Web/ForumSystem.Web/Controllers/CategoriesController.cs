@@ -32,6 +32,7 @@
         public IActionResult ByName(string name, int page = 1)
         {
             // Mockable http context
+            // ReSharper disable once UnusedVariable
             var context = this.httpContextAccessor.HttpContext;
 
             this.logger.LogInformation(page.ToString());

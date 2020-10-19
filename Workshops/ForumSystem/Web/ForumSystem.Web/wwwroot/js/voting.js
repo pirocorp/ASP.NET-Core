@@ -9,7 +9,7 @@
     try {
 
         const appUrl = "https://192.168.0.198:5001/api/votes";
-        const response = await fetch(appUrl, {
+        const response = await window.fetch(appUrl, {
             method: "post",
             headers: {
                 'RequestVerificationToken': csrfTokenElement.value,
