@@ -1,7 +1,6 @@
 ﻿namespace ForumSystem.Services.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Data;
     using ForumSystem.Data;

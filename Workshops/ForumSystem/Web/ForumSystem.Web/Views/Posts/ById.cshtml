@@ -25,7 +25,9 @@
                         <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block rounded-circle" alt="">
                         <div class="media-body ml-3">
                             <span data-abc="true">@(this.Model.UserUserName)</span>
-                            <div class="text-muted small">@(this.Model.CreatedOn)</div>
+                            <div class="text-muted small">
+                                <time datetime="@(this.Model.CreatedOn.ToString("O"))"></time>
+                            </div>
                         </div>
                         <div id="votes-display" class="text-muted small ml-3 d-flex">
                             <form class="mx-2" asp-controller="Votes" asp-action="Post">
@@ -76,7 +78,9 @@
                                                 <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block rounded-circle" alt="">
                                                 <div class="media-body ml-3">
                                                     <span data-abc="true">@comment.UserUserName</span>
-                                                    <div class="text-muted small">@(comment.CreatedOn)</div>
+                                                    <div class="text-muted small">
+                                                        <time datetime="@(comment.CreatedOn.ToString("O"))"></time>
+                                                    </div>
                                                 </div>
 
                                                 <div class="px-4 ml-auto">

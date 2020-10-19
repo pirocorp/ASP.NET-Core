@@ -80,12 +80,10 @@
       ]
     },
     {
-      "provider": "unpkg",
-      "library": "moment-js@1.1.15",
+      "library": "moment@2.29.1",
       "destination": "wwwroot/lib/moment-js/",
       "files": [
-        "build/moment.js",
-        "build/moment.min.js"
+        "min/moment-with-locales.min.js"
       ]
     }
   ]
