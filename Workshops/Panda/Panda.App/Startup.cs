@@ -24,7 +24,8 @@ namespace Panda.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddControllersWithViews(); //MVC
+            services.AddControllersWithViews() //MVC
+                .AddRazorRuntimeCompilation(); 
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
