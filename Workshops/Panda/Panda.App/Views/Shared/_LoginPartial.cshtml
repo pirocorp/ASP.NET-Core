@@ -1,17 +1,14 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using Panda.Models
-
-@inject SignInManager<PandaUser> signInManager
+﻿@inject SignInManager<PandaUser> signInManager
 @inject UserManager<PandaUser> userManager
 
 <ul class="ml-auto navbar-nav">
-    @if (this.signInManager.IsSignedIn(User))
+    @if (this.signInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
-            <a id="manage" class="nav-link nav-link-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @this.userManager.GetUserName(User)!</a>
+            <a id="manage" class="nav-link nav-link-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.userManager.GetUserName(this.User))!</a>
         </li>
         <li class="nav-item">
-            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = "" }))">
                 <button id="logout" type="submit" class="nav-link btn btn-link nav-link-white">Logout</button>
             </form>
         </li>
