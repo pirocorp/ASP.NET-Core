@@ -5,7 +5,7 @@
 
     using Panda.Models;
 
-    public class PandaDbContext : IdentityDbContext<PandaUser>
+    public class PandaDbContext : IdentityDbContext<PandaUser, PandaRole, string>
     {
         public PandaDbContext(DbContextOptions<PandaDbContext> options)
             : base(options)

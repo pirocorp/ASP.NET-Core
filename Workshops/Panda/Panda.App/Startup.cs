@@ -30,9 +30,12 @@
 
             services
                 .AddDefaultIdentity<PandaUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<PandaUserRole>()
+                .AddRoles<PandaRole>()
                 .AddEntityFrameworkStores<PandaDbContext>();
 
+            // services
+            //    .AddIdentity<PandaUser, PandaRole>(IdentityOptionsProvider.GetIdentityOptions)
+            //    .AddEntityFrameworkStores<PandaDbContext>();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = consent => true;
@@ -45,6 +48,8 @@
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 }) // MVC
                 .AddRazorRuntimeCompilation();
+
+            services.AddRazorPages();
 
             services.AddSingleton(this.Configuration);
         }
@@ -88,6 +93,8 @@
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

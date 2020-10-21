@@ -10,6 +10,27 @@
         public void Configure(EntityTypeBuilder<PandaUser> pandaUser)
         {
             pandaUser
+                .HasMany(e => e.Claims)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            pandaUser
+                .HasMany(e => e.Logins)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            pandaUser
+                .HasMany(e => e.Roles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            pandaUser
                 .HasMany(u => u.Receipts)
                 .WithOne(r => r.User)
                 .HasForeignKey(r => r.UserId)
