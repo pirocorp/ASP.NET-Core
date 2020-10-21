@@ -2,7 +2,13 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="jumbotron mt-3 bg-panda">
+    <h1 class="text-white">Welcome to PANDA Delivery Services.</h1>
+    <hr class="bg-white hr-2"/>
+    <h3 class="text-white">
+        <a class="nav-link nav-link-white active" asp-area="Identity" asp-controller="Account" asp-action="Login">Login</a>
+    </h3>
+    <h3 class="text-white">
+        <a class="nav-link nav-link-white active" asp-area="Identity" asp-controller="Account" asp-action="Register">Register</a>
+    </h3>
 </div>
