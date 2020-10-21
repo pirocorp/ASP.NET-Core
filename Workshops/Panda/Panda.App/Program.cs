@@ -1,8 +1,8 @@
-﻿namespace Panda.App
-{
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
+namespace Panda.App
+{
     public class Program
     {
         public static void Main(string[] args)

@@ -1,11 +1,11 @@
-﻿namespace Panda.App.Controllers
+﻿using System.Diagnostics;
+
+using Microsoft.AspNetCore.Mvc;
+
+using Panda.App.Models;
+
+namespace Panda.App.Controllers
 {
-    using System.Diagnostics;
-
-    using Microsoft.AspNetCore.Mvc;
-
-    using Panda.App.Models;
-
     public class HomeController : Controller
     {
         // ReSharper disable once EmptyConstructor
