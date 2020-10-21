@@ -1,7 +1,5 @@
-namespace Panda.App
+﻿namespace Panda.App
 {
-    using Data;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -9,6 +7,8 @@ namespace Panda.App
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
+    using Panda.Data;
 
     public class Startup
     {

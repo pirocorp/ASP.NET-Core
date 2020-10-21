@@ -1,6 +1,5 @@
 ﻿namespace Panda.App.Controllers
 {
-
     using System.Diagnostics;
 
     using Microsoft.AspNetCore.Mvc;
@@ -9,6 +8,7 @@
 
     public class HomeController : Controller
     {
+        // ReSharper disable once EmptyConstructor
         public HomeController()
         {
         }
@@ -28,7 +28,7 @@
         {
             return this.View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier
+                RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier,
             });
         }
     }
