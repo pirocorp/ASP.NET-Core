@@ -1,6 +1,5 @@
 ﻿namespace Panda.App
 {
-    using Data.Seeding;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -11,6 +10,7 @@
     using Microsoft.Extensions.Hosting;
 
     using Panda.Data;
+    using Panda.Data.Seeding;
     using Panda.Models;
     using Panda.Services;
 
