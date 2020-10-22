@@ -33,9 +33,6 @@
                 .AddRoles<PandaRole>()
                 .AddEntityFrameworkStores<PandaDbContext>();
 
-            // services
-            //    .AddIdentity<PandaUser, PandaRole>(IdentityOptionsProvider.GetIdentityOptions)
-            //    .AddEntityFrameworkStores<PandaDbContext>();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = consent => true;

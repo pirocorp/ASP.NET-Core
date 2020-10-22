@@ -1,10 +1,9 @@
-﻿namespace Panda.Data.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace Panda.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +14,7 @@
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,11 +39,23 @@
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PackageStatus",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PackageStatus", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,7 +66,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,7 +87,7 @@
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,7 +97,7 @@
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,7 +107,7 @@
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,7 +117,7 @@
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,7 +125,7 @@
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,7 +141,7 @@
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,7 +151,7 @@
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -157,17 +168,27 @@
                 name: "Packages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Weight = table.Column<double>(nullable: false),
+                    ShippingAddress = table.Column<string>(nullable: true),
+                    EstimatedDeliveryDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<string>(nullable: true),
+                    RecipientId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Packages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Packages_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Packages_AspNetUsers_RecipientId",
+                        column: x => x.RecipientId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Packages_PackageStatus_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "PackageStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -176,16 +197,24 @@
                 name: "Receipts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
+                    Fee = table.Column<decimal>(nullable: false),
+                    IssuedOn = table.Column<DateTime>(nullable: false),
+                    RecipientId = table.Column<string>(nullable: true),
+                    PackageId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Receipts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Receipts_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Receipts_Packages_PackageId",
+                        column: x => x.PackageId,
+                        principalTable: "Packages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Receipts_AspNetUsers_RecipientId",
+                        column: x => x.RecipientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -231,14 +260,26 @@
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Packages_UserId",
+                name: "IX_Packages_RecipientId",
                 table: "Packages",
-                column: "UserId");
+                column: "RecipientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Receipts_UserId",
+                name: "IX_Packages_StatusId",
+                table: "Packages",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Receipts_PackageId",
                 table: "Receipts",
-                column: "UserId");
+                column: "PackageId",
+                unique: true,
+                filter: "[PackageId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Receipts_RecipientId",
+                table: "Receipts",
+                column: "RecipientId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -259,16 +300,19 @@
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Packages");
-
-            migrationBuilder.DropTable(
                 name: "Receipts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Packages");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "PackageStatus");
         }
     }
 }

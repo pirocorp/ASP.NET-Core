@@ -6,6 +6,7 @@
 
     // ReSharper disable MemberCanBeProtected.Global
     // ReSharper disable VirtualMemberCallInConstructor
+    // ReSharper disable ClassWithVirtualMembersNeverInherited.Global
     public class PandaUser : IdentityUser
     {
         public PandaUser()

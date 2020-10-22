@@ -32,14 +32,14 @@
 
             pandaUser
                 .HasMany(u => u.Receipts)
-                .WithOne(r => r.User)
-                .HasForeignKey(r => r.UserId)
+                .WithOne(r => r.Recipient)
+                .HasForeignKey(r => r.RecipientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             pandaUser
                 .HasMany(u => u.Packages)
-                .WithOne(p => p.User)
-                .HasForeignKey(p => p.UserId)
+                .WithOne(p => p.Recipient)
+                .HasForeignKey(p => p.RecipientId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -1,4 +1,5 @@
-﻿namespace Panda.App.Areas.Identity.Pages.Account
+﻿// ReSharper disable NotAccessedField.Local
+namespace Panda.App.Areas.Identity.Pages.Account
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

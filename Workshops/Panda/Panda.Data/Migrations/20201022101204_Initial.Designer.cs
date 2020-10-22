@@ -10,8 +10,8 @@ using Panda.Data;
 namespace Panda.Data.Migrations
 {
     [DbContext(typeof(PandaDbContext))]
-    [Migration("20201021174157_PandaUserUpdated")]
-    partial class PandaUserUpdated
+    [Migration("20201022101204_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,33 +20,6 @@ namespace Panda.Data.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -154,19 +127,74 @@ namespace Panda.Data.Migrations
 
             modelBuilder.Entity("Panda.Models.Package", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EstimatedDeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RecipientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ShippingAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StatusId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Packages");
+                });
+
+            modelBuilder.Entity("Panda.Models.PackageStatus", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PackageStatus");
+                });
+
+            modelBuilder.Entity("Panda.Models.PandaRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("Panda.Models.PandaUser", b =>
@@ -236,24 +264,35 @@ namespace Panda.Data.Migrations
 
             modelBuilder.Entity("Panda.Models.Receipt", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("IssuedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PackageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RecipientId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PackageId")
+                        .IsUnique()
+                        .HasFilter("[PackageId] IS NOT NULL");
+
+                    b.HasIndex("RecipientId");
 
                     b.ToTable("Receipts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Panda.Models.PandaRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -280,7 +319,7 @@ namespace Panda.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Panda.Models.PandaRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -304,17 +343,27 @@ namespace Panda.Data.Migrations
 
             modelBuilder.Entity("Panda.Models.Package", b =>
                 {
-                    b.HasOne("Panda.Models.PandaUser", "User")
+                    b.HasOne("Panda.Models.PandaUser", "Recipient")
                         .WithMany("Packages")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Panda.Models.PackageStatus", "Status")
+                        .WithMany("Packages")
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Panda.Models.Receipt", b =>
                 {
-                    b.HasOne("Panda.Models.PandaUser", "User")
+                    b.HasOne("Panda.Models.Package", "Package")
+                        .WithOne("Receipt")
+                        .HasForeignKey("Panda.Models.Receipt", "PackageId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Panda.Models.PandaUser", "Recipient")
                         .WithMany("Receipts")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
