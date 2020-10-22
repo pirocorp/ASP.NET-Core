@@ -23,6 +23,7 @@
     #pragma warning restore SA1649 // File name should match first type name
     {
         private readonly SignInManager<PandaUser> signInManager;
+        private readonly RoleManager<PandaRole> roleManager;
         private readonly UserManager<PandaUser> userManager;
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
@@ -30,11 +31,13 @@
         public RegisterModel(
             UserManager<PandaUser> userManager,
             SignInManager<PandaUser> signInManager,
+            RoleManager<PandaRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
             this.logger = logger;
             this.emailSender = emailSender;
         }
@@ -85,28 +88,25 @@
                 {
                     this.logger.LogInformation("User created a new account with password.");
 
-                    var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = this.Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: this.Request.Scheme);
-
-                    await this.emailSender.SendEmailAsync(
-                        this.Input.Email,
-                        "Confirm your email",
-                        htmlMessage: $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (this.userManager.Options.SignIn.RequireConfirmedAccount)
+                    if (this.userManager.Users.Count() == 1)
                     {
-                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl = returnUrl });
+                        const string adminRoleName = "Admin";
+
+                        if (!await this.roleManager.RoleExistsAsync(adminRoleName))
+                        {
+                            var role = new PandaRole()
+                            {
+                                Name = adminRoleName,
+                            };
+
+                            await this.roleManager.CreateAsync(role);
+                        }
+
+                        await this.userManager.AddToRoleAsync(user, "Admin");
                     }
-                    else
-                    {
-                        await this.signInManager.SignInAsync(user, isPersistent: false);
-                        return this.LocalRedirect(returnUrl);
-                    }
+
+                    await this.signInManager.SignInAsync(user, isPersistent: false);
+                    return this.LocalRedirect(returnUrl);
                 }
 
                 foreach (var error in result.Errors)

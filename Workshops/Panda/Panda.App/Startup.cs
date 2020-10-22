@@ -11,6 +11,7 @@
 
     using Panda.Data;
     using Panda.Models;
+    using Panda.Services;
 
     public class Startup
     {
@@ -49,6 +50,9 @@
             services.AddRazorPages();
 
             services.AddSingleton(this.Configuration);
+
+            // Application Services
+            services.AddTransient<IPackageService, PackageService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
