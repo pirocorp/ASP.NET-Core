@@ -1,5 +1,6 @@
 ﻿namespace Panda.App
 {
+    using Data.Seeding;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -63,6 +64,10 @@
                 {
                     var pandaDbContext = serviceScope.ServiceProvider.GetRequiredService<PandaDbContext>();
                     pandaDbContext.Database.Migrate();
+                    new ApplicationDbContextSeeder()
+                        .SeedAsync(pandaDbContext, serviceScope.ServiceProvider)
+                        .GetAwaiter()
+                        .GetResult();
                 }
 
                 app.UseDeveloperExceptionPage();
