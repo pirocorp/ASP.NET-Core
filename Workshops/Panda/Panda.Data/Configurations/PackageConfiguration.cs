@@ -13,6 +13,7 @@
                 .HasOne(p => p.Status)
                 .WithMany(s => s.Packages)
                 .HasForeignKey(p => p.StatusId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

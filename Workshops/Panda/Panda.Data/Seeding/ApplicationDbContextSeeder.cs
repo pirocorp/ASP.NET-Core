@@ -29,6 +29,7 @@
             {
                 new RolesSeeder(),
                 new AdminSeeder(),
+                new PackageStatusSeeder(),
             };
 
             foreach (var seeder in seeders)
