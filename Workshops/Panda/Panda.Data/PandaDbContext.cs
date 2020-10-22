@@ -16,6 +16,8 @@
 
         public DbSet<Receipt> Receipts { get; set; }
 
+        public DbSet<PackageStatus> PackageStatuses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration

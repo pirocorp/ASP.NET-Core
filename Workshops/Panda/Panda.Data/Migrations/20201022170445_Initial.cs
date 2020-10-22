@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Panda.Data.Migrations
+﻿namespace Panda.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +15,7 @@ namespace Panda.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -39,7 +40,7 @@ namespace Panda.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -47,15 +48,15 @@ namespace Panda.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PackageStatus",
+                name: "PackageStatuses",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PackageStatus", x => x.Id);
+                    table.PrimaryKey("PK_PackageStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,7 +67,7 @@ namespace Panda.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -87,7 +88,7 @@ namespace Panda.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -107,7 +108,7 @@ namespace Panda.Data.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -125,7 +126,7 @@ namespace Panda.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -151,7 +152,7 @@ namespace Panda.Data.Migrations
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -174,7 +175,7 @@ namespace Panda.Data.Migrations
                     ShippingAddress = table.Column<string>(nullable: true),
                     EstimatedDeliveryDate = table.Column<DateTime>(nullable: false),
                     StatusId = table.Column<string>(nullable: true),
-                    RecipientId = table.Column<string>(nullable: true)
+                    RecipientId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -186,9 +187,9 @@ namespace Panda.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Packages_PackageStatus_StatusId",
+                        name: "FK_Packages_PackageStatuses_StatusId",
                         column: x => x.StatusId,
-                        principalTable: "PackageStatus",
+                        principalTable: "PackageStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -201,7 +202,7 @@ namespace Panda.Data.Migrations
                     Fee = table.Column<decimal>(nullable: false),
                     IssuedOn = table.Column<DateTime>(nullable: false),
                     RecipientId = table.Column<string>(nullable: true),
-                    PackageId = table.Column<string>(nullable: true)
+                    PackageId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -312,7 +313,7 @@ namespace Panda.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "PackageStatus");
+                name: "PackageStatuses");
         }
     }
 }

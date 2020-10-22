@@ -10,7 +10,7 @@ using Panda.Data;
 namespace Panda.Data.Migrations
 {
     [DbContext(typeof(PandaDbContext))]
-    [Migration("20201022101204_Initial")]
+    [Migration("20201022170445_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,7 +167,7 @@ namespace Panda.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageStatus");
+                    b.ToTable("PackageStatuses");
                 });
 
             modelBuilder.Entity("Panda.Models.PandaRole", b =>

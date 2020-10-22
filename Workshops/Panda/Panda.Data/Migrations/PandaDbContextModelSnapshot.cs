@@ -3,11 +3,13 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Panda.Data;
 
 namespace Panda.Data.Migrations
 {
     [DbContext(typeof(PandaDbContext))]
-    internal class PandaDbContextModelSnapshot : ModelSnapshot
+    partial class PandaDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -163,7 +165,7 @@ namespace Panda.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PackageStatus");
+                    b.ToTable("PackageStatuses");
                 });
 
             modelBuilder.Entity("Panda.Models.PandaRole", b =>
