@@ -1,0 +1,41 @@
+﻿@model Panda.App.Models.InputModels.Package.PackageCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Package";
+}
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<hr class="hr-2 bg-panda w-50">
+<div class="d-flex">
+    <form class="w-50 mx-auto" method="post" asp-action="Create">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description">
+            <span class="text-danger" asp-validation-for="Description"></span>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="form-group w-50 pr-5">
+                <label asp-for="Weight"></label>
+                <input class="form-control" asp-for="Weight">
+                <span class="text-danger" asp-validation-for="Weight"></span>
+            </div>
+            <div class="form-group w-50 pl-5">
+                <label asp-for="ShippingAddress"></label>
+                <input class="form-control" asp-for="ShippingAddress">
+                <span class="text-danger"></span>
+            </div>
+        </div>
+        <hr class="hr-2 bg-panda">
+        <div class="form-group w-50 mx-auto">
+            <div class="text-center">
+                <label asp-for="RecipientId">Recipient</label>
+            </div>
+            <select class="custom-select" asp-for="RecipientId" asp-items="this.Model.SelectListRecipients"></select>
+            <span class="text-danger" asp-validation-for="RecipientId"></span>
+        </div>
+        <hr class="hr-2 bg-panda">
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn bg-panda text-white">Create</button>
+        </div>
+    </form>
+</div>
