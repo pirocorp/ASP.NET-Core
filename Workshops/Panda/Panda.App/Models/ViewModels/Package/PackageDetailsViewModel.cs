@@ -8,6 +8,8 @@
 
     public class PackageDetailsViewModel : IMapFrom<Package>
     {
+        public string RecipientId { get; set; }
+
         public string Description { get; set; }
 
         public double Weight { get; set; }

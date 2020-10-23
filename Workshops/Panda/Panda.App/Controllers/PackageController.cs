@@ -100,10 +100,19 @@
             return this.View(shippedPackages.ToList());
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             var package = await this.packageService
                 .GetByIdAsync<PackageDetailsViewModel>(id);
+
+            var currentUserId = this.userManager.GetUserId(this.User);
+
+            if (!this.User.IsInRole(GlobalConstants.AdminRole)
+                && !package.RecipientId.Equals(currentUserId))
+            {
+                return this.BadRequest();
+            }
 
             return this.View(package);
         }
@@ -117,7 +126,8 @@
                 .packageStatusesService
                 .GetPackageStatusIdByNameAsync(newStatus.ToString());
 
-            var success = await this.packageService.ChangeStatusAsync(id, newStatusId);
+            var success = await this.packageService
+                .ChangeStatusAsync(id, newStatusId);
 
             if (success is false)
             {
@@ -125,6 +135,33 @@
             }
 
             return this.RedirectToAction(newStatus.ToString());
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Acquire(string id)
+        {
+            var package = await this.packageService
+                .GetByIdAsync<PackageDetailsViewModel>(id);
+
+            var currentUserId = this.userManager.GetUserId(this.User);
+
+            if (!this.User.IsInRole(GlobalConstants.AdminRole)
+                && !package.RecipientId.Equals(currentUserId))
+            {
+                return this.BadRequest();
+            }
+
+            var statusId = await this
+                .packageStatusesService
+                .GetPackageStatusIdByNameAsync(ShipmentStatus.Acquired.ToString());
+
+            await this.packageService.ChangeStatusAsync(id, statusId);
+
+            // TODO: Create receipt
+            var homeController = nameof(HomeController)
+                .Replace("Controller", string.Empty);
+
+            return this.RedirectToAction(nameof(HomeController.Index), homeController);
         }
 
         private async Task<IEnumerable<PackageViewModel>> GetPackagesByStatusAsync(string shipmentStatus)

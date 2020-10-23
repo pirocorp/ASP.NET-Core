@@ -17,5 +17,7 @@
         Task<TOutput> GetByIdAsync<TOutput>(string packageId);
 
         Task<IEnumerable<TOutput>> GetAllPackagesInTheSystemAsync<TOutput>();
+
+        Task<IEnumerable<TOutput>> GetAllUserPackagesAsync<TOutput>(string userId);
     }
 }

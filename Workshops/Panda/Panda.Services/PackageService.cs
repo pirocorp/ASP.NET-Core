@@ -80,5 +80,11 @@
                 .Where(p => !p.Status.Name.Equals(ShipmentStatus.Acquired.ToString()))
                 .To<TOutput>()
                 .ToListAsync();
+
+        public async Task<IEnumerable<TOutput>> GetAllUserPackagesAsync<TOutput>(string userId)
+            => await this.pandaDb.Packages
+                .Where(p => p.RecipientId.Equals(userId))
+                .To<TOutput>()
+                .ToListAsync();
     }
 }

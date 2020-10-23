@@ -28,10 +28,10 @@ else
             <div class="border-panda p-3">
                 @foreach (var item in this.Model.Pending)
                 {
-                    <div class="p-2 d-flex justify-content-around">
-                        <h4 class="w-75">@item.Description</h4>
-                        <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
-                    </div>
+                <div class="p-2 d-flex justify-content-around">
+                    <h4 class="w-75">@item.Description</h4>
+                    <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
+                </div>
                 }
             </div>
         </div>
@@ -40,10 +40,10 @@ else
             <div class="border-panda p-3">
                 @foreach (var item in this.Model.Shipped)
                 {
-                    <div class="p-2 d-flex justify-content-around">
-                        <h4 class="w-75">@item.Description</h4>
-                        <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
-                    </div>
+                <div class="p-2 d-flex justify-content-around">
+                    <h4 class="w-75">@item.Description</h4>
+                    <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
+                </div>
                 }
             </div>
         </div>
@@ -54,7 +54,14 @@ else
                 {
                     <div class="p-2 d-flex justify-content-around">
                         <h4 class="w-75">@item.Description</h4>
-                        <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
+                        @if (this.User.IsInRole(GlobalConstants.AdminRole))
+                        {
+                            <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Package" asp-action="Acquire" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Acquire</a>
+                        }
                     </div>
                 }
             </div>
