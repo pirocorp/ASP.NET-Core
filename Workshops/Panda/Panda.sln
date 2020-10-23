@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.App", "Panda.App\Pand
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Data", "Panda.Data\Panda.Data.csproj", "{E9A10635-8393-4B06-A44B-8B54F014A259}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.Models", "Panda.Models\Panda.Models.csproj", "{8CCC0E46-CF73-4A98-AF8F-3CA7E8CDE599}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Models", "Panda.Models\Panda.Models.csproj", "{8CCC0E46-CF73-4A98-AF8F-3CA7E8CDE599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.Services", "Panda.Services\Panda.Services.csproj", "{2EAD6AAD-6948-47DD-8ABE-CA1B7707CC94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Services", "Panda.Services\Panda.Services.csproj", "{2EAD6AAD-6948-47DD-8ABE-CA1B7707CC94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.Mapping", "Panda.Mapping\Panda.Mapping.csproj", "{845938C4-8125-4796-A9A7-4A2BFCB5AEBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2EAD6AAD-6948-47DD-8ABE-CA1B7707CC94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EAD6AAD-6948-47DD-8ABE-CA1B7707CC94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EAD6AAD-6948-47DD-8ABE-CA1B7707CC94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{845938C4-8125-4796-A9A7-4A2BFCB5AEBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{845938C4-8125-4796-A9A7-4A2BFCB5AEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{845938C4-8125-4796-A9A7-4A2BFCB5AEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{845938C4-8125-4796-A9A7-4A2BFCB5AEBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

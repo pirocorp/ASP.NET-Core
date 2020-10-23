@@ -4,6 +4,6 @@
 
     public interface IPackageService
     {
-        Task<string> CreateAsync(string description, double weight, string shippingAddress);
+        Task<string> CreateAsync(string description, double weight, string shippingAddress, string recipientId);
     }
 }

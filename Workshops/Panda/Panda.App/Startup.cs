@@ -1,5 +1,6 @@
 ﻿namespace Panda.App
 {
+    using System.Reflection;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -8,9 +9,10 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
+    using Models;
     using Panda.Data;
     using Panda.Data.Seeding;
+    using Panda.Mapping;
     using Panda.Models;
     using Panda.Services;
 
@@ -58,6 +60,8 @@
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             if (env.IsDevelopment())
             {
                 using (var serviceScope = app.ApplicationServices.CreateScope())

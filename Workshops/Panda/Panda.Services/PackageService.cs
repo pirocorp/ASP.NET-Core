@@ -15,7 +15,11 @@
             this.pandaDb = pandaDb;
         }
 
-        public async Task<string> CreateAsync(string description, double weight, string shippingAddress)
+        public async Task<string> CreateAsync(
+            string description, 
+            double weight, 
+            string shippingAddress,
+            string recipientId)
         {
             var package = new Package()
             {

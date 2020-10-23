@@ -67,7 +67,8 @@
             var packageId = await this.packageService.CreateAsync(
                 model.Description,
                 model.Weight,
-                model.ShippingAddress);
+                model.ShippingAddress,
+                model.RecipientId);
 
             this.logger.LogInformation("Package with id: {packageId} is add to the system.", packageId);
 
