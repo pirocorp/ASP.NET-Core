@@ -11,6 +11,7 @@
     using Panda.Infrastructure;
     using Panda.Models;
 
+    // TODO: Change service to work not with statusId but with status name
     public class PackageService : IPackageService
     {
         private readonly PandaDbContext pandaDb;
