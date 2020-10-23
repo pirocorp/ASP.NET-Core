@@ -2,15 +2,20 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Infrastructure;
     using Models;
 
     public interface IPackageService
     {
         Task<string> CreateAsync(PackageCreateServiceModel model);
 
+        Task<IEnumerable<TOutput>> GetPackagesByStatusCodeAsync<TOutput>(ShipmentStatus status);
+
         Task<IEnumerable<TOutput>> GetPackagesByStatusCodeAsync<TOutput>(string statusId);
 
         Task<bool> ExistsAsync(string packageId);
+
+        Task<bool> ChangeStatusAsync(string packageId, ShipmentStatus status);
 
         Task<bool> ChangeStatusAsync(string packageId, string statusId);
 

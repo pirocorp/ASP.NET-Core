@@ -23,18 +23,18 @@
     {
         private readonly ILogger<LoginModel> logger;
         private readonly IPackageService packageService;
-        private readonly IStatusesService packageStatusesService;
+        private readonly IStatusesService statusesService;
         private readonly UserManager<PandaUser> userManager;
 
         public PackageController(
             ILogger<LoginModel> logger,
             IPackageService packageService,
-            IStatusesService packageStatusesService,
+            IStatusesService statusesService,
             UserManager<PandaUser> userManager)
         {
             this.logger = logger;
             this.packageService = packageService;
-            this.packageStatusesService = packageStatusesService;
+            this.statusesService = statusesService;
             this.userManager = userManager;
         }
 
@@ -78,26 +78,26 @@
 
         public async Task<IActionResult> Pending()
         {
-            var pendingPackages =
-                await this.GetPackagesByStatusAsync(ShipmentStatus.Pending.ToString());
+            var pendingPackages = await this.packageService
+                    .GetPackagesByStatusCodeAsync<PackageViewModel>(ShipmentStatus.Pending);
 
             return this.View(pendingPackages.ToList());
         }
 
         public async Task<IActionResult> Shipped()
         {
-            var shippedPackages =
-                await this.GetPackagesByStatusAsync(ShipmentStatus.Shipped.ToString());
+            var shippedPackages = await this.packageService
+                    .GetPackagesByStatusCodeAsync<PackageViewModel>(ShipmentStatus.Shipped);
 
             return this.View(shippedPackages.ToList());
         }
 
         public async Task<IActionResult> Delivered()
         {
-            var shippedPackages =
-                await this.GetPackagesByStatusAsync(ShipmentStatus.Delivered.ToString());
+            var deliveredPackages = await this.packageService
+                .GetPackagesByStatusCodeAsync<PackageViewModel>(ShipmentStatus.Delivered);
 
-            return this.View(shippedPackages.ToList());
+            return this.View(deliveredPackages.ToList());
         }
 
         [AllowAnonymous]
@@ -122,12 +122,8 @@
             var newStatus = Enum.Parse<ShipmentStatus>(status);
             newStatus += 1;
 
-            var newStatusId = await this
-                .packageStatusesService
-                .GetPackageStatusIdByNameAsync(newStatus.ToString());
-
             var success = await this.packageService
-                .ChangeStatusAsync(id, newStatusId);
+                .ChangeStatusAsync(id, newStatus);
 
             if (success is false)
             {
@@ -141,7 +137,7 @@
         public async Task<IActionResult> Acquire(string id)
         {
             var package = await this.packageService
-                .GetByIdAsync<PackageDetailsViewModel>(id);
+                .GetByIdAsync<Package>(id);
 
             var currentUserId = this.userManager.GetUserId(this.User);
 
@@ -151,26 +147,22 @@
                 return this.BadRequest();
             }
 
-            var statusId = await this
-                .packageStatusesService
-                .GetPackageStatusIdByNameAsync(ShipmentStatus.Acquired.ToString());
+            await this.packageService.ChangeStatusAsync(id, ShipmentStatus.Acquired);
 
-            await this.packageService.ChangeStatusAsync(id, statusId);
+            // TODO: Create receipt service and controller
+            var receipt = new Receipt()
+            {
+                Fee = GlobalConstants.FeeRatio * (decimal)package.Weight,
+                IssuedOn = DateTime.UtcNow,
+                Package = package,
+                RecipientId = currentUserId,
+            };
 
-            // TODO: Create receipt
+            // TODO: Redirect to Receipts
             var homeController = nameof(HomeController)
                 .Replace("Controller", string.Empty);
 
             return this.RedirectToAction(nameof(HomeController.Index), homeController);
-        }
-
-        private async Task<IEnumerable<PackageViewModel>> GetPackagesByStatusAsync(string shipmentStatus)
-        {
-            var statusId = await this.packageStatusesService
-                .GetPackageStatusIdByNameAsync(shipmentStatus);
-
-            return await this.packageService
-                .GetPackagesByStatusCodeAsync<PackageViewModel>(statusId);
         }
     }
 }

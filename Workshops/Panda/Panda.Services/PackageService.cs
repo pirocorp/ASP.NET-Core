@@ -11,7 +11,6 @@
     using Panda.Infrastructure;
     using Panda.Models;
 
-    // TODO: Change service to work not with statusId but with status name
     public class PackageService : IPackageService
     {
         private readonly PandaDbContext pandaDb;
@@ -39,6 +38,15 @@
             return package.Id;
         }
 
+        public async Task<IEnumerable<TOutput>> GetPackagesByStatusCodeAsync<TOutput>(ShipmentStatus status)
+        {
+            var statusId = await this
+                .statusesService
+                .GetPackageStatusIdByNameAsync(status.ToString());
+
+            return await this.GetPackagesByStatusCodeAsync<TOutput>(statusId);
+        }
+
         public async Task<IEnumerable<TOutput>> GetPackagesByStatusCodeAsync<TOutput>(string statusId)
             => await this.pandaDb
                 .Packages
@@ -50,6 +58,15 @@
             => await this.pandaDb
                 .Packages
                 .AnyAsync(p => p.Id.Equals(packageId));
+
+        public async Task<bool> ChangeStatusAsync(string packageId, ShipmentStatus status)
+        {
+            var statusId = await this
+                .statusesService
+                .GetPackageStatusIdByNameAsync(status.ToString());
+
+            return await this.ChangeStatusAsync(packageId, statusId);
+        }
 
         public async Task<bool> ChangeStatusAsync(string packageId, string statusId)
         {
