@@ -1,4 +1,24 @@
-﻿.bg-panda {
+﻿a {
+    text-underline: none;
+}
+
+tr {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+textarea {
+    resize: none;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    border: 0;
+    width: 98%;
+}
+
+.bg-panda {
     background-color: #202020;
 }
 
@@ -19,27 +39,12 @@
     height: 2px;
 }
 
-a {
-    text-underline: none;
-}
 
 a:hover {
     outline: none;
     text-decoration: none;
 }
 
-tr {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-}
-
-textarea {
-    resize: none;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    border: 0;
-    width: 98%;
+.dropdown-item:hover {
+    background-color: #404040;
 }
