@@ -6,6 +6,11 @@
 
     public class PackageCreateServiceModel : IMapTo<Package>
     {
+        public PackageCreateServiceModel()
+        {
+            this.EstimatedDeliveryDate = DateTime.UtcNow.AddDays(2);
+        }
+
         public string Description { get; set; }
 
         public double Weight { get; set; }

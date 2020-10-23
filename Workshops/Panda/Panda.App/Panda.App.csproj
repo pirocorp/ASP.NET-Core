@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Panda.Data\Panda.Data.csproj" />
+    <ProjectReference Include="..\Panda.Infrastructure\Panda.Infrastructure.csproj" />
     <ProjectReference Include="..\Panda.Mapping\Panda.Mapping.csproj" />
     <ProjectReference Include="..\Panda.Services\Panda.Services.csproj" />
   </ItemGroup>

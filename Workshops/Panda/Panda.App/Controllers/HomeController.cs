@@ -1,20 +1,42 @@
 ﻿namespace Panda.App.Controllers
 {
     using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+
     using Panda.App.Models;
+    using Panda.App.Models.ViewModels.Home;
+    using Panda.Infrastructure;
+    using Panda.Services;
 
     public class HomeController : Controller
     {
-        // ReSharper disable once EmptyConstructor
-        public HomeController()
+        private readonly IPackageService packageService;
+
+        public HomeController(IPackageService packageService)
         {
+            this.packageService = packageService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return this.View();
+            var allPackages = await this.packageService
+                .GetAllPackagesInTheSystemAsync<HomeIndexPackageViewModel>();
+
+            var groupedPackages = allPackages
+                .GroupBy(p => p.StatusName)
+                .ToDictionary(x => x.Key, x => x.ToList());
+
+            var model = new HomeIndexViewModel()
+            {
+                Pending = groupedPackages[ShipmentStatus.Pending.ToString()],
+                Shipped = groupedPackages[ShipmentStatus.Shipped.ToString()],
+                Delivered = groupedPackages[ShipmentStatus.Delivered.ToString()],
+            };
+
+            return this.View(model);
         }
 
         public IActionResult Privacy()

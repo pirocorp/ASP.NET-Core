@@ -1,5 +1,7 @@
 ﻿namespace Panda.App.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -7,31 +9,35 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-
     using Panda.App.Areas.Identity.Pages.Account;
     using Panda.App.Models.InputModels.Package;
+    using Panda.App.Models.ViewModels.Package;
+    using Panda.Infrastructure;
     using Panda.Mapping;
     using Panda.Models;
     using Panda.Services;
     using Panda.Services.Models;
 
+    [Authorize(Roles = GlobalConstants.AdminRole)]
     public class PackageController : Controller
     {
         private readonly ILogger<LoginModel> logger;
         private readonly IPackageService packageService;
+        private readonly IStatusesService packageStatusesService;
         private readonly UserManager<PandaUser> userManager;
 
         public PackageController(
             ILogger<LoginModel> logger,
             IPackageService packageService,
+            IStatusesService packageStatusesService,
             UserManager<PandaUser> userManager)
         {
             this.logger = logger;
             this.packageService = packageService;
+            this.packageStatusesService = packageStatusesService;
             this.userManager = userManager;
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var recipients = this
@@ -48,7 +54,6 @@
             return this.View(model);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(PackageCreateInputModel model)
         {
@@ -68,10 +73,67 @@
 
             this.logger.LogInformation("Package with id: {packageId} is add to the system.", packageId);
 
-            var homeController = nameof(HomeController)
-                .Replace("Controller", string.Empty);
+            return this.RedirectToAction(nameof(this.Pending));
+        }
 
-            return this.RedirectToAction(nameof(HomeController.Index), homeController);
+        public async Task<IActionResult> Pending()
+        {
+            var pendingPackages =
+                await this.GetPackagesByStatusAsync(ShipmentStatus.Pending.ToString());
+
+            return this.View(pendingPackages.ToList());
+        }
+
+        public async Task<IActionResult> Shipped()
+        {
+            var shippedPackages =
+                await this.GetPackagesByStatusAsync(ShipmentStatus.Shipped.ToString());
+
+            return this.View(shippedPackages.ToList());
+        }
+
+        public async Task<IActionResult> Delivered()
+        {
+            var shippedPackages =
+                await this.GetPackagesByStatusAsync(ShipmentStatus.Delivered.ToString());
+
+            return this.View(shippedPackages.ToList());
+        }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            var package = await this.packageService
+                .GetByIdAsync<PackageDetailsViewModel>(id);
+
+            return this.View(package);
+        }
+
+        public async Task<IActionResult> ChangeStatus(string id, string status)
+        {
+            var newStatus = Enum.Parse<ShipmentStatus>(status);
+            newStatus += 1;
+
+            var newStatusId = await this
+                .packageStatusesService
+                .GetPackageStatusIdByNameAsync(newStatus.ToString());
+
+            var success = await this.packageService.ChangeStatusAsync(id, newStatusId);
+
+            if (success is false)
+            {
+                return this.BadRequest();
+            }
+
+            return this.RedirectToAction(newStatus.ToString());
+        }
+
+        private async Task<IEnumerable<PackageViewModel>> GetPackagesByStatusAsync(string shipmentStatus)
+        {
+            var statusId = await this.packageStatusesService
+                .GetPackageStatusIdByNameAsync(shipmentStatus);
+
+            return await this.packageService
+                .GetPackagesByStatusCodeAsync<PackageViewModel>(statusId);
         }
     }
 }

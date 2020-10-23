@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@(this.ViewData["Title"]) - Panda.App</title>
+    <title>@(this.ViewData["Title"]) - Panda</title>
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true"/>
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
@@ -23,11 +23,12 @@
             </button>
 
             <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                <partial name="_AdmnPartial"/>
                 <ul class="ml-auto navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link nav-link-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    <partial name="_LoginPartial" />
+                    <partial name="_LoginPartial"/>
                 </ul>
             </div>
         </nav>

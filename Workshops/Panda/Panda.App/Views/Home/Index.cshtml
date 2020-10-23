@@ -1,4 +1,5 @@
 ﻿@inject SignInManager<PandaUser> signInManager
+@model HomeIndexViewModel
 
 @{
     this.ViewData["Title"] = "Home Page";
@@ -21,50 +22,41 @@
 }
 else
 {
-    <h1 class="text-center">Hello, Pesho!</h1>
-    <hr class="hr-2 bg-panda">
     <div class="d-flex justify-content-between">
         <div class="w-25 bg-white">
             <h2 class="text-center">Pending</h2>
             <div class="border-panda p-3">
-                @*<div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">IPhone XS Case</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">TV table</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Chushkopek</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Office Chair</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>*@
+                @foreach (var item in this.Model.Pending)
+                {
+                    <div class="p-2 d-flex justify-content-around">
+                        <h4 class="w-75">@item.Description</h4>
+                        <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
+                    </div>
+                }
             </div>
         </div>
         <div class="w-25 bg-white">
             <h2 class="text-center">Shipped</h2>
             <div class="border-panda p-3">
-                @*<div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">1959 Irish Bourbon</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Details</a>
-                </div>*@
+                @foreach (var item in this.Model.Shipped)
+                {
+                    <div class="p-2 d-flex justify-content-around">
+                        <h4 class="w-75">@item.Description</h4>
+                        <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
+                    </div>
+                }
             </div>
         </div>
         <div class="w-25 bg-white">
             <h2 class="text-center">Delivered</h2>
             <div class="border-panda p-3">
-                @*<div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Dog Toy</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Acquire</a>
-                </div>
-                <div class="p-2 d-flex justify-content-around">
-                    <h4 class="w-75">Mineral Water</h4>
-                    <a href="" class="btn bg-panda text-white w-25">Acquire</a>
-                </div>*@
+                @foreach (var item in this.Model.Delivered)
+                {
+                    <div class="p-2 d-flex justify-content-around">
+                        <h4 class="w-75">@item.Description</h4>
+                        <a asp-controller="Package" asp-action="Details" asp-route-id="@item.Id" class="btn bg-panda text-white w-25">Details</a>
+                    </div>
+                }
             </div>
         </div>
     </div>
