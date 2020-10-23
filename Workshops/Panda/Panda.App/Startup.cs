@@ -56,6 +56,7 @@
 
             // Application Services
             services.AddTransient<IPackageService, PackageService>();
+            services.AddTransient<IPackageStatusService, PackageStatusService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
