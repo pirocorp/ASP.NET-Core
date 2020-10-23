@@ -1,6 +1,5 @@
 ﻿namespace Panda.Services
 {
-    using System;
     using System.Threading.Tasks;
 
     using Data;

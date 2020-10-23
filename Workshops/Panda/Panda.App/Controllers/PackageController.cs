@@ -3,16 +3,17 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using global::Panda.App.Areas.Identity.Pages.Account;
-    using Mapping;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+
+    using Panda.App.Areas.Identity.Pages.Account;
     using Panda.App.Models.InputModels.Package;
+    using Panda.Mapping;
     using Panda.Models;
     using Panda.Services;
-    using Services.Models;
+    using Panda.Services.Models;
 
     public class PackageController : Controller
     {
