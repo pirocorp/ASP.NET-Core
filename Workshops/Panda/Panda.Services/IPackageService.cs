@@ -1,9 +1,10 @@
 ﻿namespace Panda.Services
 {
     using System.Threading.Tasks;
+    using Models;
 
     public interface IPackageService
     {
-        Task<string> CreateAsync(string description, double weight, string shippingAddress, string recipientId);
+        Task<string> CreateAsync(PackageCreateServiceModel model);
     }
 }

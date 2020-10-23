@@ -4,7 +4,9 @@
     using System.Threading.Tasks;
 
     using Data;
+    using Mapping;
     using Models;
+    using Panda.Models;
 
     public class PackageService : IPackageService
     {
@@ -19,23 +21,13 @@
             this.packageStatusService = packageStatusService;
         }
 
-        public async Task<string> CreateAsync(
-            string description, 
-            double weight, 
-            string shippingAddress,
-            string recipientId)
+        public async Task<string> CreateAsync(PackageCreateServiceModel model)
         {
             var statusId = this.packageStatusService
                 .GetPackageStatusIdByName("Acquired");
 
-            var package = new Package()
-            {
-                Description = description,
-                Weight = weight,
-                ShippingAddress = shippingAddress,
-                EstimatedDeliveryDate = DateTime.UtcNow.AddDays(2),
-                StatusId = statusId,
-            };
+            model.StatusId = statusId;
+            var package = model.To<Package>();
 
             this.pandaDb.Add(package);
             await this.pandaDb.SaveChangesAsync();

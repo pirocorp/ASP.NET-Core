@@ -1,6 +1,9 @@
 ﻿namespace Panda.App.Models.InputModels.Package
 {
-    public class PandaUserDropDownViewModel
+    using Panda.Mapping;
+    using Panda.Models;
+
+    public class PandaUserDropDownViewModel : IMapFrom<PandaUser>
     {
         public string Id { get; set; }
 

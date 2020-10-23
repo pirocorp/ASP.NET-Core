@@ -5,7 +5,10 @@
 
     using Microsoft.AspNetCore.Mvc.Rendering;
 
-    public class PackageCreateInputModel
+    using Panda.Mapping;
+    using Panda.Services.Models;
+
+    public class PackageCreateInputModel : IMapTo<PackageCreateServiceModel>
     {
         public PackageCreateInputModel()
         {

@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using global::Panda.App.Areas.Identity.Pages.Account;
-
+    using Mapping;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -12,6 +12,7 @@
     using Panda.App.Models.InputModels.Package;
     using Panda.Models;
     using Panda.Services;
+    using Services.Models;
 
     public class PackageController : Controller
     {
@@ -35,11 +36,7 @@
             var recipients = this
                 .userManager
                 .Users
-                .Select(u => new PandaUserDropDownViewModel()
-                {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                })
+                .To<PandaUserDropDownViewModel>()
                 .ToList();
 
             var model = new PackageCreateInputModel()
@@ -64,11 +61,9 @@
                 return this.View();
             }
 
-            var packageId = await this.packageService.CreateAsync(
-                model.Description,
-                model.Weight,
-                model.ShippingAddress,
-                model.RecipientId);
+            var package = model.To<PackageCreateServiceModel>();
+
+            var packageId = await this.packageService.CreateAsync(package);
 
             this.logger.LogInformation("Package with id: {packageId} is add to the system.", packageId);
 

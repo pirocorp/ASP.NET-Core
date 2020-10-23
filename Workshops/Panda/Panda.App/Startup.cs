@@ -15,6 +15,7 @@
     using Panda.Mapping;
     using Panda.Models;
     using Panda.Services;
+    using Services.Models;
 
     public class Startup
     {
@@ -61,7 +62,10 @@
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            AutoMapperConfig
+                .RegisterMappings(
+                    typeof(ErrorViewModel).GetTypeInfo().Assembly,
+                    typeof(PackageCreateServiceModel).GetTypeInfo().Assembly);
 
             if (env.IsDevelopment())
             {
