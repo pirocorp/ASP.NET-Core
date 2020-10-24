@@ -10,8 +10,6 @@
 
     public class AutoMapperConfig
     {
-        private static bool initialized;
-
         public static IMapper MapperInstance { get; set; }
 
         /// <summary>
@@ -20,13 +18,6 @@
         /// <param name="assemblies">Assemblies in which to look for classes implementing IMapTo, IMapFrom, IHaveCustomMappings interfaces.</param>
         public static void RegisterMappings(params Assembly[] assemblies)
         {
-            if (initialized)
-            {
-                return;
-            }
-
-            initialized = true;
-
             var types = assemblies.SelectMany(a => a.GetExportedTypes()).ToList();
 
             var config = new MapperConfigurationExpression();
