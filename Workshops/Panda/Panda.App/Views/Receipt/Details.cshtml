@@ -1,0 +1,39 @@
+﻿@model ReceiptDetailsViewModel
+@{
+    this.ViewData["Title"] = "Receipts";
+}
+
+<h1 class="text-center">Receipt Details</h1>
+<hr class="hr-2 bg-panda">
+<div class="mx-auto">
+    <div class="d-flex justify-content-between">
+        <h3>Receipt Number:</h3>
+        <h3>@this.Model.Id</h3>
+    </div>
+    <hr class="hr-2 bg-panda">
+    <div class="d-flex justify-content-between">
+        <h4>Issued On:</h4>
+        <h4>@this.Model.IssuedOn.ToString(GlobalConstants.DateTimeShortDateFormat)</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+        <h4>Delivery Address:</h4>
+        <h4>@this.Model.PackageShippingAddress</h4>
+    </div>
+    <hr class="hr-2 bg-panda">
+    <div class="d-flex justify-content-between">
+        <h4>Package Weight (KG):</h4>
+        <h4>@this.Model.PackageWeight.ToString(GlobalConstants.PackageWeightFormat) KG</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+        <h4>Package Description:</h4>
+        <h4>@this.Model.PackageDescription</h4>
+    </div>
+    <div class="d-flex justify-content-between">
+        <h4>Recipient:</h4>
+        <h4>@this.Model.RecipientUserName</h4>
+    </div>
+    <hr class="hr-2 bg-panda">
+    <div class="d-flex justify-content-end">
+        <h3>Total: $@this.Model.Fee.ToString(GlobalConstants.PackageFeeFormat)</h3>
+    </div>
+</div>

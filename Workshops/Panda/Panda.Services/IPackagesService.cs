@@ -5,7 +5,7 @@
     using Infrastructure;
     using Models;
 
-    public interface IPackageService
+    public interface IPackagesService
     {
         Task<string> CreateAsync(PackageCreateServiceModel model);
 

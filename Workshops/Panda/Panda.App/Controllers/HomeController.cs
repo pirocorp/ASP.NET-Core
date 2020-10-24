@@ -16,11 +16,11 @@
 
     public class HomeController : Controller
     {
-        private readonly IPackageService packageService;
+        private readonly IPackagesService packageService;
         private readonly UserManager<PandaUser> userManager;
 
         public HomeController(
-            IPackageService packageService,
+            IPackagesService packageService,
             UserManager<PandaUser> userManager)
         {
             this.packageService = packageService;

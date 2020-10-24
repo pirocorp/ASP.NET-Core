@@ -26,6 +26,6 @@
             .StatusName
             .Equals(ShipmentStatus.Delivered.ToString())
             ? this.StatusName
-            : this.EstimatedDeliveryDate.ToString("D");
+            : this.EstimatedDeliveryDate.ToString(GlobalConstants.DateTimeShortDateFormat);
     }
 }

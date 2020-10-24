@@ -11,12 +11,12 @@
     using Panda.Infrastructure;
     using Panda.Models;
 
-    public class PackageService : IPackageService
+    public class PackagesService : IPackagesService
     {
         private readonly PandaDbContext pandaDb;
         private readonly IStatusesService statusesService;
 
-        public PackageService(
+        public PackagesService(
             PandaDbContext pandaDb,
             IStatusesService statusesService)
         {

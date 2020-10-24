@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Panda.App.Areas.Identity.Pages.Account;
     using Panda.App.Models.InputModels.Package;
@@ -22,29 +23,29 @@
     public class PackageController : Controller
     {
         private readonly ILogger<LoginModel> logger;
-        private readonly IPackageService packageService;
-        private readonly IStatusesService statusesService;
+        private readonly IPackagesService packageService;
+        private readonly IReceiptsService receiptsService;
         private readonly UserManager<PandaUser> userManager;
 
         public PackageController(
             ILogger<LoginModel> logger,
-            IPackageService packageService,
-            IStatusesService statusesService,
+            IPackagesService packageService,
+            IReceiptsService receiptsService,
             UserManager<PandaUser> userManager)
         {
             this.logger = logger;
             this.packageService = packageService;
-            this.statusesService = statusesService;
+            this.receiptsService = receiptsService;
             this.userManager = userManager;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var recipients = this
+            var recipients = await this
                 .userManager
                 .Users
                 .To<PandaUserDropDownViewModel>()
-                .ToList();
+                .ToListAsync();
 
             var model = new PackageCreateInputModel()
             {
@@ -137,7 +138,7 @@
         public async Task<IActionResult> Acquire(string id)
         {
             var package = await this.packageService
-                .GetByIdAsync<Package>(id);
+                .GetByIdAsync<PackageAcquireModel>(id);
 
             var currentUserId = this.userManager.GetUserId(this.User);
 
@@ -149,20 +150,19 @@
 
             await this.packageService.ChangeStatusAsync(id, ShipmentStatus.Acquired);
 
-            // TODO: Create receipt service and controller
-            var receipt = new Receipt()
+            var receipt = new ReceiptCreateServiceModel()
             {
-                Fee = GlobalConstants.FeeRatio * (decimal)package.Weight,
-                IssuedOn = DateTime.UtcNow,
-                Package = package,
+                Weight = package.Weight,
+                PackageId = package.Id,
                 RecipientId = currentUserId,
             };
 
-            // TODO: Redirect to Receipts
-            var homeController = nameof(HomeController)
+            await this.receiptsService.CreateAsync(receipt);
+
+            var controller = nameof(ReceiptController)
                 .Replace("Controller", string.Empty);
 
-            return this.RedirectToAction(nameof(HomeController.Index), homeController);
+            return this.RedirectToAction(nameof(ReceiptController.Index), controller);
         }
     }
 }

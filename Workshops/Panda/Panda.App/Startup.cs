@@ -58,8 +58,9 @@
             services.AddSingleton(this.Configuration);
 
             // Application Services
-            services.AddTransient<IPackageService, PackageService>();
+            services.AddTransient<IPackagesService, PackagesService>();
             services.AddTransient<IStatusesService, StatusesService>();
+            services.AddTransient<IReceiptsService, ReceiptsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

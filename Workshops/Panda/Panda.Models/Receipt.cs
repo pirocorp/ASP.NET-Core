@@ -2,6 +2,7 @@
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable ClassWithVirtualMembersNeverInherited.Global
 namespace Panda.Models
 {
     using System;
