@@ -21,7 +21,8 @@
         [Fact]
         public async Task TestCreateAsync_EmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
+            RegisterAutoMappings();
 
             var receiptsService = new ReceiptsService(context);
 
@@ -31,8 +32,6 @@
                 PackageId = "1",
                 RecipientId = "1",
             };
-
-            RegisterAutoMappings();
 
             var receiptId = await receiptsService.CreateAsync(input);
             var receipt = await context.Receipts.FirstOrDefaultAsync(r => r.Id.Equals(receiptId));
@@ -46,7 +45,7 @@
         [Fact]
         public async Task TestCreateAsync_NotEmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -85,7 +84,7 @@
         [Fact]
         public async Task TestGetAllAsync_NotEmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -114,13 +113,13 @@
         [Fact]
         public async Task TestGetAllAsync_EmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
+            RegisterAutoMappings();
 
             var receiptsService = new ReceiptsService(context);
 
             var expectedCount = 0;
 
-            RegisterAutoMappings();
             var all = await receiptsService.GetAllAsync<ReceiptIndexViewModel>();
             
             Assert.Equal(expectedCount, all.Count());
@@ -129,7 +128,7 @@
         [Fact]
         public async Task TestGetAllByUserAsync_UserHasReceipts_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -172,7 +171,7 @@
         [Fact]
         public async Task TestGetAllByUserAsync_UserHasNoReceipts_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -201,7 +200,7 @@
         [Fact]
         public async Task TestCreateAsync_ReceiptExists_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -241,7 +240,7 @@
         [Fact]
         public async Task TestCreateAsync_ReceiptNotExists_ShouldCreateReceiptCorrectly()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 

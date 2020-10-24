@@ -14,7 +14,7 @@
         [Fact]
         public async Task TestGetPackageStatusIdByNameAsync_ShouldReturnCorrectUserId()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var status = new PackageStatus()
             {
@@ -33,7 +33,7 @@
         [Fact]
         public async Task TestGetPackageStatusIdByNameAsync_IfNotFound_ShouldReturnStringEmpty()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var status = new PackageStatus()
             {
@@ -52,7 +52,7 @@
         [Fact]
         public async Task TestGetPackageStatusIdByNameAsync_IfNameIsNull_ShouldReturnStringEmpty()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var status = new PackageStatus()
             {
@@ -71,7 +71,7 @@
         [Fact]
         public async Task TestExistsAsync_StatusIdIsPresent_ShouldReturnTrue()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var status = new PackageStatus()
             {
@@ -90,7 +90,7 @@
         [Fact]
         public async Task TestExistsAsync_ExistInMultipleStatuses_ShouldReturnTrue()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statuses = new List<PackageStatus>()
             {
@@ -114,7 +114,7 @@
         [Fact]
         public async Task TestExistsAsync_NotExistsMultipleStatuses_ShouldReturnTrue()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statuses = new List<PackageStatus>()
             {
@@ -138,7 +138,7 @@
         [Fact]
         public async Task TestExistsAsync_NotExistsSingleStatus_ShouldReturnTrue()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statuses = new List<PackageStatus>()
             {
@@ -157,7 +157,7 @@
         [Fact]
         public async Task TestExistsAsync_NotExistsStringEmpty_ShouldReturnTrue()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statuses = new List<PackageStatus>()
             {
@@ -181,7 +181,7 @@
         [Fact]
         public async Task TestExistsAsync_NotExistsNull_ShouldReturnTrue()
         {
-            await using var context = new PandaDbContext(CreateNewContextOptions());
+            using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statuses = new List<PackageStatus>()
             {
