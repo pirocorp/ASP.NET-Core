@@ -65,16 +65,13 @@
 
             if (!this.ModelState.IsValid)
             {
-                var recipients = await this
+                model.Recipients = await this
                     .userManager
                     .Users
                     .To<PandaUserDropDownViewModel>()
                     .ToListAsync();
 
-                return this.View(new PackageCreateInputModel()
-                {
-                    Recipients = recipients,
-                });
+                return this.View(model);
             }
 
             var package = model.To<PackageCreateServiceModel>();
