@@ -1,6 +1,5 @@
 ﻿namespace Panda.App.Models.InputModels.Package
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
