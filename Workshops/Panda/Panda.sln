@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Models", "Panda.Model
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Services", "Panda.Services\Panda.Services.csproj", "{2EAD6AAD-6948-47DD-8ABE-CA1B7707CC94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.Mapping", "Panda.Mapping\Panda.Mapping.csproj", "{845938C4-8125-4796-A9A7-4A2BFCB5AEBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Mapping", "Panda.Mapping\Panda.Mapping.csproj", "{845938C4-8125-4796-A9A7-4A2BFCB5AEBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.Infrastructure", "Panda.Infrastructure\Panda.Infrastructure.csproj", "{66176676-CB7F-4274-A7DD-6E5519320E17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panda.Infrastructure", "Panda.Infrastructure\Panda.Infrastructure.csproj", "{66176676-CB7F-4274-A7DD-6E5519320E17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panda.Services.Tests", "Panda.Services.Tests\Panda.Services.Tests.csproj", "{68AF386C-C609-47AC-84A9-13CBE1E0A844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{66176676-CB7F-4274-A7DD-6E5519320E17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66176676-CB7F-4274-A7DD-6E5519320E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66176676-CB7F-4274-A7DD-6E5519320E17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68AF386C-C609-47AC-84A9-13CBE1E0A844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AF386C-C609-47AC-84A9-13CBE1E0A844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AF386C-C609-47AC-84A9-13CBE1E0A844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68AF386C-C609-47AC-84A9-13CBE1E0A844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
