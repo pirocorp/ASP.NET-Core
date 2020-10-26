@@ -21,7 +21,7 @@
         [Fact]
         public async Task TestCreateAsync_EmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
             RegisterAutoMappings();
 
             var receiptsService = new ReceiptsService(context);
@@ -45,7 +45,7 @@
         [Fact]
         public async Task TestCreateAsync_NotEmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -84,7 +84,7 @@
         [Fact]
         public async Task TestGetAllAsync_NotEmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -113,7 +113,7 @@
         [Fact]
         public async Task TestGetAllAsync_EmptyDatabase_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
             RegisterAutoMappings();
 
             var receiptsService = new ReceiptsService(context);
@@ -128,7 +128,7 @@
         [Fact]
         public async Task TestGetAllByUserAsync_UserHasReceipts_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -171,7 +171,7 @@
         [Fact]
         public async Task TestGetAllByUserAsync_UserHasNoReceipts_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -200,7 +200,7 @@
         [Fact]
         public async Task TestCreateAsync_ReceiptExists_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 
@@ -240,7 +240,7 @@
         [Fact]
         public async Task TestCreateAsync_ReceiptNotExists_ShouldCreateReceiptCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var receiptsService = new ReceiptsService(context);
 

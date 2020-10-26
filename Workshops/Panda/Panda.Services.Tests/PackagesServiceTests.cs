@@ -5,16 +5,18 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using App.Models;
-    using App.Models.ViewModels.Package;
-    using Data;
-    using Infrastructure;
-    using Mapping;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using Models;
     using Moq;
+
+    using Panda.App.Models;
+    using Panda.App.Models.ViewModels.Package;
+    using Panda.Data;
+    using Panda.Infrastructure;
+    using Panda.Mapping;
     using Panda.Models;
+    using Panda.Services.Models;
     using Xunit;
 
     public class PackagesServiceTests
@@ -22,7 +24,7 @@
         [Fact]
         public async Task TestCreateAsync_ShouldCreatePackageCorrectly()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             RegisterAutoMappings();
 
@@ -65,7 +67,7 @@
         [Fact]
         public async Task GetPackagesByStatusCodeAsync_ShouldReturnAllPackagesWithGivenStatusCode()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statusesService = new Mock<IStatusesService>();
 
@@ -125,7 +127,7 @@
         [Fact]
         public async Task ExistsAsync_Exists()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statusesService = new Mock<IStatusesService>();
 
@@ -171,11 +173,9 @@
         [Fact]
         public async Task ExistsAsync_NotExists()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statusesService = new Mock<IStatusesService>();
-
-            var expectedStatusId = "Given Status Id";
 
             for (var i = 0; i < 100; i++)
             {
@@ -204,7 +204,7 @@
         [Fact]
         public async Task ChangeStatusAsync_Success()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
             RegisterAutoMappings();
 
             var statusesService = new Mock<IStatusesService>();
@@ -244,7 +244,7 @@
         [Fact]
         public async Task ChangeStatusAsync_Fail()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
             RegisterAutoMappings();
 
             var statusesService = new Mock<IStatusesService>();
@@ -284,7 +284,7 @@
         [Fact]
         public async Task GetByIdAsync_Exists()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statusesService = new Mock<IStatusesService>();
 
@@ -332,11 +332,9 @@
         [Fact]
         public async Task GetByIdAsync_NotExists()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
 
             var statusesService = new Mock<IStatusesService>();
-
-            var expectedStatusId = "Given Status Id";
 
             for (var i = 0; i < 100; i++)
             {
@@ -363,7 +361,7 @@
         [Fact]
         public async Task GetAllPackagesInTheSystemAsync_ShouldReturnAllPackagesIntTheSystem()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
             RegisterAutoMappings();
 
             foreach (ShipmentStatus item in Enum.GetValues(typeof(ShipmentStatus)))
@@ -442,7 +440,7 @@
         [Fact]
         public async Task GetAllUserPackagesAsync_ShouldReturnAllOwnedOfTheUserPackages()
         {
-            using var context = new PandaDbContext(CreateNewContextOptions());
+            await using var context = new PandaDbContext(CreateNewContextOptions());
             RegisterAutoMappings();
 
             for (var i = 0; i < 5; i++)
