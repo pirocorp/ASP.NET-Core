@@ -76,7 +76,9 @@
         "webfonts/fa-solid-900.woff",
         "webfonts/fa-solid-900.woff2",
         "css/all.css",
-        "css/all.min.css"
+        "css/all.min.css",
+        "js/all.js",
+        "js/all.min.js"
       ]
     }
   ]

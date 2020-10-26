@@ -3,6 +3,7 @@ namespace Stopify.Web
     using Data.Seeding;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -32,6 +33,13 @@ namespace Stopify.Web
                 .AddIdentity<StopifyUser, IdentityRole>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddEntityFrameworkStores<StopifyDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<CookiePolicyOptions>(
+                options =>
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -65,6 +73,7 @@ namespace Stopify.Web
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 
