@@ -32,7 +32,8 @@ namespace Stopify.Web
             services
                 .AddIdentity<StopifyUser, IdentityRole>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddEntityFrameworkStores<StopifyDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddDefaultUI(); // Not scaffolded pages from identity will work too
 
             services.Configure<CookiePolicyOptions>(
                 options =>
