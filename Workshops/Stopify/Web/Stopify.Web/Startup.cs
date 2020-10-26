@@ -1,5 +1,6 @@
 namespace Stopify.Web
 {
+    using Data.Seeding;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -43,14 +44,14 @@ namespace Stopify.Web
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
+                var dbContext = serviceScope.ServiceProvider
+                    .GetRequiredService<StopifyDbContext>();
+
                 if (env.IsDevelopment())
                 {
                     app.UseDeveloperExceptionPage();
                     app.UseDatabaseErrorPage();
-
-                    var dbContext = serviceScope.ServiceProvider
-                        .GetRequiredService<StopifyDbContext>();
-
+                    
                     dbContext.Database.Migrate();
                 }
                 else
@@ -58,6 +59,8 @@ namespace Stopify.Web
                     app.UseExceptionHandler("/Home/Error");
                     app.UseHsts();
                 }
+
+                new StopifyDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
             
             app.UseHttpsRedirection();

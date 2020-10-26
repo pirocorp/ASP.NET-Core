@@ -24,9 +24,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.9" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Stopify.Infrastructure.Common\Stopify.Infrastructure.Common.csproj" />
     <ProjectReference Include="..\Stopify.Data.Models\Stopify.Data.Models.csproj" />
   </ItemGroup>
 
