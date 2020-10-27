@@ -20,12 +20,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Stopify.Data\Stopify.Data.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Data\Stopify.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Stopify.Services.Mapping\Stopify.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Messaging\Stopify.Services.Messaging.csproj" />
     <ProjectReference Include="..\Stopify.Web.Models\Stopify.Web.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Administration\Views\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

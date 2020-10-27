@@ -9,26 +9,26 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true"/>
         <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" asp-append-version="true"/>
         <link rel="stylesheet" href="~/css/style.css" asp-append-version="true"/>
-        <link rel="stylesheet" href="~/lib/jquery-datetimepicker/jquery.datetimepicker.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.min.css" asp-append-version="true"/>
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
         
         <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
-        <script src="~/lib/popperjs/dist/popper.js" asp-append-version="true"></script>
+        <script src="~/lib/popperjs/dist/umd/popper.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-datetimepicker/jquery.datetimepicker.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.full.js" asp-append-version="true"></script>
         <script src="~/lib/fontawesome/js/all.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/jquery-datetimepicker/jquery.datetimepicker.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-        <script src="~/lib/popperjs/dist/popper.min.js" asp-append-version="true"></script>
+        <script src="~/lib/popperjs/dist/umd/popper.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-datetimepicker/jquery.datetimepicker.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js" asp-append-version="true"></script>
         <script src="~/lib/fontawesome/js/all.min.js" asp-append-version="true"></script>
     </environment>
 </head>
@@ -45,7 +45,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div>
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @(this.RenderBody())

@@ -30,10 +30,9 @@
       "library": "jquery-datetimepicker@2.5.21",
       "destination": "wwwroot/lib/jquery-datetimepicker/",
       "files": [
-        "jquery.datetimepicker.css",
-        "jquery.datetimepicker.min.css",
-        "jquery.datetimepicker.js",
-        "jquery.datetimepicker.min.js"
+        "build/jquery.datetimepicker.full.js",
+        "build/jquery.datetimepicker.full.min.js",
+        "build/jquery.datetimepicker.min.css"
       ]
     },
     {
@@ -41,7 +40,9 @@
       "destination": "wwwroot/lib/popperjs/",
       "files": [
         "dist/popper.js",
-        "dist/popper.min.js"
+        "dist/popper.min.js",
+        "dist/umd/popper.js",
+        "dist/umd/popper.min.js"
       ]
     },
     {

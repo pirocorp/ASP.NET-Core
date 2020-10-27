@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(Roles = "Admin")]
+    [Area("Administration")]
     public abstract class AdminController : Controller
     {
     }

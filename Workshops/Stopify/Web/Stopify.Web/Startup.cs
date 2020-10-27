@@ -1,5 +1,6 @@
 namespace Stopify.Web
 {
+    using System.Reflection;
     using Data.Seeding;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -9,7 +10,9 @@ namespace Stopify.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Models;
     using Services.Data;
+    using Services.Mapping;
     using Stopify.Services.Messaging;
 
     using Stopify.Data;
@@ -50,10 +53,15 @@ namespace Stopify.Web
 
             // Application Services
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductTypeService, ProductTypeService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutoMapperConfig
+                .RegisterMappings(
+                    typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider
