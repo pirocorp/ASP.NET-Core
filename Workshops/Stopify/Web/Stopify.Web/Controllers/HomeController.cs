@@ -4,8 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-
-    using Stopify.Web.Models;
+    using Models;
 
     public class HomeController : Controller
     {

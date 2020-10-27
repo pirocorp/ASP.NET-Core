@@ -8,9 +8,10 @@
 <div class="row my-5">
     <div class="border-primary-4 rounded mx-auto col-lg-6 p-5">
         <section>
-            <form id="account" method="post">
+            <form method="post">
                 <h4 class="d-block text-center text-primary">Use a local account to log in.</h4>
                 <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group row my-4">
                     <label class="col-lg-4 text-primary h5" asp-for="Input.Username"></label>
                     <input class="col-lg-8 form-control text-primary" asp-for="Input.Username" />
@@ -18,7 +19,7 @@
                 </div>
                 <div class="form-group row my-4">
                     <label class="col-lg-4 text-primary h5" asp-for="Input.Password"></label>
-                    <input class="col-lg-8 form-control text-primary" asp-for="Input.Password"  />
+                    <input class="col-lg-8 form-control text-primary" asp-for="Input.Password" />
                     <span class="offset-lg-4 text-danger" asp-validation-for="Input.Password"></span>
                 </div>
                 <div class="form-group">

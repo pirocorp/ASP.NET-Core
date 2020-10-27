@@ -1,7 +1,6 @@
 ﻿namespace Stopify.Data.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     public class Product
     {
@@ -10,6 +9,8 @@
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        public string PictureUri { get; set; }
 
         public DateTime ManufacturedOn { get; set; }
 

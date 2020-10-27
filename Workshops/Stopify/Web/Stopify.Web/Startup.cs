@@ -9,7 +9,7 @@ namespace Stopify.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
+    using Services.Data;
     using Stopify.Services.Messaging;
 
     using Stopify.Data;
@@ -47,6 +47,9 @@ namespace Stopify.Web
 
             // External Services
             services.AddTransient<IEmailSender, NullMessageSender>();
+
+            // Application Services
+            services.AddTransient<IProductService, ProductService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -83,6 +86,10 @@ namespace Stopify.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name : "areas",
+                    pattern : "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
