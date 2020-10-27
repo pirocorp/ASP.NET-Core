@@ -1,7 +1,7 @@
 ﻿@inject SignInManager<StopifyUser> signInManager
 @inject UserManager<StopifyUser> userManager
 
-<ul class="navbar-nav">
+<ul class="ml-auto navbar-nav">
 @if (this.signInManager.IsSignedIn(this.User))
 {
     <li class="nav-item">

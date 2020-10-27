@@ -40,11 +40,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link font-weight-bold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                </ul>
+                <partial name="_AdmnPartial" />
                 <partial name="_LoginPartial" />
             </div>
         </nav>
@@ -59,7 +55,7 @@
     <footer>
         <div class="bg-primary rounded">
             <div class="text-white p-3 text-center font-weight-bold">
-                &copy; CopyRight Sanity Web Design Studios 2019. All rights
+                &copy; CopyRight Sanity Web Design Studios 2020. All rights
                 reserved.
             </div>
         </div>
