@@ -12,13 +12,13 @@
 
         <div class="d-sm-flex">
             <div class="form-group row my-4 px-2">
-                <label class="text-primary h5" asp-for="@this.Model.Name"></label>
-                <input class="form-control text-primary" asp-for="@this.Model.Name" />
+                <label class="text-primary h5" asp-for="@(this.Model.Name)"></label>
+                <input class="form-control text-primary" asp-for="@(this.Model.Name)" />
             </div>
 
             <div class="form-group row my-4 px-2">
-                <label class="text-primary h5" asp-for="@this.Model.Price"></label>
-                <input class="form-control text-primary" asp-for="@this.Model.Price" />
+                <label class="text-primary h5" asp-for="@(this.Model.Price)"></label>
+                <input class="form-control text-primary" asp-for="@(this.Model.Price)" />
             </div>
         </div>
 
@@ -31,11 +31,11 @@
             </div>
 
             <div class="form-group row my-4 px-2">
-                <label class="text-primary h5" asp-for="@this.Model.Picture"></label>
+                <label class="text-primary h5" asp-for="@(this.Model.Picture)"></label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" asp-for="@this.Model.Picture" class="custom-file-input btn btn-primary" id="file-input">
-                        <label class="custom-file-label" asp-for="@this.Model.Picture" for="file-input">Choose file</label>
+                        <input type="file" asp-for="@(this.Model.Picture)" class="custom-file-input btn btn-primary" id="file-input">
+                        <label class="custom-file-label" asp-for="@(this.Model.Picture)" for="file-input">Choose file</label>
                     </div>
                 </div>
             </div>
@@ -45,10 +45,10 @@
 
         <div class="form-group col-sm-6 mx-auto">
             <div class="text-center">
-                <label asp-for="@this.Model.TypeId">Category</label>
+                <label asp-for="@(this.Model.TypeId)">Category</label>
             </div>
-            <select class="custom-select" asp-for="@this.Model.TypeId" asp-items="this.Model.CategoriesListItems"></select>
-            <span class="text-danger" asp-validation-for="@this.Model.TypeId"></span>
+            <select class="custom-select" asp-for="@(this.Model.TypeId)" asp-items="this.Model.CategoriesListItems"></select>
+            <span class="text-danger" asp-validation-for="@(this.Model.TypeId)"></span>
         </div>
 
         <hr class="hr-2 bg-primary mt-4">

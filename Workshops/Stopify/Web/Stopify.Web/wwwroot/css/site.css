@@ -1,5 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap');
 
 a.navbar-brand {
   white-space: normal;
@@ -68,4 +67,50 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+body {
+    background-color: #eee;
+    font-family: 'Manrope', sans-serif
+}
+
+.item {
+    border: 1px solid #eee
+}
+
+.p-name {
+    font-size: 23px
+}
+
+.btn-group {
+    height: 33px
+}
+
+.btn {
+    line-height: 15px
+}
+
+.ratings i {
+    color: red;
+    font-size: 20px
+}
+
+.price:hover {
+    color: #fff !important;
+    background-color: #432b65;
+    border-color: #432b65 !important
+}
+
+.cart:hover {
+    color: #fff !important;
+    background-color: #432b65;
+    border-color: #432b65 !important
+}
+
+.p-image img {
+    width: 100% !important
+}
+
+.fa-star {
+    color: goldenrod;
 }

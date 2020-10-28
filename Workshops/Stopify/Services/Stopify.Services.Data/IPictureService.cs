@@ -5,6 +5,6 @@
 
     public interface IPictureService
     {
-        Task<string> UploadPicture(IFormFile file);
+        Task<string> UploadPictureAsync(IFormFile file);
     }
 }

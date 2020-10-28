@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Models.InputModels;
+    using Models.ViewModels.Product;
     using Models.ViewModels.ProductType;
     using Services.Data;
     using Services.Mapping;
@@ -23,7 +24,9 @@
 
         public async Task<IActionResult> All()
         {
-            return await Task.FromResult(this.Ok());
+            var model = await this.productService.All<ProductAdminViewModel>();
+
+            return this.View(model);
         }
 
         public async Task<IActionResult> Create()

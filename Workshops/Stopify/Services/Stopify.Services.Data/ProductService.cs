@@ -1,6 +1,9 @@
 ﻿namespace Stopify.Services.Data
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Mapping;
+    using Microsoft.EntityFrameworkCore;
     using Models;
     using Stopify.Data;
     using Stopify.Data.Models;
@@ -27,7 +30,7 @@
                 Price = model.Price,
                 ManufacturedOn = model.ManufacturedOn,
                 TypeId = model .TypeId,
-                PictureUri = await this.pictureService.UploadPicture(model.Picture),
+                PictureUri = await this.pictureService.UploadPictureAsync(model.Picture),
             };
 
             await this.dbContext.AddAsync(product);
@@ -35,5 +38,10 @@
 
             return product.Id;
         }
+
+        public async Task<IEnumerable<TOut>> All<TOut>()
+            => await this.dbContext.Products
+                .To<TOut>()
+                .ToListAsync();
     }
 }
