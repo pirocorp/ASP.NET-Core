@@ -1,7 +1,10 @@
 namespace Stopify.Web
 {
+    using System.Globalization;
     using System.Reflection;
+    using CloudinaryDotNet;
     using Data.Seeding;
+    using Infrastructure.Web;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -11,6 +14,7 @@ namespace Stopify.Web
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Models;
+    using Services;
     using Services.Data;
     using Services.Mapping;
     using Stopify.Services.Messaging;
@@ -50,14 +54,22 @@ namespace Stopify.Web
 
             // External Services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddCloudinary(
+                this.Configuration["Cloudinary:CloudName"],
+                this.Configuration["Cloudinary:ApiKey"],
+                this.Configuration["Cloudinary:ApiSecret"]);
 
             // Application Services
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductTypeService, ProductTypeService>();
+            services.AddTransient<IPictureService, PictureService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+
             AutoMapperConfig
                 .RegisterMappings(
                     typeof(ErrorViewModel).GetTypeInfo().Assembly);

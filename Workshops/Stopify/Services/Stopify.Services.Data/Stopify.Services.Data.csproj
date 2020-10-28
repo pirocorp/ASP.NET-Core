@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.13.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Data\Stopify.Data\Stopify.Data.csproj" />
     <ProjectReference Include="..\Stopify.Services.Mapping\Stopify.Services.Mapping.csproj" />
+    <ProjectReference Include="..\Stopify.Services.Models\Stopify.Services.Models.csproj" />
   </ItemGroup>
 
 </Project>

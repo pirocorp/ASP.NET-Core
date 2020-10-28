@@ -6,9 +6,11 @@
     using System.Linq;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Services.Mapping;
+    using Services.Models;
     using ViewModels.ProductType;
 
-    public class ProductCreateInputModel
+    public class ProductCreateInputModel : IMapTo<ProductCreateServiceModel>
     {
         public ProductCreateInputModel()
         {
@@ -23,9 +25,11 @@
         [Range(0, 1_000_000)]
         public decimal Price { get; set; }
 
+        [Required]
         [Display(Name = "Manufactured On")]
         public DateTime ManufacturedOn { get; set; }
 
+        [Required]
         public IFormFile Picture { get; set; }
 
         public int TypeId { get; set; }

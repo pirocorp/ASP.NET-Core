@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.13.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Stopify.Data\Stopify.Data.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Stopify.Infrastructure.Web\Stopify.Infrastructure.Web.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Data\Stopify.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Mapping\Stopify.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Messaging\Stopify.Services.Messaging.csproj" />

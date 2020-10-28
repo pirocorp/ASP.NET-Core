@@ -1,9 +1,15 @@
-﻿namespace Stopify.Data.Models
+﻿// ReSharper disable ClassWithVirtualMembersNeverInherited.Global
+namespace Stopify.Data.Models
 {
     using System;
 
     public class Product
     {
+        public Product()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
 
         public string Name { get; set; }

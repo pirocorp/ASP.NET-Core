@@ -5,6 +5,8 @@
     using Models.InputModels;
     using Models.ViewModels.ProductType;
     using Services.Data;
+    using Services.Mapping;
+    using Services.Models;
 
     public class ProductController : AdminController
     {
@@ -17,6 +19,11 @@
         {
             this.productService = productService;
             this.productTypeService = productTypeService;
+        }
+
+        public async Task<IActionResult> All()
+        {
+            return await Task.FromResult(this.Ok());
         }
 
         public async Task<IActionResult> Create()
@@ -33,7 +40,18 @@
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateInputModel model)
         {
-            return this.View(model);
+            if (!this.ModelState.IsValid)
+            {
+                model.Categories = await this.productTypeService
+                    .AllAsync<ProductTypeListingModel>();
+
+                return this.View(model);
+            }
+
+            var serviceModel = model.To<ProductCreateServiceModel>();
+            await this.productService.CreateAsync(serviceModel);
+
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }
