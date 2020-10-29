@@ -8,6 +8,6 @@
     {
         Task<string> CreateAsync(ProductCreateServiceModel model);
 
-        Task<IEnumerable<TOut>> All<TOut>();
+        Task<IEnumerable<TOut>> AllAsync<TOut>(int typeId = 0, bool isAscending = true);
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Stopify.Services.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Mapping;
     using Microsoft.EntityFrameworkCore;
@@ -39,9 +40,30 @@
             return product.Id;
         }
 
-        public async Task<IEnumerable<TOut>> All<TOut>()
-            => await this.dbContext.Products
+        public async Task<IEnumerable<TOut>> AllAsync<TOut>(int typeId, bool isAscending)
+        {
+            var productsQuery = this.dbContext.Products.AsQueryable();
+
+            if (typeId > 0)
+            {
+                productsQuery = productsQuery
+                    .Where(p => p.TypeId == typeId);
+            }
+
+            if (isAscending)
+            {
+                productsQuery = productsQuery
+                    .OrderBy(p => p.Price);
+            }
+            else
+            {
+                productsQuery = productsQuery
+                    .OrderByDescending(p => p.Price);
+            }
+
+            return await productsQuery
                 .To<TOut>()
                 .ToListAsync();
+        }
     }
 }

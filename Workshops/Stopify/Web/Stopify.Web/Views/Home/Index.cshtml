@@ -1,123 +1,54 @@
-﻿@{
+﻿@model IndexViewModel
+@{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="container-fluid mt-5 mb-5">
     <div class="p-2 bg-white px-4 rounded">
-        <form class="d-flex flex-row justify-content-between align-items-center">
+        <form method="get" id="product-listing-form" class="d-flex flex-row justify-content-between align-items-center">
             <div class="d-flex flex-row align-items-center">
-                <select class="form-control">
-                    <option>All types</option>
-                    <option selected>TV</option>
-                    <option>Console</option>
-                    <option>Very very long category</option>
-                </select>
+                <select class="form-control" asp-for="@(this.Model.TypeId)" asp-items="this.Model.CategoriesListItems"></select>
             </div>
             <div class="d-flex flex-row align-items-center">
                 <div class="d-flex flex-row align-items-center">
-                    <select class="form-control">
-                        <option>Ascending</option>
-                        <option selected>Descending</option>
-                    </select>
+                    <select class="form-control" asp-for="@this.Model.IsAscending" asp-items="this.Model.OrderListItems"></select>
                 </div>
             </div>
         </form>
     </div>
     <div class="row">
-        <div class="col-md-4 col-lg-4 mt-2">
-            <div class="p-4 bg-white rounded">
-                <div class="d-flex flex-column">
-                    <div class="mb-2 p-image"><img class="img-fluid rounded" src="https://res.cloudinary.com/dkbcllemn/image/upload/v1603898764/Stopify/xu8d5ngthelffxzgiil0.jpg" height="250"></div>
-                    <div class="text-center"><span class="p-name">Sony Bravia KD55XH9005BU</span></div>
-                    <div class="d-flex flex-row justify-content-between align-items-center mt-4">
-                        <div class="ratings">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <div class="">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-outline-primary text-dark border-dark price" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button">$60</button>
-                                <button class="btn btn-outline-primary text-dark border-dark cart" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button"><i class="fa fa-shopping-cart p-0"></i></button>
+        @foreach (var item in this.Model.Products)
+        {
+            <div class="col-md-4 col-lg-4 mt-2">
+                <div class="p-4 bg-white rounded">
+                    <div class="d-flex flex-column">
+                        <div class="mb-2 p-image"><img class="img-fluid rounded" src="@item.PictureUri" height="250"></div>
+                        <div class="text-center"><span class="p-name">@item.Name</span></div>
+                        <div class="d-flex flex-row justify-content-between align-items-center mt-4">
+                            <div class="ratings">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="">
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-outline-primary text-dark border-dark price" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button">$@item.Price.ToString("F2")</button>
+                                    <button class="btn btn-outline-primary text-dark border-dark cart" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button"><i class="fa fa-shopping-cart p-0"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="col-md-4 col-lg-4 mt-2">
-            <div class="p-4 bg-white rounded">
-                <div class="d-flex flex-column">
-                    <div class="mb-2 p-image"><img class="img-fluid rounded" src="https://res.cloudinary.com/dkbcllemn/image/upload/v1603898764/Stopify/xu8d5ngthelffxzgiil0.jpg" height="250"></div>
-                    <div class="text-center"><span class="p-name">Sony Bravia KD55XH9005BU</span></div>
-                    <div class="d-flex flex-row justify-content-between align-items-center mt-4">
-                        <div class="ratings">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <div class="">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-outline-primary text-dark border-dark price" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button">$60</button>
-                                <button class="btn btn-outline-primary text-dark border-dark cart" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button"><i class="fa fa-shopping-cart p-0"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 col-lg-4 mt-2">
-            <div class="p-4 bg-white rounded">
-                <div class="d-flex flex-column">
-                    <div class="mb-2 p-image"><img class="img-fluid rounded" src="https://res.cloudinary.com/dkbcllemn/image/upload/v1603898764/Stopify/xu8d5ngthelffxzgiil0.jpg" height="250"></div>
-                    <div class="text-center"><span class="p-name">Sony Bravia KD55XH9005BU</span></div>
-                    <div class="d-flex flex-row justify-content-between align-items-center mt-4">
-                        <div class="ratings">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <div class="">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-outline-primary text-dark border-dark price" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button">$60</button>
-                                <button class="btn btn-outline-primary text-dark border-dark cart" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button"><i class="fa fa-shopping-cart p-0"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 col-lg-4 mt-2">
-            <div class="p-4 bg-white rounded">
-                <div class="d-flex flex-column">
-                    <div class="mb-2 p-image"><img class="img-fluid rounded" src="https://res.cloudinary.com/dkbcllemn/image/upload/v1603898764/Stopify/xu8d5ngthelffxzgiil0.jpg" height="250"></div>
-                    <div class="text-center"><span class="p-name">Sony Bravia KD55XH9005BU</span></div>
-                    <div class="d-flex flex-row justify-content-between align-items-center mt-4">
-                        <div class="ratings">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <div class="">
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-outline-primary text-dark border-dark price" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button">$60</button>
-                                <button class="btn btn-outline-primary text-dark border-dark cart" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button"><i class="fa fa-shopping-cart p-0"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
+
+<script>
+    let form = document.getElementById("product-listing-form");
+    form.addEventListener('change', (event) => {
+        form.submit();
+    });
+</script>

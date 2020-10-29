@@ -8,6 +8,7 @@
     using Services.Data;
     using Services.Mapping;
     using Services.Models;
+    using Web.Controllers;
 
     public class ProductController : AdminController
     {
@@ -24,7 +25,7 @@
 
         public async Task<IActionResult> All()
         {
-            var model = await this.productService.All<ProductAdminViewModel>();
+            var model = await this.productService.AllAsync<ProductAdminViewModel>();
 
             return this.View(model);
         }
@@ -54,7 +55,7 @@
             var serviceModel = model.To<ProductCreateServiceModel>();
             await this.productService.CreateAsync(serviceModel);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.RedirectToAction(nameof(HomeController.Index), "Home", new { area = ""});
         }
     }
 }
