@@ -65,5 +65,11 @@
                 .To<TOut>()
                 .ToListAsync();
         }
+
+        public async Task<TOut> GetById<TOut>(string id)
+            => await this.dbContext.Products
+                .Where(p => p.Id.Equals(id))
+                .To<TOut>()
+                .FirstOrDefaultAsync();
     }
 }

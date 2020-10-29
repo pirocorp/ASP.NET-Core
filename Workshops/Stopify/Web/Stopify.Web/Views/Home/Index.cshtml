@@ -16,14 +16,17 @@
             </div>
         </form>
     </div>
+
     <div class="row">
         @foreach (var item in this.Model.Products)
         {
             <div class="col-md-4 col-lg-4 mt-2">
                 <div class="p-4 bg-white rounded">
                     <div class="d-flex flex-column">
-                        <div class="mb-2 p-image"><img class="img-fluid rounded" src="@item.PictureUri" height="250"></div>
-                        <div class="text-center"><span class="p-name">@item.Name</span></div>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id">
+                            <div class="mb-2 p-image"><img class="img-fluid rounded" src="@item.PictureUri" height="250"></div>
+                            <div class="text-center"><span class="p-name">@item.Name</span></div>
+                        </a>
                         <div class="d-flex flex-row justify-content-between align-items-center mt-4">
                             <div class="ratings">
                                 <i class="fa fa-star"></i>
@@ -34,8 +37,13 @@
                             </div>
                             <div class="">
                                 <div class="btn-group" role="group">
-                                    <button class="btn btn-outline-primary text-dark border-dark price" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button">$@item.Price.ToString("F2")</button>
-                                    <button class="btn btn-outline-primary text-dark border-dark cart" onclick="window.location = '@(this.Url.Action("Privacy", "Home"))'" type="button"><i class="fa fa-shopping-cart p-0"></i></button>
+                                    @* buttons redirect will change once functionality is implemented *@
+                                    <a class="btn btn-outline-primary text-dark border-dark hover pt-2" asp-area="" asp-controller="Home" asp-action="Privacy" type="button">
+                                        $@item.Price.ToString("F2")
+                                    </a>
+                                    <a class="btn btn-outline-primary text-dark border-dark hover" asp-area="" asp-controller="Home" asp-action="Privacy" type="button">
+                                        <i class="fa fa-shopping-cart pt-0"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>

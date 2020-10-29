@@ -95,13 +95,7 @@ body {
     font-size: 20px
 }
 
-.price:hover {
-    color: #fff !important;
-    background-color: #432b65;
-    border-color: #432b65 !important
-}
-
-.cart:hover {
+a.hover:hover {
     color: #fff !important;
     background-color: #432b65;
     border-color: #432b65 !important
