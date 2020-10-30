@@ -23,5 +23,9 @@ namespace Stopify.Data.Models
         public int TypeId { get; set; }
 
         public virtual ProductType Type { get; set; }
+
+        public string OrderId { get; set; }
+
+        public virtual Order Order { get; set; }
     }
 }

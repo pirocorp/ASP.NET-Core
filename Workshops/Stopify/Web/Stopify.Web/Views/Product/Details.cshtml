@@ -14,8 +14,12 @@
             <div>
                 <div class="row mx-1">
                     <div class="col-10 mb-0">
-                        <figure class="rounded">
-                            <a href="@this.Model.PictureUri"> <img src="@this.Model.PictureUri"class="img-fluid" alt="@this.Model.Name"></a>
+                        <figure class="rounded" id="product-image-container">
+                            <a href="@this.Model.PictureUri"> <img src="@this.Model.PictureUri" class="img-fluid" alt="@this.Model.Name"></a>
+                            @if (this.Model.Sold)
+                            {
+                                <img id="sold" src="~/img/sold.png" class="img-fluid" alt="sold">
+                            }
                         </figure>
 
                     </div>
@@ -59,11 +63,14 @@
 
             <hr>
             
-            <a class="btn btn-outline-primary btn-primary border-dark hover mx-1" asp-area="" asp-controller="Home" asp-action="Privacy" type="button">Buy now</a>
-            <a class="btn btn-outline-primary text-dark border-dark hover mx-1" asp-area="" asp-controller="Home" asp-action="Privacy" type="button">
-                <i class="fa fa-shopping-cart p-0"></i>
-                Add to cart
-            </a>
+            @if (!this.Model.Sold)
+            {
+                <a class="btn btn-outline-primary btn-primary border-dark hover mx-1" asp-area="" asp-controller="Home" asp-action="Privacy" type="button">Buy now</a>
+                <a class="btn btn-outline-primary text-dark border-dark hover mx-1" asp-area="" asp-controller="Home" asp-action="Privacy" type="button" data-toggle="modal" data-target="#buyConfirmationModal">
+                    <i class="fa fa-shopping-cart p-0"></i>
+                    Add to cart
+                </a>
+            }
             
             @if (this.User.IsInRole("Admin"))
             {
@@ -77,4 +84,5 @@
     </div>
 
 </section>
-<!--Section: Block Content-->
+
+<partial name="_ConfirmationAddToCart" />

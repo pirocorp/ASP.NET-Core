@@ -33,6 +33,5 @@
             new SelectListItem("Ascending", "true", true),
             new SelectListItem("Descending", "false", false)
         };
-            
     }
 }

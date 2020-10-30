@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Stopify.Data.Models\Stopify.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Stopify.Infrastructure.Common\Stopify.Infrastructure.Common.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Mapping\Stopify.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\Stopify.Services.Models\Stopify.Services.Models.csproj" />
   </ItemGroup>

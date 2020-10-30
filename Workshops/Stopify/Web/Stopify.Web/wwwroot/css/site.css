@@ -108,3 +108,17 @@ a.hover:hover {
 .fa-star {
     color: goldenrod;
 }
+
+/* Product details
+-------------------------------------------------- */
+
+#product-image-container {
+    position: relative;
+}
+
+#sold {
+    position: absolute;
+    margin-top: 30%;
+    margin-left: -50%;
+    transform: translate(-50%,-50%);
+}

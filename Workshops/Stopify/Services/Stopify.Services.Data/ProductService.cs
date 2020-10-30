@@ -40,7 +40,7 @@
             return product.Id;
         }
 
-        public async Task<IEnumerable<TOut>> AllAsync<TOut>(int typeId, bool isAscending)
+        public async Task<IEnumerable<TOut>> AllNotSoldAsync<TOut>(int typeId, bool isAscending)
         {
             var productsQuery = this.dbContext.Products.AsQueryable();
 
@@ -62,14 +62,23 @@
             }
 
             return await productsQuery
+                .Where(p => p.OrderId.Equals(null))
                 .To<TOut>()
                 .ToListAsync();
         }
 
-        public async Task<TOut> GetById<TOut>(string id)
+        public async Task<TOut> GetByIdAsync<TOut>(string id)
             => await this.dbContext.Products
                 .Where(p => p.Id.Equals(id))
                 .To<TOut>()
                 .FirstOrDefaultAsync();
+
+        public async Task<Product> GetByIdAsync(string id)
+            => await this.dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id.Equals(id));
+
+        public async Task<bool> ProductIsSoldAsync(string id)
+            => (await this.dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id.Equals(id))).OrderId != null;
     }
 }

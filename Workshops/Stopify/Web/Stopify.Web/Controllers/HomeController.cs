@@ -28,7 +28,7 @@
 
         public async Task<IActionResult> Index(IndexViewModel model)
         {
-            model.Products = await this.productService.AllAsync<ProductIndexViewModel>(model.TypeId, model.IsAscending);
+            model.Products = await this.productService.AllNotSoldAsync<ProductIndexViewModel>(model.TypeId, model.IsAscending);
 
             var categories = (await this.productTypeService.AllAsync<ProductTypeListingModel>()).ToList();
             categories.Add(new ProductTypeListingModel()

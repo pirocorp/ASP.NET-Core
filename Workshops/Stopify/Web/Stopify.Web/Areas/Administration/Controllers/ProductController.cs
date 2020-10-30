@@ -25,7 +25,7 @@
 
         public async Task<IActionResult> All()
         {
-            var model = await this.productService.AllAsync<ProductAdminViewModel>();
+            var model = await this.productService.AllNotSoldAsync<ProductAdminViewModel>();
 
             return this.View(model);
         }

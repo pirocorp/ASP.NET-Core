@@ -63,6 +63,8 @@ namespace Stopify.Web
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductTypeService, ProductTypeService>();
             services.AddTransient<IPictureService, PictureService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderStatusesService, OrderStatusesService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

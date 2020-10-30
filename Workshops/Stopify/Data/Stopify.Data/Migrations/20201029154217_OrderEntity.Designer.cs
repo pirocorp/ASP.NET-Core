@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stopify.Data;
 
 namespace Stopify.Data.Migrations
 {
     [DbContext(typeof(StopifyDbContext))]
-    partial class StopifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201029154217_OrderEntity")]
+    partial class OrderEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,39 +160,15 @@ namespace Stopify.Data.Migrations
                     b.Property<DateTime>("IssuedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StatusId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Stopify.Data.Models.OrderStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("OrderStatuses");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Stopify.Data.Models.Product", b =>
@@ -365,12 +343,6 @@ namespace Stopify.Data.Migrations
 
             modelBuilder.Entity("Stopify.Data.Models.Order", b =>
                 {
-                    b.HasOne("Stopify.Data.Models.OrderStatus", "Status")
-                        .WithMany("Orders")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Stopify.Data.Models.StopifyUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
