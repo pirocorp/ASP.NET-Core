@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Models.InputModels;
     using Models.ViewModels.Cart;
     using Services.Data;
 
@@ -14,13 +15,16 @@
     {
         private readonly UserManager<StopifyUser> userManager;
         private readonly IOrderService orderService;
+        private readonly IProductService productService;
 
         public OrderController(
             UserManager<StopifyUser> userManager,
-            IOrderService orderService)
+            IOrderService orderService, 
+            IProductService productService)
         {
             this.userManager = userManager;
             this.orderService = orderService;
+            this.productService = productService;
         }
 
         public async Task<IActionResult> Cart()
@@ -58,6 +62,20 @@
 
             return await Task
                 .FromResult(this.RedirectToAction(nameof(this.Cart)));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove([FromBody]CartRemoveProductInputModel model)
+        {
+            if (model?.ProductId is null
+                || !await this.productService.ExistsAsync(model.ProductId))
+            {
+                return this.BadRequest();
+            }
+
+            await this.productService.RemoveProductFromOrder(model.ProductId);
+
+            return this.Ok();
         }
     }
 }

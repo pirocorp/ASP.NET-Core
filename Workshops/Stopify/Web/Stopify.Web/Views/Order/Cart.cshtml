@@ -10,17 +10,17 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th scope="col"> </th>
-                            <th scope="col">Product</th>
-                            <th scope="col" class="text-right">Price</th>
-                            <th> </th>
-                        </tr>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">Product</th>
+                        <th scope="col" class="text-right">Price</th>
+                        <th> </th>
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach (var item in this.Model.Products)
                     {
-                        <tr>
+                        <tr onclick="deleteProduct(event, '@item.Id');">
                             <td>
                                 <img src="@($"{this.Model.ImageTransformation}{item.PictureUri}")" alt="@item.Name"/>
                             </td>
@@ -33,12 +33,12 @@
                             </td>
                         </tr>
                     }
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td><strong>Total</strong></td>
-                            <td class="text-right"><strong>@this.Model.Total.ToString("F2")</strong></td>
-                        </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Total</strong></td>
+                        <td class="text-right"><strong>@this.Model.Total.ToString("F2")</strong></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -58,3 +58,42 @@
         </div>
     </div>
 </div>
+
+<script>
+    async function removeProduct(id) {
+        const location = window.location.hostname;
+        const csrfName = '__RequestVerificationToken';
+        const csrfToken = document.getElementsByName(csrfName)[0].value;
+
+        const body = {
+            productId: id
+        };
+
+        const settings = {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'RequestVerificationToken': csrfToken,
+                'Accept': 'text/html',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        };
+
+        try {
+            const fetchResponse = await fetch(`https://${location}:5001/Order/Remove`, settings);
+            const data = await fetchResponse.json();
+        } catch (e) {
+            console.error(e.message);
+        } 
+    }
+
+    async function deleteProduct(event, id) {
+        let trElement = event.currentTarget;
+
+        let data = await removeProduct(id);
+        console.log(data);
+
+        trElement.parentNode.removeChild(trElement);
+    }
+</script>

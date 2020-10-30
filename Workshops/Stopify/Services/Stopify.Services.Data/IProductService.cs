@@ -16,5 +16,9 @@
         Task<Product> GetByIdAsync(string id);
 
         Task<bool> ProductIsSoldAsync(string id);
+
+        Task<bool> ExistsAsync(string productId);
+
+        Task<bool> RemoveProductFromOrder(string productId);
     }
 }

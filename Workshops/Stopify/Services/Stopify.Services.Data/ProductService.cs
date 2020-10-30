@@ -80,5 +80,24 @@
         public async Task<bool> ProductIsSoldAsync(string id)
             => (await this.dbContext.Products
                 .FirstOrDefaultAsync(p => p.Id.Equals(id))).OrderId != null;
+
+        public async Task<bool> ExistsAsync(string productId)
+            => await this.dbContext.Products
+                .AnyAsync(p => p.Id.Equals(productId));
+
+        public async Task<bool> RemoveProductFromOrder(string productId)
+        {
+            var product = await this.GetByIdAsync(productId);
+
+            if (product is null)
+            {
+                return false;
+            }
+
+            product.OrderId = null;
+            await this.dbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
