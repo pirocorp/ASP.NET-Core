@@ -12,8 +12,8 @@ namespace Stopify.Web.Models.ViewModels.Cart
     {
         public CartViewModel()
         {
-            this.Products = new List<CartProductListingViewModel>();
             this.ImageTransformation = ImageTransformations.SmallImageListings;
+            this.Products = new List<CartProductListingViewModel>();
         }
 
         public string Id { get; set; }

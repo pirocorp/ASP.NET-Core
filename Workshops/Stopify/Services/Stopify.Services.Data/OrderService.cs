@@ -31,7 +31,7 @@
                 .GetByIdAsync(productId);
 
             var orderStatus = await this.orderStatusesService
-                .GetByNameAsync(OrderStatuses.Active.ToString());
+                .GetByStatusAsync(OrderStatuses.Active);
 
             var order = new Order()
             {
@@ -81,5 +81,19 @@
 
             return true;
         }
+
+        public async Task<bool> ChangeOrderStatusAsync(string orderId, OrderStatuses orderStatus)
+        {
+            var status = await this.orderStatusesService.GetByStatusAsync(orderStatus);
+            var order = await this.GetOrderByIdAsync(orderId);
+
+            order.Status = status;
+            var result = await this.dbContext.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> Exists(string orderId)
+            => await this.dbContext.Orders.AnyAsync(o => o.Id.Equals(orderId));
     }
 }

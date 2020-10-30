@@ -1,6 +1,7 @@
 ﻿namespace Stopify.Services.Data
 {
     using System.Threading.Tasks;
+    using Infrastructure.Common;
     using Stopify.Data.Models;
 
     public interface IOrderService
@@ -14,5 +15,9 @@
         Task<string> GetCurrentUserOrderIdAsync(string userId);
 
         Task<bool> AddProductToOrderAsync(string orderId, string productId);
+
+        Task<bool> ChangeOrderStatusAsync(string orderId, OrderStatuses orderStatus);
+
+        Task<bool> Exists(string orderId);
     }
 }

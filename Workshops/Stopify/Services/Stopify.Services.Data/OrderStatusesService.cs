@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+    using Infrastructure.Common;
     using Microsoft.EntityFrameworkCore;
     using Stopify.Data;
     using Stopify.Data.Models;
@@ -15,9 +16,9 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<OrderStatus> GetByNameAsync(string name)
+        public async Task<OrderStatus> GetByStatusAsync(OrderStatuses status)
             => await this.dbContext.OrderStatuses
-                .Where(os => os.Name.Equals(name))
+                .Where(os => os.Name.Equals(status.ToString()))
                 .FirstOrDefaultAsync();
     }
 }
