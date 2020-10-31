@@ -6,15 +6,14 @@ namespace ForumSystem.Data.Migrations
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
     using Microsoft.EntityFrameworkCore.Metadata;
-
     [DbContext(typeof(ApplicationDbContext))]
-    class ApplicationDbContextModelSnapshot : ModelSnapshot
+    public class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -198,6 +197,9 @@ namespace ForumSystem.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
@@ -207,6 +209,8 @@ namespace ForumSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("PostId");
 
@@ -428,6 +432,10 @@ namespace ForumSystem.Data.Migrations
 
             modelBuilder.Entity("ForumSystem.Data.Models.Comment", b =>
                 {
+                    b.HasOne("ForumSystem.Data.Models.Comment", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
                     b.HasOne("ForumSystem.Data.Models.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")

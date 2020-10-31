@@ -1,10 +1,75 @@
 ﻿@model PostViewModel
 
 @{
-    this.ViewData["Title"] = Model.Title;
+    this.ViewData["Title"] = this.Model.Title;
+
+    void DisplayComments(int? parentId)
+    {
+        var comments = this
+            .Model
+            .Comments
+            .Where(x => x.ParentId == parentId)
+            .ToList();
+        
+        if (!comments.Any())
+        {
+            return;
+        }
+
+        @foreach (var comment in comments)
+        {
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header pt-1 pb-1">
+                                <div class="media flex-wrap w-100 align-items-center">
+                                    <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block rounded-circle" alt="">
+                                    <div class="media-body ml-3">
+                                        <span data-abc="true">@comment.UserUserName</span>
+                                        <div class="text-muted small">
+                                            <time datetime="@(comment.CreatedOn.ToString("O"))"></time>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-muted small ml-3">
+                                        @if (this.User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="px-4 ml-auto">
+                                                <button type="button" onclick="onReplyClick(@comment.Id)" class="btn btn-secondary">
+                                                    <i class="fas fa-pen"></i>
+                                                    &nbsp; Answer
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-3 pb-0">
+                                <article>
+                                    @(this.Html.Raw(comment.SanitizedContent))
+                                </article>
+                                @{ DisplayComments(comment.Id); }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 }
 
-<h1>@this.ViewData["Title"]</h1>
+@if (this.TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @(this.TempData["InfoMessage"])
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<h1>@(this.ViewData["Title"])</h1>
 
 <div class="container-fluid">
     <div class="row">
@@ -14,14 +79,16 @@
                     <div class="media flex-wrap w-100 align-items-center">
                         <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block rounded-circle" alt="">
                         <div class="media-body ml-3">
-                            <span data-abc="true">@Model.UserUserName</span>
-                            <div class="text-muted small">@Model.CreatedOn</div>
+                            <span data-abc="true">@(this.Model.UserUserName)</span>
+                            <div class="text-muted small">
+                                <time datetime="@(this.Model.CreatedOn.ToString("O"))"></time>
+                            </div>
                         </div>
                         <div id="votes-display" class="text-muted small ml-3 d-flex">
                             <form class="mx-2" asp-controller="Votes" asp-action="Post">
                                 <span>
-                                    <a href="#" onclick="sendVote(this, @Model.Id, true)">
-                                        @if (Model.UserVoteIsUp)
+                                    <a href="#" onclick="sendVote(this, @(this.Model.Id), true)">
+                                        @if (this.Model.UserVoteIsUp)
                                         {
                                             <i class="fas fa-thumbs-up text-primary"></i>
                                         }
@@ -30,14 +97,14 @@
                                             <i class="far fa-thumbs-up text-primary"></i>
                                         }
                                     </a>
-                                    <span id="up-votes">@Model.UpVotes</span>
+                                    <span id="up-votes">@(this.Model.UpVotes)</span>
                                 </span>
                             </form>
 
                             <form class="mx-2" asp-controller="Votes" asp-action="Post">
                                 <span>
-                                    <a href="#" onclick="sendVote(this, @Model.Id, false)">
-                                        @if (Model.UserVoteIsDown)
+                                    <a href="#" onclick="sendVote(this, @(this.Model.Id), false)">
+                                        @if (this.Model.UserVoteIsDown)
                                         {
                                             <i class="fas fa-thumbs-down text-danger"></i>
                                         }
@@ -46,21 +113,25 @@
                                             <i class="far fa-thumbs-down text-danger"></i>
                                         }
                                     </a>
-                                    <span id="down-votes">@Model.DownVotes</span>
+                                    <span id="down-votes">@(this.Model.DownVotes)</span>
                                 </span>
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    @Html.Raw(Model.SanitizedContent)
+                    <article>
+                        @(this.Html.Raw(this.Model.SanitizedContent))
+                    </article>
+
+                    @{ DisplayComments(null); }
                 </div>
                 <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                     <div class="px-4 pt-3">
                         <span href="javascript:void(0)" class="text-muted d-inline-flex align-items-center align-middle" data-abc="true">
                             <i class="fa fa-heart text-danger"></i>
                             &nbsp;
-                            <span id="votes-score" class="align-middle">@Model.VotesScore</span>
+                            <span id="votes-score" class="align-middle">@(this.Model.VotesScore)</span>
                         </span>
                         <span class="text-muted d-inline-flex align-items-center align-middle ml-4">
                             <i class="fa fa-eye text-muted"></i>
@@ -69,10 +140,13 @@
                         </span>
                     </div>
                     <div class="px-4 pt-3">
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-pen"></i>
-                            &nbsp; Reply
-                        </button>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <button onclick="onReplyClick(0)" type="button" class="btn btn-primary">
+                                <i class="fas fa-pen"></i>
+                                &nbsp; Comment
+                            </button>
+                        }
                     </div>
                 </div>
             </div>
@@ -80,6 +154,32 @@
     </div>
 </div>
 
+
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: ["image paste table link code media"]
+    });
+</script>
+
+<div>
+    <form id="add-reply-form" style="display: none" method="post" asp-controller="Comments" asp-action="Create">
+        <input id="parent-id" type="hidden" name="ParentId" value="0">
+        <input id="post-id" type="hidden" name="PostId" value="@(this.Model.Id)" />
+
+        <div class="form-group">
+            <label for="Content"></label>
+            <textarea rows="10" name="Content" id="Content"></textarea>
+        </div>
+
+        <div class="text-right">
+            <input type="submit" class="btn btn-primary ml-auto" value="Add comment" />
+        </div>
+    </form>
+</div>
+
 @section Scripts {
-    <script src="~/js/voting.js" asp-append-version="true"></script>
+    <script src="~/js/post.js" asp-append-version="true"></script>
 }

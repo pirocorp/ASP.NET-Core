@@ -9,7 +9,7 @@
     @Model.Description
 </div>
 
-@foreach (var post in Model.Posts)
+@foreach (var post in Model.ForumPosts)
 {
     <div class="media-body">
         <h4 class="mt-0">
@@ -23,7 +23,7 @@
             </li>
             <li class="list-inline-item">
                 <i class="fas fa-calendar-alt"></i>
-                @post.CreatedOn
+                <time datetime="@(post.CreatedOn.ToString("O"))"></time>
             </li>
             <li class="list-inline-item">
                 <i class="fas fa-comment-dots"></i>
@@ -33,6 +33,32 @@
     </div>
 }
 
+<nav class="mt-5" aria-label="Category @Model.Title navigation">
+    <ul class="pagination justify-content-center">
 
+        <li class="page-item @this.Model.PrevState">
+            <a class="page-link" 
+               asp-route="forumCategory"
+               asp-route-name="@Model.Title" 
+               asp-route-page="@Model.PreviousPage">Previous</a>
+        </li>
 
+        @for (var i = 1; i <= Model.PagesCount; i++)
+        {
+            <li class="page-item @Model.CurrentState(i)">
+                <a class="page-link" 
+                   asp-route="forumCategory"
+                   asp-route-name="@Model.Title"
+                   asp-route-page="@i"
+                   >@i</a>
+            </li>
+        }
 
+        <li class="page-item @this.Model.NextState">
+            <a class="page-link" 
+               asp-route="forumCategory"
+               asp-route-name="@Model.Title"
+               asp-route-page="@Model.NextPage">Next</a>
+        </li>
+    </ul>
+</nav>

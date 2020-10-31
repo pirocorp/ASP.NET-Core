@@ -1,0 +1,34 @@
+﻿@if (this.User.IsInRole("Admin"))
+{
+    <div class="btn-group">
+        <div class="btn bg-panda text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Packages
+        </div>
+        <ul class="dropdown-menu bg-panda">
+            <li>
+                <a class="bg-panda text-white dropdown-item" asp-controller="Package" asp-action="Pending">Pending</a>
+            </li>
+            <li>
+                <a class="bg-panda text-white dropdown-item" asp-controller="Package" asp-action="Shipped">Shipped</a>
+            </li>
+            <li>
+                <a class="bg-panda text-white dropdown-item" asp-controller="Package" asp-action="Delivered">Delivered</a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li class="nav-item">
+                <a class="bg-panda text-white dropdown-item" asp-controller="Package" asp-action="Create">Add</a>
+            </li>
+        </ul>
+    </div>
+}
+
+<div class="btn-group">
+    <div type="button" class="btn bg-panda text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Receipts
+    </div>
+    <ul class="dropdown-menu bg-panda">
+        <li>
+            <a class="bg-panda text-white dropdown-item" asp-controller="Receipt" asp-action="Index">Receipts</a>
+        </li>
+    </ul>
+</div>

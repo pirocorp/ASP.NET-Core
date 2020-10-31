@@ -6,6 +6,9 @@
 
     using AutoMapper.QueryableExtensions;
 
+    /// <summary>
+    /// Extension methods for easy using of automapper with LINQ.
+    /// </summary>
     public static class QueryableMappingExtensions
     {
         public static IQueryable<TDestination> To<TDestination>(

@@ -1,0 +1,42 @@
+﻿@page
+@model RegisterModel
+@{
+    this.ViewData["Title"] = "Register";
+}
+
+<div class="row my-5">
+    <div class="border-primary-4 col-9 col-xl-7 rounded mx-auto p-5">
+        <form asp-route-returnUrl="@(this.Model.ReturnUrl)" method="post">
+            <h4 class="d-block text-center text-primary">CreateAsync a new account.</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row my-4">
+                <label class="col-lg-4 text-primary h5" asp-for="Input.Username"></label>
+                <input asp-for="Input.Username" class="col-lg-8 form-control text-primary" />
+                <span asp-validation-for="Input.Username" class="offset-lg-4 text-danger"></span>
+            </div>
+            <div class="form-group row my-4">
+                <label class="col-lg-4 text-primary h5" asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="col-lg-8 form-control text-primary" />
+                <span asp-validation-for="Input.Password" class="offset-lg-4 text-danger"></span>
+            </div>
+            <div class="form-group row my-4">
+                <label class="col-lg-4 text-primary h5" asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="col-lg-8 form-control text-primary" />
+                <span asp-validation-for="Input.ConfirmPassword" class="offset-lg-4 text-danger"></span>
+            </div>
+            <div class="form-group row my-4">
+                <label class="col-lg-4 text-primary h5" asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="col-lg-8 form-control text-primary" />
+                <span asp-validation-for="Input.Email" class="offset-lg-4 text-danger"></span>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

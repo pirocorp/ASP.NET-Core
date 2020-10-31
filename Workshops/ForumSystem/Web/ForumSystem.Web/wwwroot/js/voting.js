@@ -1,15 +1,15 @@
 ﻿async function sendVote(that, postId, isUpVote) {
-    let csrfTokenElement = document.getElementsByName("__RequestVerificationToken")[0];
+    const csrfTokenElement = document.getElementsByName("__RequestVerificationToken")[0];
 
-    let json = {
+    const json = {
         postId: postId,
         isUpVote: isUpVote
     };
 
     try {
 
-        const appUrl = "https://192.168.0.197:5001/api/votes";
-        let response = await fetch(appUrl, {
+        const appUrl = "https://192.168.0.198:5001/api/votes";
+        const response = await window.fetch(appUrl, {
             method: "post",
             headers: {
                 'RequestVerificationToken': csrfTokenElement.value,
@@ -19,25 +19,25 @@
             body: JSON.stringify(json)
         });
 
-        let data = await response.json();
+        const data = await response.json();
 
         if (response.ok) {
 
-            let upVoteElement = document.getElementById("up-votes");
-            let downVoteElement = document.getElementById("down-votes");
-            let votesScoreElement = document.getElementById("votes-score");
+            const upVoteElement = document.getElementById("up-votes");
+            const downVoteElement = document.getElementById("down-votes");
+            const votesScoreElement = document.getElementById("votes-score");
 
             upVoteElement.textContent = data.upVotes;
             downVoteElement.textContent = data.downVotes;
             votesScoreElement.textContent = data.votesScore;
 
-            let iElement = that.getElementsByTagName("i")[0];
+            const iElement = that.getElementsByTagName("i")[0];
 
             if (iElement.classList.contains("fas")) {
                 iElement.classList.remove("fas");
                 iElement.classList.add("far");
             } else {
-                let voteElements = document
+                const voteElements = document
                     .querySelectorAll("#votes-display i.fas");
 
                 for (let element of voteElements) {
@@ -53,4 +53,4 @@
     } catch (err) {
         console.log(err);
     }
-}
+};

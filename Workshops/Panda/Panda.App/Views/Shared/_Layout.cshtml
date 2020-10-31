@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(this.ViewData["Title"]) - Panda</title>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    </environment>
+    <environment names="Staging,Production">
+        @* Can be done with CDN and asp-fallback *@
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+    </environment>
+</head>
+<body>
+    <header class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-panda">
+            <a class="navbar-brand nav-link-white" asp-area="" asp-controller="Home" asp-action="Index">PANDA</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                <partial name="_AdmnPartial"/>
+                <ul class="ml-auto navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <partial name="_LoginPartial"/>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div>
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="p-5">
+            @(this.RenderBody())
+        </main>
+    </div>
+
+    <footer class="container-fluid bg-panda">
+        <div class="p-3 text-white">
+            &copy; 2020 - Panda - <a class="text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @await this.RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

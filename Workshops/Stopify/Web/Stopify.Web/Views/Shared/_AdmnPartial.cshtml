@@ -1,0 +1,48 @@
+﻿@inject SignInManager<StopifyUser> signInManager
+
+@if (this.signInManager.IsSignedIn(this.User))
+{
+    @if (this.User.IsInRole("Admin"))
+    {
+        <div class="btn-group">
+            <div class="btn bg-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Products
+            </div>
+            <ul class="dropdown-menu bg-primary">
+                <li>
+                    <a class="bg-primary text-white dropdown-item" asp-area="Administration" asp-controller="Product" asp-action="All">Products</a>
+                </li>
+                <li>
+                    <a class="bg-primary text-white dropdown-item" asp-area="Administration" asp-controller="Product" asp-action="Create">Create Product</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <div class="btn bg-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+            </div>
+            <ul class="dropdown-menu bg-primary">
+                <li>
+                    <a class="bg-primary text-white dropdown-item" asp-area="Administration" asp-controller="ProductType" asp-action="All">Categories</a>
+                </li>
+                <li>
+                    <a class="bg-primary text-white dropdown-item" asp-area="Administration" asp-controller="ProductType" asp-action="Create">Create Category</a>
+                </li>
+            </ul>
+        </div>
+    }
+
+    <div class="btn-group">
+        <div class="btn bg-primary text-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profile
+        </div>
+        <ul class="dropdown-menu bg-primary">
+            <li>
+                <a class="bg-primary text-white dropdown-item" asp-area="" asp-controller="Order" asp-action="Cart">Cart</a>
+            </li>
+            <li>
+                <a class="bg-primary text-white dropdown-item" asp-area="" asp-controller="Receipt" asp-action="Profile">Receipts</a>
+            </li>
+        </ul>
+    </div>
+}

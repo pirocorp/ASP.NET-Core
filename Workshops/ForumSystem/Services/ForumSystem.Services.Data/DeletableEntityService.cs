@@ -10,11 +10,12 @@
     using ForumSystem.Services.Mapping;
 
     /// <summary>
-    /// Base service class for all entities supporting soft delete.
+    ///     Base service class for all entities supporting soft delete.
     /// </summary>
     /// <typeparam name="TEntity">Entity(Domain model).</typeparam>
-    public abstract class DeletableEntityService<TEntity> : IDeletableEntityService<TEntity>
-        where TEntity : class, IDeletableEntity
+    /// <typeparam name="TKey">Type of Entity's key.</typeparam>
+    public abstract class DeletableEntityService<TEntity, TKey> : IDeletableEntityService<TEntity, TKey>
+        where TEntity : BaseDeletableModel<TKey>, IDeletableEntity
     {
         protected DeletableEntityService(IDeletableEntityRepository<TEntity> entityRepository)
         {
@@ -24,7 +25,7 @@
         protected IDeletableEntityRepository<TEntity> EntityRepository { get; }
 
         /// <summary>
-        /// Project data from database to desired TOut model.
+        ///     Project data from database to desired TOut model.
         /// </summary>
         /// <typeparam name="TOut">Desired model.</typeparam>
         /// <returns>Projected elements. IEnumerable&lt;TOut&gt;.</returns>
@@ -34,7 +35,7 @@
         }
 
         /// <summary>
-        /// Project data from database to desired TOut model.
+        ///     Project data from database to desired TOut model.
         /// </summary>
         /// <typeparam name="TOut">Desired model.</typeparam>
         /// <param name="filter">Function expression returning bool.</param>
@@ -47,15 +48,17 @@
         }
 
         /// <summary>
-        /// Project data from database to desired TOut model.
+        ///     Project data from database to desired TOut model.
         /// </summary>
         /// <typeparam name="TOut">Desired model.</typeparam>
-        /// <typeparam name="TOrder">The collection will be ordered by this type.
-        /// TOrder must implement IComparable&lt;TOrder&gt;.
+        /// <typeparam name="TOrder">
+        ///     The collection will be ordered by this type.
+        ///     TOrder must implement IComparable&lt;TOrder&gt;.
         /// </typeparam>
         /// <param name="filter">Function expression returning bool.</param>
-        /// <param name="order">Function expression returning TOrder
-        /// (type by witch collection will be ordered).
+        /// <param name="order">
+        ///     Function expression returning TOrder
+        ///     (type by witch collection will be ordered).
         /// </param>
         /// <returns>Projected elements. IEnumerable&lt;TOut&gt;.</returns>
         public IEnumerable<TOut> GetAll<TOut, TOrder>(
@@ -67,7 +70,7 @@
         }
 
         /// <summary>
-        /// Project data from database to desired TOut model.
+        ///     Project data from database to desired TOut model.
         /// </summary>
         /// <typeparam name="TOut">Desired model.</typeparam>
         /// <param name="count">Number of elements.</param>
@@ -78,7 +81,7 @@
         }
 
         /// <summary>
-        /// Project data from database to desired TOut model.
+        ///     Project data from database to desired TOut model.
         /// </summary>
         /// <typeparam name="TOut">Desired model.</typeparam>
         /// <param name="count">Number of elements.</param>
@@ -93,16 +96,18 @@
         }
 
         /// <summary>
-        /// Project data from database to desired TOut model.
+        ///     Project data from database to desired TOut model.
         /// </summary>
         /// <typeparam name="TOut">Desired model.</typeparam>
-        /// <typeparam name="TOrder">The collection will be ordered by this type.
-        /// TOrder must implement IComparable&lt;TOrder&gt;.
+        /// <typeparam name="TOrder">
+        ///     The collection will be ordered by this type.
+        ///     TOrder must implement IComparable&lt;TOrder&gt;.
         /// </typeparam>
         /// <param name="count">How many element to be returned.</param>
         /// <param name="filter">Function expression returning bool.</param>
-        /// <param name="order">Function expression returning TOrder
-        /// (type by witch collection will be ordered).
+        /// <param name="order">
+        ///     Function expression returning TOrder
+        ///     (type by witch collection will be ordered).
         /// </param>
         /// <returns>Projected elements. IEnumerable&lt;TOut&gt;.</returns>
         public IEnumerable<TOut> GetAll<TOut, TOrder>(
@@ -112,7 +117,7 @@
             where TOrder : IComparable<TOrder>
         {
             var query = this.EntityRepository
-                .All();
+                .AllAsNoTracking();
 
             if (filter != null)
             {
@@ -136,5 +141,15 @@
                 .To<TOut>()
                 .ToList();
         }
+
+        /// <summary>
+        ///     Check if object with given key exists in database.
+        /// </summary>
+        /// <param name="key">Searched key</param>
+        /// <returns>True if object with given key exists</returns>
+        public bool Exists(TKey key)
+            => this.EntityRepository
+                .AllAsNoTracking()
+                .Any(e => e.Id.Equals(key));
     }
 }

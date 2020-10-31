@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ProductTypeListingModel>
+
+@{
+    this.ViewData["Title"] = "All Categories";
+}
+
+<div class="m-5 col-6 mx-auto">
+    <table class="table table-hover table-striped table-primary">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in this.Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

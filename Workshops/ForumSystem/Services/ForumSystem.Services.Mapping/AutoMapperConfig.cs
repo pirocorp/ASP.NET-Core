@@ -14,6 +14,10 @@
 
         public static IMapper MapperInstance { get; set; }
 
+        /// <summary>
+        /// Automatically adds maps for IMapFrom, IMapTo and custom mappings for IHaveCustomMappings interfaces to automapper.
+        /// </summary>
+        /// <param name="assemblies">Assemblies in which to look for classes implementing IMapTo, IMapFrom, IHaveCustomMappings interfaces.</param>
         public static void RegisterMappings(params Assembly[] assemblies)
         {
             if (initialized)

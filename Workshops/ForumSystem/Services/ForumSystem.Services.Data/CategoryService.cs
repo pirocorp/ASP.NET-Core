@@ -6,19 +6,19 @@
     using ForumSystem.Data.Models;
     using ForumSystem.Services.Mapping;
 
-    public class CategoryService : DeletableEntityService<Category>, ICategoryService
+    public class CategoryService : DeletableEntityService<Category, int>, ICategoryService
     {
         public CategoryService(IDeletableEntityRepository<Category> entityRepository)
             : base(entityRepository)
         {
         }
 
-        public TEntity GetByName<TEntity>(string name)
+        public TModel GetByName<TModel>(string name)
         {
             var category = this.EntityRepository
                 .All()
                 .Where(x => x.Name == name)
-                .To<TEntity>()
+                .To<TModel>()
                 .FirstOrDefault();
 
             return category;

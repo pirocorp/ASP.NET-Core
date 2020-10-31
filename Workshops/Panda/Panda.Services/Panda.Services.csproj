@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Panda.Data\Panda.Data.csproj" />
+    <ProjectReference Include="..\Panda.Infrastructure\Panda.Infrastructure.csproj" />
+    <ProjectReference Include="..\Panda.Mapping\Panda.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>

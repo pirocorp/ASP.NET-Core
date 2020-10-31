@@ -1,0 +1,34 @@
+﻿namespace Panda.Data.Seeding
+{
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
+    using Panda.Models;
+
+    public class RolesSeeder : ISeeder
+    {
+        public async Task SeedAsync(PandaDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<PandaRole>>();
+
+            await SeedRoleAsync(roleManager, "Admin");
+        }
+
+        private static async Task SeedRoleAsync(RoleManager<PandaRole> roleManager, string roleName)
+        {
+            var role = await roleManager.FindByNameAsync(roleName);
+
+            if (role == null)
+            {
+                var result = await roleManager.CreateAsync(new PandaRole(roleName));
+                if (!result.Succeeded)
+                {
+                    throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+                }
+            }
+        }
+    }
+}

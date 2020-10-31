@@ -1,0 +1,72 @@
+﻿@using Stopify.Infrastructure.Common
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(this.ViewData["Title"]) - @GlobalConstants.SystemName</title>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+        
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/popperjs/dist/umd/popper.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.full.js" asp-append-version="true"></script>
+        <script src="~/lib/fontawesome/js/all.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/popperjs/dist/umd/popper.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js" asp-append-version="true"></script>
+        <script src="~/lib/fontawesome/js/all.min.js" asp-append-version="true"></script>
+    </environment>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
+            <a class="navbar-brand font-weight-bold" asp-area="" asp-controller="Home" asp-action="Index">Stopify</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <partial name="_AdmnPartial" />
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div>
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @(this.RenderBody())
+        </main>
+    </div>
+
+    <footer>
+        <div class="bg-primary rounded">
+            <div class="text-white p-3 text-center font-weight-bold">
+                &copy; CopyRight Sanity Web Design Studios 2020. All rights
+                reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <environment names="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    @await this.RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

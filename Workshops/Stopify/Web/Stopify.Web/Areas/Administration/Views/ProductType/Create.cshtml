@@ -1,0 +1,25 @@
+﻿@model ProductTypeCreateInputModel
+
+@{
+    this.ViewData["Title"] = "Add Category";
+}
+
+<div class="border-primary-4 rounded mx-auto col-lg-6 p-5 my-5">
+    <form method="post">
+        <h4 class="d-block text-center text-primary">CreateAsync new category</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row my-4">
+            <label class="col-lg-4 text-primary h5" asp-for="@(this.Model.Name)"></label>
+            <input class="col-lg-8 form-control text-primary" asp-for="@(this.Model.Name)" />
+            <span class="offset-lg-4 text-danger" asp-validation-for="@(this.Model.Name)"></span>
+        </div>
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">CreateAsync</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

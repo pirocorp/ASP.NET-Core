@@ -1,0 +1,50 @@
+﻿a {
+    text-underline: none;
+}
+
+tr {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+textarea {
+    resize: none;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    border: 0;
+    width: 98%;
+}
+
+.bg-panda {
+    background-color: #202020;
+}
+
+.text-panda {
+    color: #202020;
+}
+
+.border-panda {
+    border: 2px solid #202020;
+    border-radius: 7px;
+}
+
+.nav-link-white {
+    color: #FFFFFF;
+}
+
+.hr-2 {
+    height: 2px;
+}
+
+
+a:hover {
+    outline: none;
+    text-decoration: none;
+}
+
+.dropdown-item:hover {
+    background-color: #404040;
+}

@@ -16,8 +16,10 @@
       "files": [
         "dist/css/bootstrap.css",
         "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap.min.css.map",
         "dist/js/bootstrap.js",
-        "dist/js/bootstrap.min.js"
+        "dist/js/bootstrap.min.js",
+        "dist/js/bootstrap.min.js.map"
       ]
     },
     {
@@ -75,6 +77,13 @@
       "files": [
         "dist/jquery.validate.unobtrusive.js",
         "dist/jquery.validate.unobtrusive.min.js"
+      ]
+    },
+    {
+      "library": "moment@2.29.1",
+      "destination": "wwwroot/lib/moment-js/",
+      "files": [
+        "min/moment-with-locales.min.js"
       ]
     }
   ]

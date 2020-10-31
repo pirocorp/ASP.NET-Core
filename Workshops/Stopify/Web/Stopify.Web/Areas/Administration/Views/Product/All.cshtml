@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProductAdminViewModel>
+
+@{
+    this.ViewData["Title"] = "Add Product";
+}
+
+<div class="m-5 col-6 mx-auto">
+    <table class="table table-hover table-striped table-primary">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">PictureUrl</th>
+                <th scope="col">Manufactured On</th>
+                <th scope="col">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in this.Model)
+            {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+                <td>@item.Price.ToString("F2")</td>
+                <td><a href="@item.PictureUri">Picture</a></td>
+                <td>@item.ManufacturedOn.ToString("dd/MM/yyyy")</td>
+                <td>@item.TypeName</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

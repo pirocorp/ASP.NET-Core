@@ -101,6 +101,7 @@
             // Disable cascade delete
             var foreignKeys = entityTypes
                 .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
+
             foreach (var foreignKey in foreignKeys)
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
@@ -120,7 +121,7 @@
         }
 
         /// <summary>
-        ///     Applies all entity configurations which implements IEntityTypeConfiguration.
+        ///     Applies all entity configurations, those who implements IEntityTypeConfiguration.
         /// </summary>
         /// <param name="builder">ModelBuilder.</param>
         private void ConfigureUserIdentityRelations(ModelBuilder builder)
