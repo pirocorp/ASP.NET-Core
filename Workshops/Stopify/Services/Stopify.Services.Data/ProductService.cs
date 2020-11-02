@@ -73,10 +73,6 @@
                 .To<TOut>()
                 .FirstOrDefaultAsync();
 
-        public async Task<Product> GetByIdAsync(string id)
-            => await this.dbContext.Products
-                .FirstOrDefaultAsync(p => p.Id.Equals(id));
-
         public async Task<bool> ProductIsSoldAsync(string id)
             => (await this.dbContext.Products
                 .FirstOrDefaultAsync(p => p.Id.Equals(id))).OrderId != null;
@@ -99,5 +95,18 @@
 
             return true;
         }
+
+        public async Task<bool> AddProductInOrder(string productId, string orderId)
+        {
+            var product = await this.GetByIdAsync(productId);
+
+            product.OrderId = orderId;
+
+            return true;
+        }
+
+        private async Task<Product> GetByIdAsync(string id)
+            => await this.dbContext.Products
+                .FirstOrDefaultAsync(p => p.Id.Equals(id));
     }
 }

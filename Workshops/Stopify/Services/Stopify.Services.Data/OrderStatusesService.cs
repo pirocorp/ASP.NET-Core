@@ -5,7 +5,6 @@
     using Infrastructure.Common;
     using Microsoft.EntityFrameworkCore;
     using Stopify.Data;
-    using Stopify.Data.Models;
 
     public class OrderStatusesService : IOrderStatusesService
     {
@@ -16,9 +15,9 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<OrderStatus> GetByStatusAsync(OrderStatuses status)
-            => await this.dbContext.OrderStatuses
+        public async Task<int> GetIdByStatusAsync(OrderStatuses status)
+            => (await this.dbContext.OrderStatuses
                 .Where(os => os.Name.Equals(status.ToString()))
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync()).Id;
     }
 }

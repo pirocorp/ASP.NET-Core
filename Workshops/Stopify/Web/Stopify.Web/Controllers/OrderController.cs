@@ -55,9 +55,6 @@
                 return this.BadRequest();
             }
 
-            // TODO: Go to payment form
-            // TODO: Generate receipt
-
             await this.orderService.ChangeOrderStatusAsync(id, OrderStatuses.Completed);
 
             return await Task

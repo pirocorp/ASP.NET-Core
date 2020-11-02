@@ -13,12 +13,12 @@
 
         Task<TOut> GetByIdAsync<TOut>(string id);
 
-        Task<Product> GetByIdAsync(string id);
-
         Task<bool> ProductIsSoldAsync(string id);
 
         Task<bool> ExistsAsync(string productId);
 
         Task<bool> RemoveProductFromOrder(string productId);
+
+        Task<bool> AddProductInOrder(string productId, string orderId);
     }
 }

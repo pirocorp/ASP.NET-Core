@@ -10,8 +10,6 @@
 
         Task<TOut> GetOrderByIdAsync<TOut>(string id);
 
-        Task<Order> GetOrderByIdAsync(string id);
-
         Task<string> GetCurrentUserOrderIdAsync(string userId);
 
         Task<bool> AddProductToOrderAsync(string orderId, string productId);

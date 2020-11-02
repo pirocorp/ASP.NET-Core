@@ -27,23 +27,20 @@
 
         public async Task<string> CreateAsync(string userId, string productId)
         {
-            var product = await this.productService
-                .GetByIdAsync(productId);
-
-            var orderStatus = await this.orderStatusesService
-                .GetByStatusAsync(OrderStatuses.Active);
+            var orderStatusId = await this.orderStatusesService
+                .GetIdByStatusAsync(OrderStatuses.Active);
 
             var order = new Order()
             {
                 UserId = userId,
-                Status = orderStatus,
+                StatusId = orderStatusId,
                 IssuedOn = DateTime.UtcNow
             };
 
-            order.Products.Add(product);
-
             await this.dbContext.AddAsync(order);
             await this.dbContext.SaveChangesAsync();
+
+            await this.AddProductToOrderAsync(order.Id, productId);
 
             return order.Id;
         }
@@ -53,10 +50,6 @@
                 .Where(o => o.Id.Equals(id))
                 .To<TOut>()
                 .FirstOrDefaultAsync();
-
-        public async Task<Order> GetOrderByIdAsync(string id)
-            => await this.dbContext.Orders
-                .FirstOrDefaultAsync(o => o.Id.Equals(id));
 
         public async Task<string> GetCurrentUserOrderIdAsync(string userId)
             => (await this.dbContext.Orders
@@ -68,15 +61,12 @@
 
         public async Task<bool> AddProductToOrderAsync(string orderId, string productId)
         {
-            var product = await this.productService.GetByIdAsync(productId);
-
-            if (product is null)
+            if (!await this.productService.ExistsAsync(productId))
             {
                 return false;
             }
 
-            product.OrderId = orderId;
-
+            await this.productService.AddProductInOrder(productId, orderId);
             await this.dbContext.SaveChangesAsync();
 
             return true;
@@ -84,10 +74,10 @@
 
         public async Task<bool> ChangeOrderStatusAsync(string orderId, OrderStatuses orderStatus)
         {
-            var status = await this.orderStatusesService.GetByStatusAsync(orderStatus);
+            var statusId = await this.orderStatusesService.GetIdByStatusAsync(orderStatus);
             var order = await this.GetOrderByIdAsync(orderId);
 
-            order.Status = status;
+            order.StatusId = statusId;
             var result = await this.dbContext.SaveChangesAsync();
 
             return result > 0;
@@ -95,5 +85,9 @@
 
         public async Task<bool> Exists(string orderId)
             => await this.dbContext.Orders.AnyAsync(o => o.Id.Equals(orderId));
+
+        private async Task<Order> GetOrderByIdAsync(string id)
+            => await this.dbContext.Orders
+                .FirstOrDefaultAsync(o => o.Id.Equals(id));
     }
 }
