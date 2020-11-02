@@ -1,14 +1,16 @@
 ﻿namespace Stopify.Services.Data
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Infrastructure.Common;
-    using Stopify.Data.Models;
 
     public interface IOrderService
     {
         Task<string> CreateAsync(string userId, string productId);
 
         Task<TOut> GetOrderByIdAsync<TOut>(string id);
+
+        Task<IEnumerable<TOut>> GetAllUserOrders<TOut>(string userId);
 
         Task<string> GetCurrentUserOrderIdAsync(string userId);
 

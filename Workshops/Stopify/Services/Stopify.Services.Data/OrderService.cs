@@ -1,6 +1,7 @@
 ﻿namespace Stopify.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Infrastructure.Common;
@@ -50,6 +51,12 @@
                 .Where(o => o.Id.Equals(id))
                 .To<TOut>()
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<TOut>> GetAllUserOrders<TOut>(string userId)
+            => await this.dbContext.Orders
+                .Where(o => o.UserId.Equals(userId))
+                .To<TOut>()
+                .ToListAsync();
 
         public async Task<string> GetCurrentUserOrderIdAsync(string userId)
             => (await this.dbContext.Orders

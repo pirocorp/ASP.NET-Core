@@ -1,0 +1,57 @@
+﻿@model ReceiptDetailsViewModel
+
+@{
+    this.ViewData["Title"] = "Receipt Details";
+}
+
+<h1 class="text-center">@this.ViewData["Title"]</h1>
+<hr class="hr-2 bg-primary col-xl-8">
+<div class="col-xl-8 mx-auto">
+    @foreach (var order in this.Model.Products)
+    {
+        <div class="product d-flex justify-content-between">
+            <div class="product-name w-75">
+                <h4>@order.Name</h4>
+            </div>
+            <div class="product-quantity-and-price d-flex justify-content-between w-25">
+                <h4 class="text-right w-50">$@(order.Price.ToString(GlobalConstants.CurrencyFormatter))</h4>
+            </div>
+        </div>
+    }
+</div>
+<hr class="hr-2 bg-primary col-xl-8">
+<div class="w-50 mx-auto d-flex justify-content-between">
+    <div class="w-25">
+        <h3 class="text-left">Amount</h3>
+    </div>
+    <div class="w-25">
+        <h3 class="text-right">$@(this.Model.Products.Sum(order => order.Price).ToString(GlobalConstants.CurrencyFormatter))</h3>
+    </div>
+</div>
+<hr class="hr-2 bg-primary w-50">
+<div class="w-50 mx-auto d-flex justify-content-between">
+    <div class="w-25">
+        <h3 class="text-left">Issued On</h3>
+    </div>
+    <div class="w-25">
+        <h3 class="text-right">@(this.Model.IssuedOn.ToString(GlobalConstants.DateFormatter))</h3>
+    </div>
+</div>
+<div class="w-50 mx-auto d-flex justify-content-between">
+    <div class="w-25">
+        <h3 class="text-left">Recipient</h3>
+    </div>
+    <div class="w-25">
+        <h3 class="text-right">@(this.Model.UserUserName)</h3>
+    </div>
+</div>
+<hr class="hr-2 bg-primary w-50">
+<div class="w-50 mx-auto d-flex justify-content-between">
+    <div class="w-25">
+        <h3 class="text-left">Receipt</h3>
+    </div>
+    <div class="w-75">
+        <h3 class="text-right">@(this.Model.Id)</h3>
+    </div>
+</div>
+<hr class="hr-2 bg-primary w-50">
