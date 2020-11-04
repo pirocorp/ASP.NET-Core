@@ -40,6 +40,33 @@
             return product.Id;
         }
 
+        public async Task<string> EditAsync(ProductEditServiceModel model)
+        {
+            var product = await this.GetByIdAsync(model.Id);
+
+            if (!(model.Picture is null))
+            {
+                var pictureUri = await this.pictureService.UploadPictureAsync(model.Picture);
+                product.PictureUri = pictureUri;
+            }
+
+            product.Name = model.Name;
+            product.Price = model.Price;
+            product.ManufacturedOn = model.ManufacturedOn;
+            product.TypeId = model.TypeId;
+
+            await this.dbContext.SaveChangesAsync();
+            return product.Id;
+        }
+
+        public async Task<bool> DeleteAsync(string productId)
+        {
+            var product = await this.GetByIdAsync(productId);
+            this.dbContext.Products.Remove(product);
+
+            return await this.dbContext.SaveChangesAsync() > 0;
+        }
+
         public async Task<IEnumerable<TOut>> AllNotSoldAsync<TOut>(int typeId, bool isAscending)
         {
             var productsQuery = this.dbContext.Products.AsQueryable();
