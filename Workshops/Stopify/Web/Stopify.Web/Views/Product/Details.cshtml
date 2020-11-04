@@ -65,8 +65,8 @@
             
             @if (!this.Model.Sold)
             {
-                <a class="btn btn-outline-primary btn-primary border-dark hover mx-1" asp-area="" asp-controller="Home" asp-action="Privacy" type="button">Buy now</a>
-                <a class="btn btn-outline-primary text-dark border-dark hover mx-1" type="button" data-toggle="modal" data-target="#buyConfirmationModal">
+                <a class="btn btn-outline-primary btn-primary border-dark hover mx-1" asp-area="" asp-controller="Product" asp-action="Buy" asp-route-id="@this.Model.Id" type="button">Buy now</a>
+                <a class="btn btn-outline-primary text-dark border-dark hover mx-1" data-toggle="modal" data-target="#buyConfirmationModal">
                     <i class="fa fa-shopping-cart p-0"></i>
                     Add to cart
                 </a>

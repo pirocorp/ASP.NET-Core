@@ -1,15 +1,27 @@
 ﻿@inject SignInManager<StopifyUser> signInManager
 @inject UserManager<StopifyUser> userManager
 
+@if (this.signInManager.IsSignedIn(this.User))
+{
+    <ul class="bg-primary navbar-nav">
+        <li class="nav-item">
+            <a class="bg-primary text-white nav-link" asp-area="" asp-controller="Order" asp-action="Cart">Cart</a>
+        </li>
+        <li class="nav-item">
+            <a class="bg-primary text-white nav-link" asp-area="" asp-controller="Receipt" asp-action="Index">Receipts</a>
+        </li>
+    </ul>
+}
+
 <ul class="ml-auto navbar-nav">
     @if (this.signInManager.IsSignedIn(this.User))
     {
         <li class="nav-item d-none d-lg-inline">
-            <a  class="nav-link text-white" @*asp-area="Identity" asp-page="/Account/Manage/Index"*@ href="#" title="Manage">Hello @(this.User.Identity.Name)!</a>
+            <a class="nav-link text-white" @*asp-area="Identity" asp-page="/Account/Manage/Index"*@ href="#" title="Manage">Hello @(this.User.Identity.Name)!</a>
         </li>
         <li class="nav-item">
-            <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = "" }))">
-                <button  type="submit" class="nav-link btn btn-link text-white">Logout</button>
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = "" }))">
+                <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
             </form>
         </li>
     }

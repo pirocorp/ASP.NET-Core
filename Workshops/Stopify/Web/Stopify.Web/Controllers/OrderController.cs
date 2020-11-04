@@ -72,7 +72,13 @@
 
             await this.productService.RemoveProductFromOrder(model.ProductId);
 
-            return this.Ok();
+            var userId = this.userManager.GetUserId(this.User);
+            var orderId = await this.orderService
+                .GetCurrentUserOrderIdAsync(userId);
+            var totalAmount = await this.orderService.GetTotalCostForOrderAsync(orderId);
+
+
+            return this.Ok(totalAmount);
         }
     }
 }

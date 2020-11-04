@@ -12,6 +12,8 @@
 
         Task<IEnumerable<TOut>> GetAllUserOrders<TOut>(string userId);
 
+        Task<decimal> GetTotalCostForOrderAsync(string orderId);
+
         Task<string> GetCurrentUserOrderIdAsync(string userId);
 
         Task<bool> AddProductToOrderAsync(string orderId, string productId);

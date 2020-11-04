@@ -33,10 +33,24 @@
 
         [Authorize]
         public async Task<IActionResult> Order(string id)
+            => await this.AddProductToCart(id)
+            ?? this.RedirectToAction(nameof(HomeController.Index), "Home");
+
+        [Authorize]
+        public async Task<IActionResult> Buy(string id)
+            => await this.AddProductToCart(id)
+               ?? this.RedirectToAction(nameof(OrderController.Cart), "Order");
+
+        private async Task<IActionResult> AddProductToCart(string productId)
         {
-            if (await this.productService.ProductIsSoldAsync(id))
+            if (productId is null)
             {
-                return this.RedirectToAction(nameof(this.Details), new {id});
+                return this.BadRequest();
+            }
+
+            if (await this.productService.ProductIsSoldAsync(productId))
+            {
+                return this.RedirectToAction(nameof(this.Details), new {productId});
             }
             
             var userId = this.userManager.GetUserId(this.User);
@@ -45,11 +59,11 @@
 
             if (orderId is null)
             {
-                orderId = await this.orderService.CreateAsync(userId, id);
+                orderId = await this.orderService.CreateAsync(userId, productId);
             }
             else
             {
-                var success = await this.orderService.AddProductToOrderAsync(orderId, id);
+                var success = await this.orderService.AddProductToOrderAsync(orderId, productId);
 
                 if (!success)
                 {
@@ -57,7 +71,7 @@
                 }
             }
 
-            return this.RedirectToAction(nameof(HomeController.Index), "Home");
+            return null;
         }
     }
 }

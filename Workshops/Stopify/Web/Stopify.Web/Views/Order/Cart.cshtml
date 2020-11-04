@@ -37,7 +37,7 @@
                         <td></td>
                         <td></td>
                         <td><strong>Amount</strong></td>
-                        <td class="text-right"><strong>@this.Model.Total.ToString("F2")</strong></td>
+                        <td class="text-right"><strong id="total-amount">@this.Model.Total.ToString("F2")</strong></td>
                     </tr>
                     </tbody>
                 </table>
@@ -83,6 +83,7 @@
         try {
             const fetchResponse = await fetch(`https://${location}:5001/Order/Remove`, settings);
             const data = await fetchResponse.json();
+            return data;
         } catch (e) {
             console.error(e.message);
         } 
@@ -92,8 +93,9 @@
         let trElement = event.currentTarget;
 
         let data = await removeProduct(id);
-        console.log(data);
 
         trElement.parentNode.removeChild(trElement);
+        let totalAmountElement = document.getElementById('total-amount');
+        totalAmountElement.textContent = data;
     }
 </script>

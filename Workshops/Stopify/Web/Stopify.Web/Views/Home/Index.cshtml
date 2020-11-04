@@ -38,7 +38,7 @@
                             <div class="">
                                 <div class="btn-group" role="group">
                                     @* buttons redirect will change once functionality is implemented *@
-                                    <a class="btn btn-outline-primary text-dark border-dark hover pt-2" asp-area="" asp-controller="Home" asp-action="Privacy" type="button">
+                                    <a class="btn btn-outline-primary text-dark border-dark hover pt-2" asp-area="" asp-controller="Product" asp-action="Buy" asp-route-id="@item.Id" type="button">
                                         $@item.Price.ToString("F2")
                                     </a>
                                     <a class="btn btn-outline-primary text-dark border-dark hover" asp-area="" asp-controller="Product" asp-action="Order" asp-route-id="@item.Id" type="button">

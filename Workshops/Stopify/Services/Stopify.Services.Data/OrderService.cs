@@ -58,6 +58,13 @@
                 .To<TOut>()
                 .ToListAsync();
 
+        public async Task<decimal> GetTotalCostForOrderAsync(string orderId)
+            => (await this.dbContext.Orders
+                    .Where(o => o.Id.Equals(orderId))
+                    .Select(o => o.Products)
+                    .FirstOrDefaultAsync())
+                .Sum(p => p.Price);
+
         public async Task<string> GetCurrentUserOrderIdAsync(string userId)
             => (await this.dbContext.Orders
                 .Where(o
