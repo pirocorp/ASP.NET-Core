@@ -21,6 +21,8 @@
 
         public DbSet<OrderStatus> OrderStatuses { get; set; }
 
+        public DbSet<Rating> Ratings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration

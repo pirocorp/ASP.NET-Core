@@ -2,7 +2,6 @@ namespace Stopify.Web
 {
     using System.Globalization;
     using System.Reflection;
-    using CloudinaryDotNet;
     using Data.Seeding;
     using Infrastructure.Web;
     using Microsoft.AspNetCore.Builder;
@@ -14,7 +13,6 @@ namespace Stopify.Web
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Models;
-    using Services;
     using Services.Data;
     using Services.Mapping;
     using Stopify.Services.Messaging;
@@ -49,6 +47,8 @@ namespace Stopify.Web
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
+            services.AddCors();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -65,6 +65,7 @@ namespace Stopify.Web
             services.AddTransient<IPictureService, PictureService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderStatusesService, OrderStatusesService>();
+            services.AddTransient<IVoteService, VoteService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -102,6 +103,7 @@ namespace Stopify.Web
             app.UseCookiePolicy();
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();

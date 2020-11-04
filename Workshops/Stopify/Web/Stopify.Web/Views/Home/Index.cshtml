@@ -28,13 +28,17 @@
                             <div class="text-center"><span class="p-name">@item.Name</span></div>
                         </a>
                         <div class="d-flex flex-row justify-content-between align-items-center mt-4">
-                            <div class="ratings">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
+                            <ul class="ratings">
+                                @for (var i = GlobalConstants.MaxRating; i > item.FullStars; i--)
+                                {
+                                    <li onclick="vote(@i, '@item.Id')" class="star far fa-star"></li>
+                                }
+
+                                @for (var i = item.FullStars; i > 0; i--)
+                                {
+                                    <li onclick="vote(@i, '@item.Id')" class="star fa fa-star"></li>
+                                }
+                            </ul>
                             <div class="">
                                 <div class="btn-group" role="group">
                                     @* buttons redirect will change once functionality is implemented *@

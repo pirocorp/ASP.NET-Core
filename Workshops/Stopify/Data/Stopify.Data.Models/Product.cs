@@ -1,13 +1,17 @@
 ﻿// ReSharper disable ClassWithVirtualMembersNeverInherited.Global
+// ReSharper disable VirtualMemberCallInConstructor
 namespace Stopify.Data.Models
 {
     using System;
+    using System.Collections.Generic;
 
     public class Product
     {
         public Product()
         {
             this.Id = Guid.NewGuid().ToString();
+
+            this.Ratings = new HashSet<Rating>();
         }
 
         public string Id { get; set; }
@@ -27,5 +31,7 @@ namespace Stopify.Data.Models
         public string OrderId { get; set; }
 
         public virtual Order Order { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

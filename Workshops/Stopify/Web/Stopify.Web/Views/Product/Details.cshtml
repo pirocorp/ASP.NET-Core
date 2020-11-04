@@ -29,13 +29,19 @@
         <div class="col-md-6">
             <h5>@this.Model.Name</h5>
             <p class="mb-2 text-muted text-uppercase small">@this.Model.TypeName</p>
-            <div class="ratings">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
+            <form asp-controller="Vote" asp-action="Post">
+                <ul id="ratings" class="ratings">
+                    @for (var i = GlobalConstants.MaxRating; i > this.Model.FullStars; i--)
+                    {
+                        <li onclick="vote(@i, '@this.Model.Id')" class="star far fa-star"></li>
+                    }
+
+                    @for (var i = this.Model.FullStars; i > 0; i--)
+                    {
+                        <li onclick="vote(@i, '@this.Model.Id')" class="star fa fa-star"></li>
+                    }
+                </ul>
+            </form>
             <p class="mt-2"><span class="mr-1"><strong>$@this.Model.Price.ToString(GlobalConstants.CurrencyFormatter)</strong></span></p>
             <p class="pt-1">
                 @this.Model.Name @*TODO: Add description to Product entity and description can be used here*@
@@ -84,6 +90,68 @@
     </div>
 
 </section>
+
+<script>
+
+    function drawStars(rating, productId) {
+        let ratingsElement = document.getElementById('ratings');
+        ratingsElement.innerHTML = '';
+
+        let fullStars = Math.ceil(rating);
+
+        for (let i = 5; i > fullStars; i--) {
+            ratingsElement.innerHTML += `<li onclick="vote(${i}, '${productId}')" class="star far fa-star"></li>`;
+        }
+
+        for (let i = fullStars; i > 0; i--) {
+            ratingsElement.innerHTML += `<li onclick="vote(${i}, '${productId}')" class="star fa fa-star"></li>`;
+        }
+    }
+
+    async function vote(score, productId) {
+        const csrfTokenElement = document.getElementsByName("__RequestVerificationToken")[0];
+
+        const json = {
+            score: score,
+            productId: productId
+        };
+
+        const appUrl = "https://localhost:5001/api/vote";
+
+        try {
+            const response = await window.fetch(appUrl, {
+                method: "post",
+                headers: {
+                    'RequestVerificationToken': csrfTokenElement.value,
+                    'Accept': "application/json",
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify(json)
+            });
+
+            const data = await response.json();
+
+            console.log(data);
+
+            drawStars(data.rating, productId);
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    $(function () {
+        var star = '.star',
+            selected = '.selected';
+
+        $(star).on('click', function () {
+            $(selected).each(function () {
+                $(this).removeClass('fa');
+            });
+            $(this).addClass('fa');
+        });
+    });
+</script>
 
 <partial name="_ConfirmationAddToCart" />
 <partial name="_ConfirmationDelete" />

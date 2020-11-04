@@ -11,5 +11,7 @@ namespace Stopify.Infrastructure.Common
         public const string CurrencyFormatter = "F2";
 
         public const string DateFormatter = "dd/MM/yyyy";
+
+        public const int MaxRating = 5;
     }
 }

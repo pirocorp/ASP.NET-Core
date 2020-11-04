@@ -16,6 +16,7 @@ namespace Stopify.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
             this.Orders = new HashSet<Order>();
+            this.Ratings = new HashSet<Rating>();
         }
 
         public string FullName { get; set; }
@@ -27,5 +28,7 @@ namespace Stopify.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }
