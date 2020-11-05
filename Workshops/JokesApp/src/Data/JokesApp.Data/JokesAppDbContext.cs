@@ -1,8 +1,8 @@
-﻿namespace JokesApp.Web.Data
+﻿namespace JokesApp.Data
 {
-    using JokesApp.Web.Areas.Identity.Data;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Models;
 
     public class JokesAppDbContext : IdentityDbContext<JokesAppUser>
     {

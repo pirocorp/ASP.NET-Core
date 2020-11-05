@@ -1,15 +1,13 @@
 namespace JokesApp.Web
 {
-    using Areas.Identity.Data;
+    using Data;
+    using Data.Models;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
-    using JokesApp.Web.Data;
     using Microsoft.AspNetCore.Http;
 
     public class Startup
@@ -32,7 +30,16 @@ namespace JokesApp.Web
             services.AddDbContext<JokesAppDbContext>(options =>
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<JokesAppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<JokesAppUser>(options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.SignIn.RequireConfirmedAccount = false;
+                })
                 .AddEntityFrameworkStores<JokesAppDbContext>();
 
             services.AddControllersWithViews();

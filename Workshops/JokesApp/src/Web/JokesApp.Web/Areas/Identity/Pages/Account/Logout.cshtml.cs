@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using JokesApp.Web.Areas.Identity.Data;
+using JokesApp.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,8 +19,8 @@ namespace JokesApp.Web.Areas.Identity.Pages.Account
 
         public LogoutModel(SignInManager<JokesAppUser> signInManager, ILogger<LogoutModel> logger)
         {
-            _signInManager = signInManager;
-            _logger = logger;
+            this._signInManager = signInManager;
+            this._logger = logger;
         }
 
         public void OnGet()
@@ -26,15 +29,15 @@ namespace JokesApp.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            await this._signInManager.SignOutAsync();
+            this._logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {
-                return LocalRedirect(returnUrl);
+                return this.LocalRedirect(returnUrl);
             }
             else
             {
-                return RedirectToPage();
+                return this.RedirectToPage();
             }
         }
     }

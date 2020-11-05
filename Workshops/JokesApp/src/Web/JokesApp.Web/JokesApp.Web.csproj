@@ -16,4 +16,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\JokesApp.Data.Models\JokesApp.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\JokesApp.Data\JokesApp.Data.csproj" />
+  </ItemGroup>
+
 </Project>

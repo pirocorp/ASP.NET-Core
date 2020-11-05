@@ -1,4 +1,4 @@
-﻿namespace JokesApp.Web.Areas.Identity.Data
+﻿namespace JokesApp.Data.Models
 {
     using Microsoft.AspNetCore.Identity;
 

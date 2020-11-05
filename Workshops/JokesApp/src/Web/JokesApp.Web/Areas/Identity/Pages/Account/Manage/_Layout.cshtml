@@ -1,11 +1,11 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    if (this.ViewData.TryGetValue("ParentLayout", out var parentLayout))
     {
-        Layout = (string)parentLayout;
+        this.Layout = (string)parentLayout;
     }
     else
     {
-        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+        this.Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
 
@@ -19,11 +19,11 @@
             <partial name="_ManageNav" />
         </div>
         <div class="col-md-9">
-            @RenderBody()
+            @(this.RenderBody())
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @RenderSection("Scripts", required: false)
+    @(this.RenderSection("Scripts", required: false))
 }
