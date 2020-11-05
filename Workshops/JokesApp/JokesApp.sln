@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9FE2184A-47FA-42E2-9C9B-BECCA5443999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Web", "src\Web\JokesApp.Web\JokesApp.Web.csproj", "{ABCF08FA-C047-4C75-B893-3DA2AFAF120D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABCF08FA-C047-4C75-B893-3DA2AFAF120D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCF08FA-C047-4C75-B893-3DA2AFAF120D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCF08FA-C047-4C75-B893-3DA2AFAF120D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCF08FA-C047-4C75-B893-3DA2AFAF120D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ABCF08FA-C047-4C75-B893-3DA2AFAF120D} = {9FE2184A-47FA-42E2-9C9B-BECCA5443999}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A04BCA30-6408-4824-8167-A5B905366F18}
+	EndGlobalSection
+EndGlobal
