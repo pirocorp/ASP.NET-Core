@@ -1,22 +1,46 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using JokesApp.Web.Models;
-
-namespace JokesApp.Web.Controllers
+﻿namespace JokesApp.Web.Controllers
 {
+    using System;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using JokesApp.Web.Models;
+    using Data.Common;
+    using Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using Models.Home;
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IRepository<Joke> jokesRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IRepository<Joke> jokesRepository)
         {
-            this._logger = logger;
+            this.jokesRepository = jokesRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return this.View();
+            var jokes = await this.jokesRepository
+                .All()
+                .OrderBy(x => Guid.NewGuid())
+                .Select(j => new IndexJokeViewModel()
+                {
+                    Content = j.Content
+                        .Replace("\r\n", "<br />")
+                        .Replace("\n", "<br />"),
+                    CategoryName = j.Category.Name
+                })
+                .Take(20)
+                .ToListAsync();
+
+            var viewModel = new IndexViewModel()
+            {
+                Jokes = jokes
+            };
+            
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

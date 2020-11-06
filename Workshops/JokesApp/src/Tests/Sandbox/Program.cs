@@ -8,6 +8,7 @@
     using AngleSharp;
     using AngleSharp.Dom;
     using JokesApp.Data;
+    using JokesApp.Data.Common;
     using JokesApp.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -32,14 +33,21 @@
 
         private static async Task SandboxCode(IServiceProvider serviceProvider)
         {
+            await SeedJokesFromDirBgInDatabase(serviceProvider);
+        }
+
+        private static async Task SeedJokesFromDirBgInDatabase(IServiceProvider serviceProvider)
+        {
             var db = serviceProvider.GetService<JokesAppDbContext>();
-            
+
             var config = Configuration.Default.WithDefaultLoader();
             var context = BrowsingContext.New(config);
 
-            var batchSize = 100;
+            var batchSize = 1000;
 
-            for (var batchStart = 701; batchStart < 48598; batchStart+= batchSize)
+            var start = 48600;
+
+            for (var batchStart = 1; batchStart < 48600; batchStart += batchSize)
             {
                 var documents = new List<Task<IDocument>>();
 
@@ -57,7 +65,27 @@
                 foreach (var document in documents)
                 {
                     var contentId = "#newsbody";
-                    var contentElement = (await document).QuerySelector(contentId);
+                    IDocument resolvedDocument = null;
+
+                    for(var i = 0; i < 10; i++)
+                    {
+                        try
+                        {
+                            resolvedDocument = (await document);
+                            break;
+                        }
+                        catch (Exception e)
+                        {
+                            await Task.Delay(10000 * (i + 1));
+                        }
+                    }
+
+                    if (resolvedDocument is null)
+                    {
+                        continue;
+                    }
+
+                    var contentElement = resolvedDocument.QuerySelector(contentId);
 
                     var categorySelector = "div.openvic-left > p.tag-links-left > a";
                     var categoryElement = (await document).QuerySelector(categorySelector);
@@ -113,6 +141,9 @@
 
             services.AddDbContext<JokesAppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            // Application services
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
         }
     }
 }

@@ -1,8 +1,19 @@
-﻿@{
+﻿@model IndexViewModel
+
+@{
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@foreach (var joke in this.Model.Jokes)
+{
+    <div class="card my-4">
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>@this.Html.Raw(joke.Content)</p>
+            </blockquote>
+        </div>
+        <div class="card-header">
+            @joke.CategoryName
+        </div>
+    </div>
+}

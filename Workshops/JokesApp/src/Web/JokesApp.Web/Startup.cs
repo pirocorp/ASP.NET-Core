@@ -1,6 +1,7 @@
 namespace JokesApp.Web
 {
     using Data;
+    using Data.Common;
     using Data.Models;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -44,6 +45,9 @@ namespace JokesApp.Web
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            // Application services
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
