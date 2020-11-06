@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JokesApp.Data.Common\JokesApp.Data.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,10 +1,14 @@
 ﻿namespace Sandbox
 {
     using System;
-    using System.Diagnostics;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
+    using AngleSharp;
+    using AngleSharp.Dom;
     using JokesApp.Data;
+    using JokesApp.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -26,23 +30,83 @@
             }
         }
 
-        private static async Task<int> SandboxCode(IServiceProvider serviceProvider)
+        private static async Task SandboxCode(IServiceProvider serviceProvider)
         {
-            var sw = Stopwatch.StartNew();
-
-            // TODO: Test code goes here (this is the sandbox :)
-
-            Console.WriteLine("Hello from sandbox");
             var db = serviceProvider.GetService<JokesAppDbContext>();
-            Console.WriteLine(db);
+            
+            var config = Configuration.Default.WithDefaultLoader();
+            var context = BrowsingContext.New(config);
 
-            Console.WriteLine(sw.Elapsed);
-            return await Task.FromResult(0);
+            var batchSize = 100;
+
+            for (var batchStart = 701; batchStart < 48598; batchStart+= batchSize)
+            {
+                var documents = new List<Task<IDocument>>();
+
+                for (var i = batchStart; i < batchStart + batchSize; i++)
+                {
+                    Console.WriteLine($"Searching for joke with id: {i}");
+
+                    var url = $"https://fun.dir.bg/vic_open.php?id={i}";
+
+                    documents.Add(context.OpenAsync(url));
+                }
+
+                await Task.WhenAll(documents); // Parallel Execution (somewhat)
+
+                foreach (var document in documents)
+                {
+                    var contentId = "#newsbody";
+                    var contentElement = (await document).QuerySelector(contentId);
+
+                    var categorySelector = "div.openvic-left > p.tag-links-left > a";
+                    var categoryElement = (await document).QuerySelector(categorySelector);
+
+                    if (contentElement is null
+                        || categoryElement is null)
+                    {
+                        continue;
+                    }
+
+                    var jokeContent = contentElement.TextContent;
+                    var category = categoryElement.TextContent;
+
+                    var categoryId = await db.Categories
+                        .Where(c => c.Name.Equals(category))
+                        .Select(c => c.Id)
+                        .FirstOrDefaultAsync();
+
+                    if (categoryId == 0)
+                    {
+                        var categoryEntity = new Category()
+                        {
+                            Name = category
+                        };
+
+                        await db.Categories.AddAsync(categoryEntity);
+                        await db.SaveChangesAsync();
+
+                        categoryId = categoryEntity.Id;
+                    }
+
+                    var joke = new Joke()
+                    {
+                        CategoryId = categoryId,
+                        Content = jokeContent
+                    };
+
+                    await db.Jokes.AddAsync(joke);
+                    await db.SaveChangesAsync();
+
+                    Console.WriteLine($"Add joke {joke.Id} to DB");
+                }
+            }
         }
 
         private static void ConfigureServices(ServiceCollection services)
         {
-            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
                 .AddEnvironmentVariables()
                 .Build();
