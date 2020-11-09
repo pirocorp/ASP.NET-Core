@@ -3,8 +3,8 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using JokesApp.Web.Models;
     using Services.DataServices;
+    using Services.Models;
     using Services.Models.Home;
 
     public class HomeController : Controller
@@ -18,7 +18,6 @@
 
         public async Task<IActionResult> Index()
         {
-
             var viewModel = new IndexViewModel()
             {
                 Jokes = await this.jokesService.GetRandomJokesAsync(20),

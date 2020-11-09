@@ -1,4 +1,4 @@
-namespace JokesApp.Web.Models
+namespace JokesApp.Services.Models
 {
     public class ErrorViewModel
     {

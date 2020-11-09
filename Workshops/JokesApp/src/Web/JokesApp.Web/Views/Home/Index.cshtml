@@ -14,6 +14,7 @@
         </div>
         <div class="card-header">
             @joke.CategoryName
+            <a class="btn btn-secondary btn-sm" asp-controller="Jokes" asp-action="Details" asp-route-id="@joke.Id">View</a>
         </div>
     </div>
 }

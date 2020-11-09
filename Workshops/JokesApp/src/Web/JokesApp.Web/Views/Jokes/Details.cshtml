@@ -1,0 +1,28 @@
+﻿@model JokeDetailsViewModel
+
+@{
+    this.ViewData["Title"] = "Details";
+}
+
+<h1>@(this.ViewData["Title"])</h1>
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @(this.Html.DisplayNameFor(model => model.Content))
+        </dt>
+        <dd class = "col-sm-10">
+            @(this.Html.DisplayFor(model => model.Content))
+        </dd>
+        <dt class = "col-sm-2">
+            @(this.Html.DisplayNameFor(model => model.CategoryName))
+        </dt>
+        <dd class = "col-sm-10">
+            @(this.Html.DisplayFor(model => model.CategoryName))
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to Index</a>
+</div>

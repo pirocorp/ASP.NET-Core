@@ -50,6 +50,7 @@ namespace JokesApp.Web
             // Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddTransient<IJokesService, JokesService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
