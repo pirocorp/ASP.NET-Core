@@ -10,6 +10,7 @@ namespace JokesApp.Web
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Services.DataServices;
 
     public class Startup
     {
@@ -48,6 +49,7 @@ namespace JokesApp.Web
 
             // Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            services.AddTransient<IJokesService, JokesService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

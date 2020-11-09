@@ -1,43 +1,27 @@
 ﻿namespace JokesApp.Web.Controllers
 {
-    using System;
     using System.Diagnostics;
-    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using JokesApp.Web.Models;
-    using Data.Common;
-    using Data.Models;
-    using Microsoft.EntityFrameworkCore;
-    using Models.Home;
+    using Services.DataServices;
+    using Services.Models.Home;
 
     public class HomeController : Controller
     {
-        private readonly IRepository<Joke> jokesRepository;
+        private readonly IJokesService jokesService;
 
-        public HomeController(IRepository<Joke> jokesRepository)
+        public HomeController(IJokesService jokesService)
         {
-            this.jokesRepository = jokesRepository;
+            this.jokesService = jokesService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var jokes = await this.jokesRepository
-                .All()
-                .OrderBy(x => Guid.NewGuid())
-                .Select(j => new IndexJokeViewModel()
-                {
-                    Content = j.Content
-                        .Replace("\r\n", "<br />")
-                        .Replace("\n", "<br />"),
-                    CategoryName = j.Category.Name
-                })
-                .Take(20)
-                .ToListAsync();
 
             var viewModel = new IndexViewModel()
             {
-                Jokes = jokes
+                Jokes = await this.jokesService.GetRandomJokesAsync(20),
             };
             
             return this.View(viewModel);

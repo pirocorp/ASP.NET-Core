@@ -17,7 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6814ADA2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "src\Tests\Sandbox\Sandbox.csproj", "{C3AACBDD-62E5-489E-B616-DF8F88B76F35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Data.Common", "src\Data\JokesApp.Data.Common\JokesApp.Data.Common.csproj", "{D3211D4F-F16A-4B45-825D-07C16EC997CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JokesApp.Data.Common", "src\Data\JokesApp.Data.Common\JokesApp.Data.Common.csproj", "{D3211D4F-F16A-4B45-825D-07C16EC997CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A691DC73-ECDA-4250-B0F3-2ED740456464}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.DataServices", "src\Services\JokesApp.Services.DataServices\JokesApp.Services.DataServices.csproj", "{804D5F44-47F3-4324-9E22-D2CBBE7E426C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.Models", "src\Services\JokesApp.Services.Models\JokesApp.Services.Models.csproj", "{40EE4791-26E5-4B39-B457-57540DE011FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +51,14 @@ Global
 		{D3211D4F-F16A-4B45-825D-07C16EC997CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3211D4F-F16A-4B45-825D-07C16EC997CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3211D4F-F16A-4B45-825D-07C16EC997CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{804D5F44-47F3-4324-9E22-D2CBBE7E426C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{804D5F44-47F3-4324-9E22-D2CBBE7E426C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{804D5F44-47F3-4324-9E22-D2CBBE7E426C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{804D5F44-47F3-4324-9E22-D2CBBE7E426C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40EE4791-26E5-4B39-B457-57540DE011FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40EE4791-26E5-4B39-B457-57540DE011FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40EE4791-26E5-4B39-B457-57540DE011FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40EE4791-26E5-4B39-B457-57540DE011FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +69,8 @@ Global
 		{F0BFBA34-12D6-48DA-B657-61A5BF050D0A} = {B680B41B-6195-43FE-9776-4E20331CACE1}
 		{C3AACBDD-62E5-489E-B616-DF8F88B76F35} = {6814ADA2-3960-469D-9481-F2572D0E7E39}
 		{D3211D4F-F16A-4B45-825D-07C16EC997CA} = {B680B41B-6195-43FE-9776-4E20331CACE1}
+		{804D5F44-47F3-4324-9E22-D2CBBE7E426C} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
+		{40EE4791-26E5-4B39-B457-57540DE011FD} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A04BCA30-6408-4824-8167-A5B905366F18}

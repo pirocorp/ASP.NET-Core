@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\JokesApp.Data.Common\JokesApp.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\JokesApp.Data.Models\JokesApp.Data.Models.csproj" />
+    <ProjectReference Include="..\JokesApp.Services.Models\JokesApp.Services.Models.csproj" />
+  </ItemGroup>
+
+</Project>
