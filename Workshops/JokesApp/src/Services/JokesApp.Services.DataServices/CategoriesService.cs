@@ -30,5 +30,11 @@
         public bool Exists(int categoryId)
             => this.categoriesRepository.All()
                 .Any(c => c.Id.Equals(categoryId));
+
+        public int? GetCategoryId(string name)
+        {
+            var category = this.categoriesRepository.All().FirstOrDefault(x => x.Name == name);
+            return category?.Id;
+        }
     }
 }

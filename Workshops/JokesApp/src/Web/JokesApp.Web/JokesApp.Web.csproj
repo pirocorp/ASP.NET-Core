@@ -20,6 +20,13 @@
     <ProjectReference Include="..\..\Data\JokesApp.Data.Models\JokesApp.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\JokesApp.Data\JokesApp.Data.csproj" />
     <ProjectReference Include="..\..\Services\JokesApp.Services.DataServices\JokesApp.Services.DataServices.csproj" />
+    <ProjectReference Include="..\..\Services\JokesApp.Services.MachineLearning\JokesApp.Services.MachineLearning.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MlModels\JokesCategoryModel.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

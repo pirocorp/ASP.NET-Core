@@ -9,5 +9,7 @@
         Task<IEnumerable<DropDownViewModel>> GetAllAsync(); 
 
         bool Exists(int categoryId);
+
+        int? GetCategoryId(string name);
     }
 }

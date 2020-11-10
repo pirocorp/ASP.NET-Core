@@ -12,6 +12,7 @@ namespace JokesApp.Web
     using Microsoft.AspNetCore.Http;
     using Models.Jokes;
     using Services.DataServices;
+    using Services.MachineLearning;
     using Services.Mapping;
     using Services.Models.Home;
 
@@ -59,6 +60,7 @@ namespace JokesApp.Web
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddTransient<IJokesService, JokesService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IJokesCategorizer, JokesCategorizer>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

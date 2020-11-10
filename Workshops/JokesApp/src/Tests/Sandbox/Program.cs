@@ -10,6 +10,8 @@
     using JokesApp.Data;
     using JokesApp.Data.Common;
     using JokesApp.Data.Models;
+    using JokesApp.Services.DataServices;
+    using JokesApp.Services.MachineLearning;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +35,16 @@
 
         private static async Task SandboxCode(IServiceProvider serviceProvider)
         {
-            await SeedJokesFromDirBgInDatabase(serviceProvider);
+            //await SeedJokesFromDirBgInDatabase(serviceProvider);
+            TestJokeCategorizer(serviceProvider);
+        }
+
+        private static void TestJokeCategorizer(IServiceProvider serviceProvider)
+        {
+            var jokesCategorizer = serviceProvider.GetService<IJokesCategorizer>();
+            var category = jokesCategorizer.Categorize("JokesCategoryModel.zip", "Котка и куче");
+            
+            Console.WriteLine(category);
         }
 
         private static async Task SeedJokesFromDirBgInDatabase(IServiceProvider serviceProvider)
@@ -144,6 +155,9 @@
 
             // Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            services.AddTransient<IJokesService, JokesService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IJokesCategorizer, JokesCategorizer>();
         }
     }
 }

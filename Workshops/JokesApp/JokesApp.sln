@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.Models", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.Mapping", "src\Services\JokesApp.Services.Mapping\JokesApp.Services.Mapping.csproj", "{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.MachineLearning", "src\Services\JokesApp.Services.MachineLearning\JokesApp.Services.MachineLearning.csproj", "{3F421674-8C9C-4090-8077-C4564E5929D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F421674-8C9C-4090-8077-C4564E5929D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F421674-8C9C-4090-8077-C4564E5929D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F421674-8C9C-4090-8077-C4564E5929D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F421674-8C9C-4090-8077-C4564E5929D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{804D5F44-47F3-4324-9E22-D2CBBE7E426C} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
 		{40EE4791-26E5-4B39-B457-57540DE011FD} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
 		{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
+		{3F421674-8C9C-4090-8077-C4564E5929D7} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A04BCA30-6408-4824-8167-A5B905366F18}
