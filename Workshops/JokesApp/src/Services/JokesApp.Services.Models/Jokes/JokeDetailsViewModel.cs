@@ -1,6 +1,9 @@
 ﻿namespace JokesApp.Services.Models.Jokes
 {
-    public class JokeDetailsViewModel
+    using Data.Models;
+    using Mapping;
+
+    public class JokeDetailsViewModel : IMapFrom<Joke>
     {
         public string Content { get; set; }
 

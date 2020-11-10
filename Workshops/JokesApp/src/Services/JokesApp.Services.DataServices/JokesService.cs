@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Data.Common;
     using Data.Models;
+    using Mapping;
     using Microsoft.EntityFrameworkCore;
     using Models.Home;
     using Models.Jokes;
@@ -24,14 +25,7 @@
             => await this.jokesRepository
                 .All()
                 .OrderBy(x => Guid.NewGuid())
-                .Select(j => new IndexJokeViewModel()
-                {
-                    Content = j.Content
-                        .Replace("\r\n", "<br />")
-                        .Replace("\n", "<br />"),
-                    CategoryName = j.Category.Name,
-                    Id = j.Id
-                })
+                .To<IndexJokeViewModel>()
                 .Take(count)
                 .ToListAsync();
 
@@ -55,11 +49,7 @@
         public async Task<JokeDetailsViewModel> GetJokeByIdAsync(int id)
             => await this.jokesRepository.All()
                 .Where(j => j.Id.Equals(id))
-                .Select(j => new JokeDetailsViewModel()
-                {
-                    CategoryName = j.Category.Name,
-                    Content = j.Content,
-                })
+                .To<JokeDetailsViewModel>()
                 .FirstOrDefaultAsync();
     }
 }

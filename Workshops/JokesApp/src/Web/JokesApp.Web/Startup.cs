@@ -10,7 +10,10 @@ namespace JokesApp.Web
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Models.Jokes;
     using Services.DataServices;
+    using Services.Mapping;
+    using Services.Models.Home;
 
     public class Startup
     {
@@ -23,6 +26,11 @@ namespace JokesApp.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            AutoMapperConfig.RegisterMappings(
+                typeof(IndexViewModel).Assembly,
+                typeof(CreateJokeInputModel).Assembly
+            );
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = consent => true;
