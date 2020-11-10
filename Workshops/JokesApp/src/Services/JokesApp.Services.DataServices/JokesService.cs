@@ -9,7 +9,6 @@
     using Mapping;
     using Microsoft.EntityFrameworkCore;
     using Models.Home;
-    using Models.Jokes;
 
     public class JokesService : IJokesService
     {
@@ -46,10 +45,10 @@
             return joke.Id;
         }
 
-        public async Task<JokeDetailsViewModel> GetJokeByIdAsync(int id)
+        public async Task<TOut> GetJokeByIdAsync<TOut>(int id)
             => await this.jokesRepository.All()
                 .Where(j => j.Id.Equals(id))
-                .To<JokeDetailsViewModel>()
+                .To<TOut>()
                 .FirstOrDefaultAsync();
     }
 }

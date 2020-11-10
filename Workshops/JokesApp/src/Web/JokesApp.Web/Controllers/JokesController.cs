@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Jokes;
     using Services.DataServices;
+    using Services.Models.Jokes;
 
     [Authorize]
     public class JokesController : BaseController
@@ -45,7 +46,7 @@
 
         public async Task<IActionResult> Details(int id)
         {
-            var joke = await this.jokesService.GetJokeByIdAsync(id);
+            var joke = await this.jokesService.GetJokeByIdAsync<JokeDetailsViewModel>(id);
 
             return this.View(joke);
         }

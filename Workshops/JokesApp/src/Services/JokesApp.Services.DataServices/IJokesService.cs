@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Models.Home;
-    using Models.Jokes;
 
     public interface IJokesService
     {
@@ -13,6 +12,6 @@
 
         Task<int> CreateAsync(int categoryId, string content);
 
-        Task<JokeDetailsViewModel> GetJokeByIdAsync(int id);
+        Task<TOut> GetJokeByIdAsync<TOut>(int id);
     }
 }
