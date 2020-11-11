@@ -12,6 +12,7 @@
 
     public class JokesService : IJokesService
     {
+        private const int PageSize = 10;
         private readonly IRepository<Joke> jokesRepository;
 
         public JokesService(
@@ -50,5 +51,19 @@
                 .Where(j => j.Id.Equals(id))
                 .To<TOut>()
                 .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<TOut>> GetJokesFromCategory<TOut>(int categoryId, int page = 1)
+        {
+            var skip = (page - 1) * PageSize;
+            var take = PageSize;
+
+            return await this.jokesRepository.All()
+                .Where(j => j.CategoryId.Equals(categoryId))
+                .OrderByDescending(j => j.Id)
+                .To<TOut>()
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+        }
     }
 }

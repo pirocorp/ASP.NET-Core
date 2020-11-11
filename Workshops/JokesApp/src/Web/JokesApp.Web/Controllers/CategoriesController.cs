@@ -9,10 +9,14 @@
     public class CategoriesController : BaseController
     {
         private readonly ICategoriesService categoriesService;
+        private readonly IJokesService jokesService;
 
-        public CategoriesController(ICategoriesService categoriesService)
+        public CategoriesController(
+            ICategoriesService categoriesService,
+            IJokesService jokesService)
         {
             this.categoriesService = categoriesService;
+            this.jokesService = jokesService;
         }
 
         public async Task<IActionResult> Index()
@@ -25,11 +29,21 @@
             return this.View(model);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, int page = 1)
         {
-            var category = await this.categoriesService.GetById<CategoriesDetailsViewModel>(id);
+            if (page < 1)
+            {
+                page = 1;
+            }
 
-            return this.View(category);
+            var model = new DetailsViewModel()
+            {
+                Category = await this.categoriesService.GetById<CategoriesDetailsViewModel>(id),
+                Jokes = await this.jokesService.GetJokesFromCategory<CategoryDetailsJokeListingModel>(id, page),
+                CurrentPage = page
+            };
+
+            return this.View(model);
         }
     }
 }

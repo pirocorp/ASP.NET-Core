@@ -13,5 +13,7 @@
         Task<int> CreateAsync(int categoryId, string content);
 
         Task<TOut> GetJokeByIdAsync<TOut>(int id);
+
+        Task<IEnumerable<TOut>> GetJokesFromCategory<TOut>(int categoryId, int page = 1);
     }
 }
