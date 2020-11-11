@@ -1,4 +1,5 @@
-﻿namespace JokesApp.Data
+﻿// ReSharper disable ClassWithVirtualMembersNeverInherited.Global
+namespace JokesApp.Data
 {
     using System;
     using System.Linq;

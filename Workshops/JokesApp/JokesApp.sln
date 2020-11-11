@@ -21,13 +21,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JokesApp.Data.Common", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A691DC73-ECDA-4250-B0F3-2ED740456464}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.DataServices", "src\Services\JokesApp.Services.DataServices\JokesApp.Services.DataServices.csproj", "{804D5F44-47F3-4324-9E22-D2CBBE7E426C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JokesApp.Services.DataServices", "src\Services\JokesApp.Services.DataServices\JokesApp.Services.DataServices.csproj", "{804D5F44-47F3-4324-9E22-D2CBBE7E426C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.Models", "src\Services\JokesApp.Services.Models\JokesApp.Services.Models.csproj", "{40EE4791-26E5-4B39-B457-57540DE011FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JokesApp.Services.Models", "src\Services\JokesApp.Services.Models\JokesApp.Services.Models.csproj", "{40EE4791-26E5-4B39-B457-57540DE011FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.Mapping", "src\Services\JokesApp.Services.Mapping\JokesApp.Services.Mapping.csproj", "{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JokesApp.Services.Mapping", "src\Services\JokesApp.Services.Mapping\JokesApp.Services.Mapping.csproj", "{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokesApp.Services.MachineLearning", "src\Services\JokesApp.Services.MachineLearning\JokesApp.Services.MachineLearning.csproj", "{3F421674-8C9C-4090-8077-C4564E5929D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JokesApp.Services.MachineLearning", "src\Services\JokesApp.Services.MachineLearning\JokesApp.Services.MachineLearning.csproj", "{3F421674-8C9C-4090-8077-C4564E5929D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunApp.Services.DataServices.Tests", "src\Tests\FunApp.Services.DataServices.Tests\FunApp.Services.DataServices.Tests.csproj", "{75359344-E745-43A6-B3A7-149A85C8C065}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{3F421674-8C9C-4090-8077-C4564E5929D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F421674-8C9C-4090-8077-C4564E5929D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F421674-8C9C-4090-8077-C4564E5929D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75359344-E745-43A6-B3A7-149A85C8C065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75359344-E745-43A6-B3A7-149A85C8C065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75359344-E745-43A6-B3A7-149A85C8C065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75359344-E745-43A6-B3A7-149A85C8C065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{40EE4791-26E5-4B39-B457-57540DE011FD} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
 		{DEA8ADCF-BE4F-4E30-B201-84EEA11D61F4} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
 		{3F421674-8C9C-4090-8077-C4564E5929D7} = {A691DC73-ECDA-4250-B0F3-2ED740456464}
+		{75359344-E745-43A6-B3A7-149A85C8C065} = {6814ADA2-3960-469D-9481-F2572D0E7E39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A04BCA30-6408-4824-8167-A5B905366F18}
