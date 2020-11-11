@@ -9,6 +9,9 @@
 
     public static class AutoMapperConfig
     {
+        /// <summary>
+        /// One mapper instance for entire application
+        /// </summary>
         public static IMapper MapperInstance { get; set; }
 
         /// <summary>

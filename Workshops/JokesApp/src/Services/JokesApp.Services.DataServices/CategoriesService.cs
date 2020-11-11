@@ -5,8 +5,8 @@
     using System.Threading.Tasks;
     using Data.Common;
     using Data.Models;
+    using Mapping;
     using Microsoft.EntityFrameworkCore;
-    using Models;
 
     public class CategoriesService : ICategoriesService
     {
@@ -17,15 +17,17 @@
             this.categoriesRepository = categoriesRepository;
         }
 
-        public async Task<IEnumerable<DropDownViewModel>> GetAllAsync()
+        public async Task<IEnumerable<TOut>> GetAllAsync<TOut>()
             => await this.categoriesRepository.All()
                 .OrderBy(c => c.Name)
-                .Select(c => new DropDownViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
+                .To<TOut>()
                 .ToListAsync();
+
+        public async Task<TOut> GetById<TOut>(int id)
+            => await this.categoriesRepository.All()
+                .Where(c => c.Id.Equals(id))
+                .To<TOut>()
+                .FirstOrDefaultAsync();
 
         public bool Exists(int categoryId)
             => this.categoriesRepository.All()

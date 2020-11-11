@@ -7,6 +7,7 @@
 
     /// <summary>
     /// Extension methods for easy using of automapper with LINQ.
+    /// Using automapper static instance in AutoMapperConfig
     /// </summary>
     public static class QueryableMappingExtensions
     {

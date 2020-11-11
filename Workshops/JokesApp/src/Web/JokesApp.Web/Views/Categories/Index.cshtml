@@ -1,0 +1,20 @@
+﻿@model CategoryIndexViewModel
+@{
+    var startChar = this.Model.Categories.FirstOrDefault()?.Name[0] ?? ' ';
+}
+
+<div class="row">
+    @foreach (var category in this.Model.Categories)
+    {
+        if (!category.Name[0].Equals(startChar))
+        {
+            <div class="col-12"></div>
+            <br/>
+            startChar = category.Name[0];
+        }
+
+        <div class="col-md-4">
+            <a asp-controller="Categories" asp-action="Details" asp-route-id="@category.Id">@($"{category.Name} ({category.JokesCount})")</a>
+        </div>
+    }
+</div>

@@ -1,0 +1,19 @@
+﻿@* ReSharper disable MarkupTextTypo *@
+@model CategoriesDetailsViewModel
+
+<h4>Всички вицове в категория: @this.Model.Name</h4>
+
+
+@foreach (var joke in this.Model.Jokes)
+{
+    <div class="card my-4">
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>@this.Html.Raw(joke.Content)</p>
+            </blockquote>
+        </div>
+        <div class="card-header">
+            @this.Model.Name
+        </div>
+    </div>
+}

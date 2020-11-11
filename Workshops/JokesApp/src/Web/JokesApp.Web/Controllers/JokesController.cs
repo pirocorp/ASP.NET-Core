@@ -8,6 +8,7 @@
     using Models.Jokes;
     using Services.DataServices;
     using Services.MachineLearning;
+    using Services.Models.Categories;
     using Services.Models.Jokes;
 
     [Authorize]
@@ -65,7 +66,7 @@
 
         private async Task LoadCategories()
         {
-            this.ViewData["Categories"] = (await this.categoriesService.GetAllAsync())
+            this.ViewData["Categories"] = (await this.categoriesService.GetAllAsync<CategoryDropDownViewModel>())
                 .Select(c => new SelectListItem(c.Name, c.Id.ToString()))
                 .ToList();
         }

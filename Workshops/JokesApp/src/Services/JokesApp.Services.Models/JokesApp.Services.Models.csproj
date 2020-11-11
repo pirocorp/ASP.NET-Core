@@ -13,8 +13,4 @@
     <ProjectReference Include="..\JokesApp.Services.Mapping\JokesApp.Services.Mapping.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Categories\" />
-  </ItemGroup>
-
 </Project>

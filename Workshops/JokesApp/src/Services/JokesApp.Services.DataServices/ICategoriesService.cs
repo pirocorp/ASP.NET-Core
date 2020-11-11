@@ -6,7 +6,9 @@
 
     public interface ICategoriesService
     {
-        Task<IEnumerable<DropDownViewModel>> GetAllAsync(); 
+        Task<IEnumerable<TOut>> GetAllAsync<TOut>();
+
+        Task<TOut> GetById<TOut>(int id);
 
         bool Exists(int categoryId);
 
