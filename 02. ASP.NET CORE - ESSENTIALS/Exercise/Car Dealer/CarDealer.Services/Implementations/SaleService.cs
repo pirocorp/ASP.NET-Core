@@ -1,6 +1,5 @@
 ﻿namespace CarDealer.Services.Implementations
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Data;
@@ -9,16 +8,16 @@
 
     public class SaleService : ISaleService
     {
-        private const double EPSILON = 1e-12;
-        private readonly CarDealerDbContext _db;
+        private const double Epsilon = 1e-12;
+        private readonly CarDealerDbContext db;
 
         public SaleService(CarDealerDbContext db)
         {
-            this._db = db;
+            this.db = db;
         }
 
         public IEnumerable<SaleListModel> All()
-            => this._db
+            => this.db
                 .Sales
                 .OrderByDescending(s => s.Id)
                 .Select(s => new SaleListModel()
@@ -32,7 +31,7 @@
                 .ToList();
 
         public SaleDetailsModel Details(int id)
-            => this._db
+            => this.db
                 .Sales
                 .Where(s => s.Id == id)
                 .Select(s => new SaleDetailsModel()
@@ -53,7 +52,7 @@
 
         public IEnumerable<SaleListModel> Discounted(double? discount)
         {
-            var query = this._db
+            var query = this.db
                 .Sales
                 .AsQueryable();
             
@@ -65,7 +64,7 @@
             else
             {
                 query = query
-                    .Where(s => s.Discount > EPSILON);
+                    .Where(s => s.Discount > Epsilon);
             }
 
             return query

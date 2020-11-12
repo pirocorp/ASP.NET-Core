@@ -9,11 +9,11 @@
     [Route("customers")]
     public class CustomersController : Controller
     {
-        private readonly ICustomerService _customerService;
+        private readonly ICustomerService customerService;
 
         public CustomersController(ICustomerService customerService)
         {
-            this._customerService = customerService;
+            this.customerService = customerService;
         }
 
         [Route("all/{order?}")]
@@ -24,7 +24,7 @@
                 : OrderDirection.Ascending;
 
             var allCustomers = this
-                ._customerService
+                .customerService
                 .Ordered(orderDirection);
 
             var result = new AllCustomersModel()
@@ -40,7 +40,7 @@
         public IActionResult TotalSales(int id)
         {
             var result = this
-                ._customerService
+                .customerService
                 .TotalSalesById(id);
 
             return this.ViewOrNotFound(result);
@@ -58,7 +58,7 @@
                 return this.View(model);
             }
 
-            this._customerService.Create(
+            this.customerService.Create(
                 model.Name,
                 model.BirthDay,
                 model.IsYoungDriver);
@@ -69,7 +69,7 @@
         [Route(nameof(Edit) + "/{id}")]
         public IActionResult Edit(int id)
         {
-            var customer = this._customerService.ById(id);
+            var customer = this.customerService.ById(id);
 
             if (customer == null)
             {
@@ -95,14 +95,14 @@
                 return this.View(model);
             }
 
-            var customerExists = this._customerService.Exists(id);
+            var customerExists = this.customerService.Exists(id);
 
             if (!customerExists)
             {
                 return this.NotFound();
             }
 
-            this._customerService.Edit(
+            this.customerService.Edit(
                 id, 
                 model.Name,
                 model.BirthDay,

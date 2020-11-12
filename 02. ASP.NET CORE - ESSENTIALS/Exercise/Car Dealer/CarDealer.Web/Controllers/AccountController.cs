@@ -16,18 +16,18 @@
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly ILogger _logger;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
+        private readonly ILogger logger;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<AccountController> logger)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._logger = logger;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.logger = logger;
         }
 
         [TempData]
@@ -54,19 +54,19 @@
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await this._signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await this.signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    this._logger.LogInformation("User logged in.");
+                    this.logger.LogInformation("User logged in.");
                     return this.RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return this.RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    return this.RedirectToAction(nameof(this.LoginWith2Fa), new { returnUrl, model.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
-                    this._logger.LogWarning("User account locked out.");
+                    this.logger.LogWarning("User account locked out.");
                     return this.RedirectToAction(nameof(this.Lockout));
                 }
                 else
@@ -82,17 +82,17 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
+        public async Task<IActionResult> LoginWith2Fa(bool rememberMe, string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            var user = await this._signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await this.signInManager.GetTwoFactorAuthenticationUserAsync();
 
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
             }
 
-            var model = new LoginWith2faViewModel { RememberMe = rememberMe };
+            var model = new LoginWith2FaViewModel { RememberMe = rememberMe };
             this.ViewData["ReturnUrl"] = returnUrl;
 
             return this.View(model);
@@ -101,36 +101,36 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginWith2fa(LoginWith2faViewModel model, bool rememberMe, string returnUrl = null)
+        public async Task<IActionResult> LoginWith2Fa(LoginWith2FaViewModel model, bool rememberMe, string returnUrl = null)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            var user = await this._signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await this.signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
             var authenticatorCode = model.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
 
-            var result = await this._signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, model.RememberMachine);
+            var result = await this.signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, model.RememberMachine);
 
             if (result.Succeeded)
             {
-                this._logger.LogInformation("User with ID {UserId} logged in with 2fa.", user.Id);
+                this.logger.LogInformation("User with ID {UserId} logged in with 2fa.", user.Id);
                 return this.RedirectToLocal(returnUrl);
             }
             else if (result.IsLockedOut)
             {
-                this._logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
+                this.logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
                 return this.RedirectToAction(nameof(this.Lockout));
             }
             else
             {
-                this._logger.LogWarning("Invalid authenticator code entered for user with ID {UserId}.", user.Id);
+                this.logger.LogWarning("Invalid authenticator code entered for user with ID {UserId}.", user.Id);
                 this.ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
                 return this.View();
             }
@@ -141,7 +141,7 @@
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
-            var user = await this._signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await this.signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
@@ -162,7 +162,7 @@
                 return this.View(model);
             }
 
-            var user = await this._signInManager.GetTwoFactorAuthenticationUserAsync();
+            var user = await this.signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load two-factor authentication user.");
@@ -170,21 +170,21 @@
 
             var recoveryCode = model.RecoveryCode.Replace(" ", string.Empty);
 
-            var result = await this._signInManager.TwoFactorRecoveryCodeSignInAsync(recoveryCode);
+            var result = await this.signInManager.TwoFactorRecoveryCodeSignInAsync(recoveryCode);
 
             if (result.Succeeded)
             {
-                this._logger.LogInformation("User with ID {UserId} logged in with a recovery code.", user.Id);
+                this.logger.LogInformation("User with ID {UserId} logged in with a recovery code.", user.Id);
                 return this.RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
             {
-                this._logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
+                this.logger.LogWarning("User with ID {UserId} account locked out.", user.Id);
                 return this.RedirectToAction(nameof(this.Lockout));
             }
             else
             {
-                this._logger.LogWarning("Invalid recovery code entered for user with ID {UserId}", user.Id);
+                this.logger.LogWarning("Invalid recovery code entered for user with ID {UserId}", user.Id);
                 this.ModelState.AddModelError(string.Empty, "Invalid recovery code entered.");
                 return this.View();
             }
@@ -214,15 +214,15 @@
             if (this.ModelState.IsValid)
             {
                 var user = new User { UserName = model.Username, Email = model.Email };
-                var result = await this._userManager.CreateAsync(user, model.Password);
+                var result = await this.userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    this._logger.LogInformation("User created a new account with password.");
+                    this.logger.LogInformation("User created a new account with password.");
 
-                    var code = await this._userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var _ = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                    await this._signInManager.SignInAsync(user, isPersistent: false);
-                    this._logger.LogInformation("User created a new account with password.");
+                    await this.signInManager.SignInAsync(user, isPersistent: false);
+                    this.logger.LogInformation("User created a new account with password.");
                     return this.RedirectToLocal(returnUrl);
                 }
 
@@ -237,8 +237,8 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await this._signInManager.SignOutAsync();
-            this._logger.LogInformation("User logged out.");
+            await this.signInManager.SignOutAsync();
+            this.logger.LogInformation("User logged out.");
             return this.RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -249,7 +249,7 @@
         {
             // Request a redirect to the external login provider.
             var redirectUrl = this.Url.Action(nameof(this.ExternalLoginCallback), "Account", new { returnUrl });
-            var properties = this._signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            var properties = this.signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return this.Challenge(properties, provider);
         }
 
@@ -262,17 +262,17 @@
                 this.ErrorMessage = $"Error from external provider: {remoteError}";
                 return this.RedirectToAction(nameof(Login));
             }
-            var info = await this._signInManager.GetExternalLoginInfoAsync();
+            var info = await this.signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
                 return this.RedirectToAction(nameof(Login));
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await this._signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            var result = await this.signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-                this._logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+                this.logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
                 return this.RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
@@ -297,20 +297,20 @@
             if (this.ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await this._signInManager.GetExternalLoginInfoAsync();
+                var info = await this.signInManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
                 var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await this._userManager.CreateAsync(user);
+                var result = await this.userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await this._userManager.AddLoginAsync(user, info);
+                    result = await this.userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await this._signInManager.SignInAsync(user, isPersistent: false);
-                        this._logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        await this.signInManager.SignInAsync(user, isPersistent: false);
+                        this.logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return this.RedirectToLocal(returnUrl);
                     }
                 }
@@ -330,12 +330,12 @@
             {
                 return this.RedirectToAction(nameof(HomeController.Index), "Home");
             }
-            var user = await this._userManager.FindByIdAsync(userId);
+            var user = await this.userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{userId}'.");
             }
-            var result = await this._userManager.ConfirmEmailAsync(user, code);
+            var result = await this.userManager.ConfirmEmailAsync(user, code);
             return this.View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -353,8 +353,8 @@
         {
             if (this.ModelState.IsValid)
             {
-                var user = await this._userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await this._userManager.IsEmailConfirmedAsync(user)))
+                var user = await this.userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await this.userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return this.RedirectToAction(nameof(this.ForgotPasswordConfirmation));
@@ -362,8 +362,8 @@
 
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await this._userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = this.Url.ResetPasswordCallbackLink(user.Id, code, this.Request.Scheme);
+                var code = await this.userManager.GeneratePasswordResetTokenAsync(user);
+                var _ = this.Url.ResetPasswordCallbackLink(user.Id, code, this.Request.Scheme);
                 return this.RedirectToAction(nameof(this.ForgotPasswordConfirmation));
             }
 
@@ -399,13 +399,13 @@
             {
                 return this.View(model);
             }
-            var user = await this._userManager.FindByEmailAsync(model.Email);
+            var user = await this.userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return this.RedirectToAction(nameof(this.ResetPasswordConfirmation));
             }
-            var result = await this._userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var result = await this.userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return this.RedirectToAction(nameof(this.ResetPasswordConfirmation));

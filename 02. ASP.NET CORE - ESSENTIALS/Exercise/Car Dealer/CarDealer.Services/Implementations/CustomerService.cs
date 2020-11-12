@@ -11,17 +11,17 @@
 
     public class CustomerService : ICustomerService
     {
-        private readonly CarDealerDbContext _db;
+        private readonly CarDealerDbContext db;
 
         public CustomerService(CarDealerDbContext db)
         {
-            this._db = db;
+            this.db = db;
         }
 
         public IEnumerable<CustomerModel> Ordered(OrderDirection order)
         {
             var customersQuery =
-                this._db
+                this.db
                     .Customers
                     .AsQueryable();
 
@@ -53,7 +53,7 @@
         }
 
         public CustomerTotalSalesModel TotalSalesById(int id)
-            => this._db
+            => this.db
                 .Customers
                 .Where(c => c.Id == id)
                 .Select(c => new CustomerTotalSalesModel()
@@ -79,12 +79,12 @@
                 IsYoungDriver = isYoungDriver
             };
 
-            this._db.Customers.Add(customer);
-            this._db.SaveChanges();
+            this.db.Customers.Add(customer);
+            this.db.SaveChanges();
         }
 
         public CustomerModel ById(int id)
-            => this._db
+            => this.db
                 .Customers
                 .Where(c => c.Id == id)
                 .Select(c => new CustomerModel
@@ -98,7 +98,7 @@
 
         public void Edit(int id, string name, DateTime birthDay, bool isYoungDriver)
         {
-            var existing = this._db.Customers.Find(id);
+            var existing = this.db.Customers.Find(id);
 
             if (existing == null)
             {
@@ -109,10 +109,10 @@
             existing.BirthDay = birthDay;
             existing.IsYoungDriver = isYoungDriver;
 
-            this._db.SaveChanges();
+            this.db.SaveChanges();
         }
 
         public bool Exists(int id)
-            => this._db.Customers.Any(c => c.Id == id);
+            => this.db.Customers.Any(c => c.Id == id);
     }
 }

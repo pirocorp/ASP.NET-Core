@@ -1,15 +1,15 @@
 ﻿@model SaleDetailsModel
 
 @{
-    ViewData["Title"] = $"Sale {Model.Id}";
+    this.ViewData["Title"] = $"Sale {this.Model.Id}";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@(this.ViewData["Title"])</h2>
 
-<h3>@Model.CustomerName</h3>
+<h3>@(this.Model.CustomerName)</h3>
 
-<p>@((Model.Discount + (Model.IsYoungDriver ? 0.05 : 0)).ToPercent())</p>
+<p>@((this.Model.Discount + (this.Model.IsYoungDriver ? 0.05 : 0)).ToPercent())</p>
 
-<p>@Model.DiscountedPrice.ToPrice()</p>
+<p>@(this.Model.DiscountedPrice.ToPrice())</p>
 
-<p>@Model.Car.Make @Model.Car.Model - @Model.Car.TravelledDistance.ToKm()</p>
+<p>@(this.Model.Car.Make) @(this.Model.Car.Model) - @(this.Model.Car.TravelledDistance.ToKm())</p>

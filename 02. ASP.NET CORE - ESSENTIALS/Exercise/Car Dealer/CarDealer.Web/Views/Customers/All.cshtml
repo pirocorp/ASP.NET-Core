@@ -1,11 +1,12 @@
-﻿@model AllCustomersModel
+﻿@* ReSharper disable Html.PathError *@
+@model AllCustomersModel
 
 @{
-    ViewData["Title"] = "AllListings Customers";
+    this.ViewData["Title"] = "AllListings Customers";
 }
 
 <h2>AllListings Customers</h2>
-<h3>Ordered in @Model.OrderDirection.ToString().ToLower() direction</h3>
+<h3>Ordered in @(this.Model.OrderDirection.ToString().ToLower()) direction</h3>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -17,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var customer in Model.Customers)
+        @foreach (var customer in this.Model.Customers)
         {
             <tr>
                 <td>@customer.Name</td>

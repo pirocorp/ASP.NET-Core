@@ -10,16 +10,16 @@
 
     public class PartsController : Controller
     {
-        private const int PAGE_SIZE = 25;
+        private const int PageSize = 25;
 
-        private readonly IPartsService _partsService;
-        private readonly ISupplierService _supplierService;
+        private readonly IPartsService partsService;
+        private readonly ISupplierService supplierService;
 
         public PartsController(IPartsService partsService, 
             ISupplierService supplierService)
         {
-            this._partsService = partsService;
-            this._supplierService = supplierService;
+            this.partsService = partsService;
+            this.supplierService = supplierService;
         }
 
         public IActionResult All(int page = 1)
@@ -30,11 +30,11 @@
             }
 
             var parts = this
-                ._partsService
-                .AllListings(page, PAGE_SIZE);
+                .partsService
+                .AllListings(page, PageSize);
 
-            var totalParts = this._partsService.Count();
-            var totalPages = Math.Ceiling(totalParts / (double) PAGE_SIZE);
+            var totalParts = this.partsService.Count();
+            var totalPages = Math.Ceiling(totalParts / (double) PageSize);
 
             var model =  new PartPageListingModel()
             {
@@ -59,7 +59,7 @@
         [HttpPost]
         public IActionResult Create(PartFormModel model)
         {
-            if (!this._supplierService.Exists(model.SupplierId))
+            if (!this.supplierService.Exists(model.SupplierId))
             {
                 this.ModelState.AddModelError(nameof(PartFormModel.SupplierId), "Invalid supplier.");
             }
@@ -71,7 +71,7 @@
                 return this.View(model);
             }
 
-            this._partsService.Create(
+            this.partsService.Create(
                 model.Name,
                 model.Price,
                 model.Quantity,
@@ -84,14 +84,14 @@
 
         public IActionResult Destroy(int id)
         {
-            this._partsService.Delete(id);
+            this.partsService.Delete(id);
 
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public IActionResult Edit(int id)
         {
-            var part = this._partsService.ById(id);
+            var part = this.partsService.ById(id);
 
             if (part == null)
             {
@@ -118,7 +118,7 @@
                 return this.View(model);
             }
 
-            this._partsService.Edit(
+            this.partsService.Edit(
                 id,
                 model.Price,
                 model.Quantity);
@@ -127,7 +127,7 @@
         }
 
         private IEnumerable<SelectListItem> GetSupplierListItems()
-            => this._supplierService
+            => this.supplierService
                 .All()
                 .Select(s => new SelectListItem()
                 {

@@ -1,9 +1,9 @@
 ﻿@model CarDealer.Web.ViewModels.Account.LoginWithRecoveryCodeViewModel
 @{
-    ViewData["Title"] = "Recovery code verification";
+    this.ViewData["Title"] = "Recovery code verification";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@(this.ViewData["Title"])</h2>
 <hr />
 <p>
     You have requested to login with a recovery code. This login will not be remembered until you provide
@@ -24,5 +24,5 @@
 </div>
 
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await this.Html.PartialAsync("_ValidationScriptsPartial")
 }

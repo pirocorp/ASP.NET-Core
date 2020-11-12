@@ -11,21 +11,21 @@
     [Route("cars")]
     public class CarsController : Controller
     {
-        private readonly ICarService _carService;
-        private readonly IPartsService _partsService;
+        private readonly ICarService carService;
+        private readonly IPartsService partsService;
 
         public CarsController(ICarService carService, 
             IPartsService partsService)
         {
-            this._carService = carService;
-            this._partsService = partsService;
+            this.carService = carService;
+            this.partsService = partsService;
         }
 
         [Route("{make}", Order = 2)]
         public IActionResult ByMake(string make)
         {
             var cars = this
-                ._carService
+                .carService
                 .ByMake(make);
 
             var result = new CarsByMakeModel()
@@ -40,7 +40,7 @@
         [Route(nameof(Parts), Order = 1)]
         public IActionResult Parts()
         {
-            var carsWithParts = this._carService.WithParts();
+            var carsWithParts = this.carService.WithParts();
 
             return this.View(carsWithParts);
         }
@@ -71,7 +71,7 @@
                 return this.View(carModel);
             }
 
-            this._carService.Create(
+            this.carService.Create(
                 carModel.Make,
                 carModel.Model,
                 carModel.TravelledDistance,
@@ -81,7 +81,7 @@
         }
 
         private IEnumerable<SelectListItem> GetPartsSelectListItems()
-            => this._partsService
+            => this.partsService
                 .All()
                 .Select(p => new SelectListItem()
                 {

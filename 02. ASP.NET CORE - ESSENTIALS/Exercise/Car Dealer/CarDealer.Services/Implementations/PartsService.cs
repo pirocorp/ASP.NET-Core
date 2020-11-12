@@ -9,15 +9,15 @@
 
     public class PartsService : IPartsService
     {
-        private readonly CarDealerDbContext _db;
+        private readonly CarDealerDbContext db;
 
         public PartsService(CarDealerDbContext db)
         {
-            this._db = db;
+            this.db = db;
         }
 
         public IEnumerable<PartListingModel> AllListings(int page = 1, int pageSize = 10)
-            => this._db
+            => this.db
                 .Parts
                 .OrderByDescending(p => p.Id)
                 .Skip((page - 1) * pageSize)
@@ -33,7 +33,7 @@
                 .ToList();
 
         public IEnumerable<PartBasicModel> All()
-            => this._db
+            => this.db
                 .Parts
                 .OrderBy(p => p.Name)
                 .Select(p => new PartBasicModel()
@@ -54,28 +54,28 @@
                 SupplierId = supplierId
             };
 
-            this._db.Parts.Add(part);
-            this._db.SaveChanges();
+            this.db.Parts.Add(part);
+            this.db.SaveChanges();
         }
 
         public int Count()
-            => this._db.Parts.Count();
+            => this.db.Parts.Count();
 
         public void Delete(int id)
         {
-            var part = this._db.Parts.Find(id);
+            var part = this.db.Parts.Find(id);
 
             if (part == null)
             {
                 return;
             }
 
-            this._db.Parts.Remove(part);
-            this._db.SaveChanges();
+            this.db.Parts.Remove(part);
+            this.db.SaveChanges();
         }
 
         public PartDetailsModel ById(int id)
-            => this._db
+            => this.db
                 .Parts
                 .Where(p => p.Id == id)
                 .Select(p => new PartDetailsModel()
@@ -88,7 +88,7 @@
 
         public void Edit(int id, decimal price, int quantity)
         {
-            var part = this._db.Parts.Find(id);
+            var part = this.db.Parts.Find(id);
 
             if (part == null)
             {
@@ -98,7 +98,7 @@
             part.Price = price;
             part.Quantity = quantity;
 
-            this._db.SaveChanges();
+            this.db.SaveChanges();
         }
     }
 }

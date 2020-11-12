@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Generate two-factor authentication (2FA) recovery codes";
-    ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
+    this.ViewData["Title"] = "Generate two-factor authentication (2FA) recovery codes";
+    this.ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@(this.ViewData["Title"])</h2>
 
 <div class="alert alert-warning" role="alert">
     <p>

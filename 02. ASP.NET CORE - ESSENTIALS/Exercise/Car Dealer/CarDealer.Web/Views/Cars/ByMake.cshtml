@@ -1,10 +1,10 @@
 ﻿@model CarsByMakeModel
 
 @{
-    ViewData["Title"] = $"{Model.Make} Cars";
+    this.ViewData["Title"] = $"{this.Model.Make} Cars";
 }
 
-<h2>@Model.Make Cars</h2>
+<h2>@(this.Model.Make) Cars</h2>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var car in Model.Cars)
+        @foreach (var car in this.Model.Cars)
         {
             <tr>
                 <td>@car.Make</td>

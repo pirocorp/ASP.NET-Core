@@ -8,7 +8,7 @@ using System;
 namespace CarDealer.Data.Migrations
 {
     [DbContext(typeof(CarDealerDbContext))]
-    partial class CarDealerDbContextModelSnapshot : ModelSnapshot
+    class CarDealerDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

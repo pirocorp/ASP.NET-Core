@@ -7,17 +7,17 @@
     [Route("sales")]
     public class SalesController : Controller
     {
-        private readonly ISaleService _saleService;
+        private readonly ISaleService saleService;
 
         public SalesController(ISaleService saleService)
         {
-            this._saleService = saleService;
+            this.saleService = saleService;
         }
         
         [Route("")]
         public IActionResult All()
         {
-            var result = this._saleService.All();
+            var result = this.saleService.All();
 
             this.ViewBag.Type = "AllListings";
 
@@ -27,7 +27,7 @@
         [Route("{id}")]
         public IActionResult Details(int id)
         {
-            var result = this._saleService.Details(id);
+            var result = this.saleService.Details(id);
 
             return this.ViewOrNotFound(result);
         }
@@ -35,7 +35,7 @@
         [Route("discounted/{percent?}")]
         public IActionResult Discounted(double? percent)
         {
-            var result = this._saleService.Discounted(percent);
+            var result = this.saleService.Discounted(percent);
 
             this.ViewBag.Type = "Discounted";
 

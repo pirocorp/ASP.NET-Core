@@ -1,10 +1,10 @@
 ﻿@model SuppliersModel
 
 @{
-    ViewData["Title"] = $"{Model.Type} Suppliers";
+    this.ViewData["Title"] = $"{this.Model.Type} Suppliers";
 }
 
-<h2>@($"{Model.Type} Suppliers")</h2>
+<h2>@($"{this.Model.Type} Suppliers")</h2>
 
 <table class="table table-hover table-bordered">
     <thead>
@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var supplier in Model.Suppliers)
+        @foreach (var supplier in this.Model.Suppliers)
         {
             <tr>
                 <th>@supplier.Id</th>

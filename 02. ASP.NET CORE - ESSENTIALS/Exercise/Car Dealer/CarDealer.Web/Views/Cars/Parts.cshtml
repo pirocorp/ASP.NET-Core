@@ -1,10 +1,11 @@
-﻿@model IEnumerable<CarWithPartsModel>
+﻿@* ReSharper disable Html.PathError *@
+@model IEnumerable<CarWithPartsModel>
 
 @{
-    ViewData["Title"] = "All Cars With Their Parts";
+    this.ViewData["Title"] = "All Cars With Their Parts";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@(this.ViewData["Title"])</h2>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -16,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var car in Model)
+        @foreach (var car in this.Model)
         {
             <tr>
                 <td><a href="/cars/@car.Make">@car.Make</a></td>

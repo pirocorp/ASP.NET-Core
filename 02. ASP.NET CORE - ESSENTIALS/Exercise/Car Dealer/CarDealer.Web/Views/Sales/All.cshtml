@@ -1,10 +1,11 @@
-﻿@model IEnumerable<SaleListModel>
+﻿@* ReSharper disable Html.PathError *@
+@model IEnumerable<SaleListModel>
 
 @{
-    ViewData["Title"] = $"{ViewBag.Type} Sales";
+    this.ViewData["Title"] = $"{this.ViewBag.Type} Sales";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@(this.ViewData["Title"])</h2>
 
 <table class="table table-hover table-bordered">
     <thead>
@@ -17,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var sale in Model)
+        @foreach (var sale in this.Model)
         {
             <tr>
                 <td>@sale.CustomerName</td>

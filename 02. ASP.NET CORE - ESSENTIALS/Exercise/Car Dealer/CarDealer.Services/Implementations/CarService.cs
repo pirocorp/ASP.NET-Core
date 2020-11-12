@@ -10,16 +10,16 @@
 
     public class CarService : ICarService
     {
-        private readonly CarDealerDbContext _db;
+        private readonly CarDealerDbContext db;
 
         public CarService(CarDealerDbContext db)
         {
-            this._db = db;
+            this.db = db;
         }
 
         public IEnumerable<CarModel> ByMake(string make)
         {
-            return this._db
+            return this.db
                 .Cars
                 .Where(c => string.Equals(c.Make, make, StringComparison.InvariantCultureIgnoreCase))
                 .OrderBy(c => c.Model)
@@ -34,7 +34,7 @@
         }
 
         public IEnumerable<CarWithPartsModel> WithParts()
-            => this._db
+            => this.db
                 .Cars
                 .OrderByDescending(c => c.Id)
                 .Select(c => new CarWithPartsModel()
@@ -52,7 +52,7 @@
                 .ToList();
 
         public IEnumerable<CarModel> All()
-            => this._db
+            => this.db
                 .Cars
                 .OrderByDescending(c => c.Id)
                 .Select(c => new CarModel()
@@ -68,7 +68,7 @@
             long travelledDistance,
             IEnumerable<int> parts)
         {
-            var existingPartIds = this._db
+            var existingPartIds = this.db
                 .Parts
                 .Where(p => parts.Contains(p.Id))
                 .Select(p => p.Id)
@@ -91,8 +91,8 @@
                 car.Parts.Add(partCar);
             }
 
-            this._db.Add(car);
-            this._db.SaveChanges();
+            this.db.Add(car);
+            this.db.SaveChanges();
         }
     }
 }

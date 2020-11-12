@@ -1,5 +1,5 @@
-﻿@{ 
-    Layout = "/Views/Shared/_Layout.cshtml";
+﻿@{
+    this.Layout = "/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Manage your account</h2>
@@ -9,15 +9,15 @@
     <hr />
     <div class="row">
         <div class="col-md-3">
-            @await Html.PartialAsync("_ManageNav")
+            @await this.Html.PartialAsync("_ManageNav")
         </div>
         <div class="col-md-9">
-            @RenderBody()
+            @(this.RenderBody())
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @RenderSection("Scripts", required: false)
+    @(this.RenderSection("Scripts", required: false))
 }
         

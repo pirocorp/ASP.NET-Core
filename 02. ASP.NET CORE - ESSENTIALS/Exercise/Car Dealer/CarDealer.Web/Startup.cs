@@ -25,7 +25,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CarDealerDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(opt =>
                 {
@@ -43,7 +43,6 @@
             // Add application services.
             services.AddDomainServices();
 
-            
             services.AddMvc(options => {
                 // Add global filters
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();

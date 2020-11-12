@@ -1,13 +1,13 @@
 ﻿@model CarDealer.Web.ViewModels.Manage.EnableAuthenticatorViewModel
 @{
-    ViewData["Title"] = "Enable authenticator";
-    ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
+    this.ViewData["Title"] = "Enable authenticator";
+    this.ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
 }
 
-<h4>@ViewData["Title"]</h4>
+<h4>@(this.ViewData["Title"])</h4>
 <div>
     <p>To use an authenticator app go through the following steps:</p>
-    <ol class="list">
+    <ol>
         <li>
             <p>
                 Download a two-factor authenticator app like Microsoft Authenticator for
@@ -20,10 +20,10 @@
             </p>
         </li>
         <li>
-            <p>Scan the QR Code or enter this key <kbd>@Model.SharedKey</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
+            <p>Scan the QR Code or enter this key <kbd>@(this.Model.SharedKey)</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
             <div class="alert alert-info">To enable QR code generation please read our <a href="https://go.microsoft.com/fwlink/?Linkid=852423">documentation</a>.</div>
             <div id="qrCode"></div>
-            <div id="qrCodeData" data-url="@Model.AuthenticatorUri"></div>
+            <div id="qrCodeData" data-url="@(this.Model.AuthenticatorUri)"></div>
         </li>
         <li>
             <p>
@@ -48,5 +48,5 @@
 </div>
 
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await this.Html.PartialAsync("_ValidationScriptsPartial")
 }

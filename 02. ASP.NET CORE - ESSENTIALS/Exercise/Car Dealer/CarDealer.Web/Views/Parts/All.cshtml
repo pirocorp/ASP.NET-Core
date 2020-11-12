@@ -1,12 +1,13 @@
-﻿@model PartPageListingModel
+﻿@* ReSharper disable Html.PathError *@
+@model PartPageListingModel
 
 @{
-    ViewData["Title"] = "All Parts";
+    this.ViewData["Title"] = "All Parts";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>@(this.ViewData["Title"])</h2>
 
-@Html.Partial("_PartPagination", Model)
+@(this.Html.Partial("_PartPagination", this.Model))
 
 <table class="table table-hover table-bordered">
     <thead>
@@ -19,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var part in Model.Parts)
+        @foreach (var part in this.Model.Parts)
         {
             <tr>
                 <td>@part.Name</td>
@@ -35,5 +36,4 @@
     </tbody>
 </table>
 
-@Html.Partial("_PartPagination", Model)
-
+@(this.Html.Partial("_PartPagination", this.Model))

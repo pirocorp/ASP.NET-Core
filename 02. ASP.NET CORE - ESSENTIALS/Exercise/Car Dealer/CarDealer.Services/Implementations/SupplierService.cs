@@ -7,15 +7,15 @@
 
     public class SupplierService : ISupplierService
     {
-        private readonly CarDealerDbContext _db;
+        private readonly CarDealerDbContext db;
 
         public SupplierService(CarDealerDbContext db)
         {
-            this._db = db;
+            this.db = db;
         }
 
         public IEnumerable<SupplierListingModel> AllListings(bool areImporters)
-            => this._db
+            => this.db
                 .Suppliers
                 .OrderByDescending(s => s.Id)
                 .Where(s => s.IsImporter == areImporters)
@@ -28,7 +28,7 @@
                 .ToList();
 
         public IEnumerable<SupplierModel> All()
-            => this._db
+            => this.db
                 .Suppliers
                 .OrderBy(s => s.Name)
                 .Select(s => new SupplierModel()
@@ -39,6 +39,6 @@
                 .ToList();
 
         public bool Exists(int id)
-            => this._db.Suppliers.Any(s => s.Id == id);
+            => this.db.Suppliers.Any(s => s.Id == id);
     }
 }
