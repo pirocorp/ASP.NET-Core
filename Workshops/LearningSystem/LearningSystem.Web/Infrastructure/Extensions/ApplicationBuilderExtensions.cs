@@ -17,7 +17,7 @@
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             var context = serviceScope.ServiceProvider.GetService<T>();
-            context.Database.Migrate();
+            context?.Database.Migrate();
 
             return app;
         }

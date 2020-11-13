@@ -14,14 +14,14 @@
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
             var adminEmail = "admin@admin.com";
-            var adminUser = await userManager.FindByNameAsync(adminEmail);
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
             if (adminUser is null)
             {
                 adminUser = new User()
                 {
                     Email = adminEmail,
-                    UserName = adminEmail,
+                    UserName = "admin",
                     Name = "Admin",
                     BirthDate = DateTime.MinValue
                 };
