@@ -6,6 +6,7 @@ namespace LearningSystem.Web
     using LearningSystem.Data.Models;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,9 @@ namespace LearningSystem.Web
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddLearningSystemIdentity<User>()
-                .AddEntityFrameworkStores<LearningSystemDbContext>();
+                .AddEntityFrameworkStores<LearningSystemDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
@@ -64,6 +67,11 @@ namespace LearningSystem.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints
+                    .MapControllerRoute(
+                        name:"areaRoute", 
+                        pattern:"{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

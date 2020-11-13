@@ -8,7 +8,7 @@
         public static IdentityBuilder AddLearningSystemIdentity<TUser>(this IServiceCollection services)
             where TUser : IdentityUser 
         {
-            return services.AddDefaultIdentity<TUser>(options =>
+            return services.AddIdentity<TUser, IdentityRole>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
