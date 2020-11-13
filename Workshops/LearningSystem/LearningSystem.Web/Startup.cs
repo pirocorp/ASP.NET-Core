@@ -1,5 +1,7 @@
 namespace LearningSystem.Web
 {
+    using System.Reflection;
+    using AutoMapper;
     using Data;
     using Infrastructure.Extensions;
 
@@ -11,6 +13,8 @@ namespace LearningSystem.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Models;
+    using Services.Mapping;
 
     public class Startup
     {
@@ -38,6 +42,10 @@ namespace LearningSystem.Web
 
             // Filters
             services.AddDatabaseDeveloperPageExceptionFilter(); // This filter is used to produce developer exception page
+
+            // Automapper 
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly); // Configuration
+            services.AddSingleton(AutoMapperConfig.MapperInstance); // Register Service
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
