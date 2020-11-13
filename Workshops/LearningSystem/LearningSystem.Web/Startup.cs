@@ -42,6 +42,8 @@ namespace LearningSystem.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseDatabaseMigration<LearningSystemDbContext>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
