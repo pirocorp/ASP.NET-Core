@@ -6,11 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace LearningSystem.Web.Controllers
 {
+    using AutoMapper;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger)
         {
             this.logger = logger;
         }

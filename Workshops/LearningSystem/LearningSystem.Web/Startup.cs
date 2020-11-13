@@ -1,8 +1,8 @@
 namespace LearningSystem.Web
 {
     using System.Reflection;
-    using AutoMapper;
     using Data;
+    using Data.Seeding;
     using Infrastructure.Extensions;
 
     using LearningSystem.Data.Models;
@@ -41,7 +41,7 @@ namespace LearningSystem.Web
             services.AddRazorPages();
 
             // Filters
-            services.AddDatabaseDeveloperPageExceptionFilter(); // This filter is used to produce developer exception page
+            services.AddDatabaseDeveloperPageExceptionFilter(); // This filter is used to produce database developer exception page
 
             // Automapper 
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly); // Configuration
@@ -50,8 +50,6 @@ namespace LearningSystem.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDatabaseMigration<LearningSystemDbContext>();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,6 +58,8 @@ namespace LearningSystem.Web
                 // In services DeveloperPageExceptionFilter must be registered
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
+                app.UseDatabaseMigration<LearningSystemDbContext>();
             }
             else
             {
@@ -67,6 +67,15 @@ namespace LearningSystem.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // Seed data on application startup
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<LearningSystemDbContext>();
+                dbContext.Database.Migrate();
+                new LearningSystemDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
