@@ -9,11 +9,13 @@ namespace LearningSystem.Web
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Models;
+    using Services;
     using Services.Mapping;
 
     public class Startup
@@ -35,7 +37,10 @@ namespace LearningSystem.Web
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-            services.AddControllersWithViews()
+            services.AddControllersWithViews(options =>
+                {
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); // CSRF Token
+                })
                 .AddRazorRuntimeCompilation();
 
             services.AddRazorPages();
@@ -46,6 +51,9 @@ namespace LearningSystem.Web
             // Automapper 
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly); // Configuration
             services.AddSingleton(AutoMapperConfig.MapperInstance); // Register Service
+
+            // Add application services.
+            services.AddDomainServices(typeof(IService));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

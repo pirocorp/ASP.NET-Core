@@ -1,0 +1,40 @@
+﻿@model AdminUsersIndexViewModel
+
+@{
+    this.ViewData["Title"] = "User Administration";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>E-mail</th>
+            <th>Roles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in this.Model.Users)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>
+                    <form method="post" asp-area="Admin" asp-controller="Users" asp-action="AddToRole">
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <input type="hidden" name="UserId" value="@user.Id"/>
+                                <select name="RoleId" class="form-control" asp-items="this.Model.RolesDropDown"></select>
+                            </div>
+                            <div class="col-md-2">
+                                <input class="btn btn-danger" type="submit" value="Add To Role"/>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr> 
+        }  
+    </tbody>
+</table>
