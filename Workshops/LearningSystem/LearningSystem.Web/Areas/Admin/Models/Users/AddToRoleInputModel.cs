@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Models.Admin.Users
+﻿namespace LearningSystem.Web.Areas.Admin.Models.Users
 {
     using System.ComponentModel.DataAnnotations;
 

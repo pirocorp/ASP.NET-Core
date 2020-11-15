@@ -1,23 +1,21 @@
-﻿namespace LearningSystem.Web.Models.Admin.Users
+﻿namespace LearningSystem.Web.Areas.Admin.Models.Users
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Common;
     using Microsoft.AspNetCore.Mvc.Rendering;
-
     using static Common.GlobalConstants;
 
-    public class AdminUsersIndexViewModel
+    public class UsersIndexViewModel
     {
-        public AdminUsersIndexViewModel()
+        public UsersIndexViewModel()
         {
-            this.Users = new List<AdminUserListingServiceModel>();
-            this.Roles = new List<AdminRoleListingServiceModel>();
+            this.Users = new List<UserListingServiceModel>();
+            this.Roles = new List<RoleListingServiceModel>();
         }
 
-        public IEnumerable<AdminUserListingServiceModel> Users { get; set; }
+        public IEnumerable<UserListingServiceModel> Users { get; set; }
 
-        public IEnumerable<AdminRoleListingServiceModel> Roles { get; set; }
+        public IEnumerable<RoleListingServiceModel> Roles { get; set; }
 
         public IEnumerable<SelectListItem> RolesDropDown
         {

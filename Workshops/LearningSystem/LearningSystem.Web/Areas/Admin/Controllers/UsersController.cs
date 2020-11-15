@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.EntityFrameworkCore;
-    using Models.Admin.Users;
+    using Models.Users;
     using Services.Admin;
     using Services.Mapping;
 
@@ -32,10 +32,10 @@
 
         public async Task<IActionResult> Index()
         {
-            var model = new AdminUsersIndexViewModel()
+            var model = new UsersIndexViewModel()
             {
-                Users = await this.adminUserService.AllAsync<AdminUserListingServiceModel>(),
-                Roles = await this.roleManager.Roles.To<AdminRoleListingServiceModel>().ToListAsync(),
+                Users = await this.adminUserService.AllAsync<UserListingServiceModel>(),
+                Roles = await this.roleManager.Roles.To<RoleListingServiceModel>().ToListAsync(),
             };
 
             return this.View(model);

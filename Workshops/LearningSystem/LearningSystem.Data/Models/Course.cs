@@ -30,6 +30,7 @@ namespace LearningSystem.Data.Models
 
         public DateTime EndDate { get; set; }
 
+        [Required]
         public string TrainerId { get; set; }
 
         public virtual User Trainer { get; set; }

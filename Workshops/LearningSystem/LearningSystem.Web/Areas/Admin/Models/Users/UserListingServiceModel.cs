@@ -1,9 +1,9 @@
-﻿namespace LearningSystem.Web.Models.Admin.Users
+﻿namespace LearningSystem.Web.Areas.Admin.Models.Users
 {
     using Data.Models;
     using Services.Mapping;
 
-    public class AdminUserListingServiceModel : IMapFrom<User>
+    public class UserListingServiceModel : IMapFrom<User>
     {
         public string Id { get; set; }
 
