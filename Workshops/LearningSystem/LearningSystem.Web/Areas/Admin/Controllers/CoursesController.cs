@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Data.Models;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -56,7 +57,8 @@
             var serviceModel = this.mapper.Map<AddCourseFormModel, CreateCourseServiceModel>(model);
             await this.adminCourseService.CreateAsync(serviceModel);
 
-            return this.RedirectToAction(nameof(HomeController.Index), "Home", new { area = "" });
+            this.TempData.AddSuccessMessage($"Course {model.Name} created successfully.");
+            return this.RedirectToAction(nameof(HomeController.Index), "Home", new { area = string.Empty });
         }
 
         private async Task<IEnumerable<SelectListItem>> GetTrainers()

@@ -1,0 +1,10 @@
+﻿@if (this.User.IsInRole(AdministratorRole))
+{
+    <li>
+        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a>
+    </li>
+
+    <li>
+        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Courses" asp-action="Create">Create Course</a>
+    </li>
+}

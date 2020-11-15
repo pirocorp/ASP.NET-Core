@@ -1,0 +1,6 @@
+﻿@if (this.User.IsInRole(BlogAuthorRole))
+{
+    <li>
+        <a class="nav-link text-dark" asp-area="Blog" asp-controller="Articles" asp-action="Create">Publish Article</a>
+    </li>
+}

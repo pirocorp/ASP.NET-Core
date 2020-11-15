@@ -22,16 +22,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        
-                        @if (this.User.IsInRole(AdministratorRole))
-                        {
-                            <li>
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a>
-                            </li>
-                            <li>
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Courses" asp-action="Create">Create Course</a>
-                            </li>
-                        }
+                        <partial name="_AdministratorPartial" />
+                        <partial name="_BlogAuthorPartial" />
                     </ul>
                 </div>
             </div>

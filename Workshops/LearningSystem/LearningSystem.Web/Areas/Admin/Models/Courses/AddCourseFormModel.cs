@@ -3,13 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Data.Models;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Services.Mapping;
     using Services.Models.Admin.Courses;
     using static Data.Common.DataConstants;
 
-    public class AddCourseFormModel : IMapFrom<Course>, IMapTo<CreateCourseServiceModel>, IValidatableObject
+    public class AddCourseFormModel : IMapTo<CreateCourseServiceModel>, IValidatableObject
     {
         [Required]
         [MinLength(CourseNameMinLength)]

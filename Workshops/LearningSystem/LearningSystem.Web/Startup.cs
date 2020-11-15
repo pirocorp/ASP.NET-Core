@@ -3,6 +3,7 @@ namespace LearningSystem.Web
     using System.Reflection;
     using Data;
     using Data.Seeding;
+    using Ganss.XSS;
     using Infrastructure.Extensions;
 
     using LearningSystem.Data.Models;
@@ -51,6 +52,11 @@ namespace LearningSystem.Web
             // Automapper 
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly); // Configuration
             services.AddSingleton(AutoMapperConfig.MapperInstance); // Register Service
+
+            // HtmlSanitizer
+            var sanitizer = new HtmlSanitizer();
+            sanitizer.AllowedAttributes.Add("class");
+            services.AddSingleton<IHtmlSanitizer>(sanitizer);
 
             // Add application services.
             services.AddDomainServices(typeof(IService));

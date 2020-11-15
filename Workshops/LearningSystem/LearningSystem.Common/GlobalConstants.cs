@@ -3,6 +3,7 @@
     public static class GlobalConstants
     {
         public const string AdministratorArea = "Admin";
+        public const string BlogArea = "Blog";
 
         public const string AdministratorRole = "Admin";
         public const string BlogAuthorRole = "BlogAuthor";
