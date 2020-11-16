@@ -15,6 +15,8 @@ namespace LearningSystem.Web
     using Microsoft.Extensions.Hosting;
     using Services;
 
+    using static Common.GlobalConstants;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -41,6 +43,12 @@ namespace LearningSystem.Web
                 .AddRazorRuntimeCompilation();
 
             services.AddRazorPages();
+
+            // Routing Configuration
+            services.AddRouting(options =>
+            {
+                options.LowercaseUrls = true;
+            });
 
             // Filters
             services.AddDatabaseDeveloperPageExceptionFilter(); // This filter is used to produce database developer exception page
@@ -70,13 +78,13 @@ namespace LearningSystem.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/home/error");
 
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithRedirects("/Home/Error");
+            app.UseStatusCodePagesWithRedirects("/home/error");
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
@@ -97,8 +105,12 @@ namespace LearningSystem.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                        name:"areas", 
-                        pattern:"{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    name: "blog",
+                    pattern: "{area=blog}/{controller=articles}/{action=details}/{id?}/{title}");
+
+                endpoints.MapControllerRoute(
+                    name:"areas", 
+                    pattern:"{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
