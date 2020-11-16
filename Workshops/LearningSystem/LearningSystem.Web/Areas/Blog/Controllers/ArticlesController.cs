@@ -36,12 +36,22 @@
         {
             var article = await this.blogArticlesService.GetByIdAsync<ArticleDetailsModel>(id);
 
+            if (article is null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(article);
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Index(int page = 1)
         {
+            if (page < 1)
+            {
+                return this.BadRequest();
+            }
+
             var count = await this.blogArticlesService.CountAsync();
             var totalPages = (int)Math.Ceiling(count / (double) ArticlesPageSize);
 
