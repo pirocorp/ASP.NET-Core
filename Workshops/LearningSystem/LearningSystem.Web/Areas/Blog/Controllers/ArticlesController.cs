@@ -15,7 +15,7 @@
     using static Common.GlobalConstants;
 
     [Area(BlogArea)]
-    [Authorize(Roles = BlogAuthorRole)]
+    [Authorize]
     public class ArticlesController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -32,7 +32,6 @@
             this.htmlSanitizer = htmlSanitizer;
         }
 
-        [Authorize]
         public async Task<IActionResult> Details(int id)
         {
             var article = await this.blogArticlesService.GetByIdAsync<ArticleDetailsModel>(id);
@@ -56,12 +55,14 @@
             return this.View(model);
         }
 
+        [Authorize(Roles = BlogAuthorRole)]
         public async Task<IActionResult> Create()
         {
             return await Task.FromResult(this.View());
         }
 
         [HttpPost]
+        [Authorize(Roles = BlogAuthorRole)]
         public async Task<IActionResult> Create(PublishArticleFormModel model)
         {
             if (!this.ModelState.IsValid)
