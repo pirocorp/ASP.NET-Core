@@ -4,6 +4,10 @@
 
     public class BlogIndexViewModel
     {
+        public int CurrentPage { get; set; }
+
+        public int TotalPages { get; set; }
+
         public IEnumerable<IndexArticleListingModel> Articles { get; set; }
     }
 }

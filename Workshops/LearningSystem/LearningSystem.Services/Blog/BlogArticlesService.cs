@@ -8,6 +8,7 @@
     using Mapping;
     using Microsoft.EntityFrameworkCore;
     using Models.Admin.Blog;
+    using static Common.GlobalConstants;
 
     public class BlogArticlesService : IBlogArticlesService
     {
@@ -34,10 +35,9 @@
             return article.Id;
         }
 
-        public async Task<IEnumerable<TOut>> AllAsync<TOut>(bool newestFirst = true)
+        public async Task<IEnumerable<TOut>> AllAsync<TOut>(int page = 1, bool newestFirst = true)
         {
-            var query = this.dbContext.Articles
-                                            .Select(x => x);
+            var query = this.dbContext.Articles.Select(x => x);
 
             if (newestFirst)
             {
@@ -48,7 +48,11 @@
                 query = query.OrderBy(a => a.PublishedDate);
             }
 
+            var skip = (page - 1) * ArticlesPageSize;
+            
             return await query
+                .Skip(skip)
+                .Take(ArticlesPageSize)
                 .To<TOut>()
                 .ToListAsync();
         }
@@ -58,5 +62,8 @@
                 .Where(a => a.Id.Equals(id))
                 .To<TOut>()
                 .FirstOrDefaultAsync();
+
+        public async Task<int> CountAsync()
+            => await this.dbContext.Articles.CountAsync();
     }
 }

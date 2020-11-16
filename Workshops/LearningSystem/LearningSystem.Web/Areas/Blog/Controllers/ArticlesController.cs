@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Common;
     using Data.Models;
     using Ganss.XSS;
     using Infrastructure.Extensions;
@@ -31,12 +32,25 @@
             this.htmlSanitizer = htmlSanitizer;
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        [Authorize]
+        public async Task<IActionResult> Details(int id)
         {
+            var article = await this.blogArticlesService.GetByIdAsync<ArticleDetailsModel>(id);
+
+            return this.View(article);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Index(int page = 1)
+        {
+            var count = await this.blogArticlesService.CountAsync();
+            var totalPages = (int)Math.Ceiling(count / (double) ArticlesPageSize);
+
             var model = new BlogIndexViewModel()
             {
-                Articles = await this.blogArticlesService.AllAsync<IndexArticleListingModel>(),
+                TotalPages = totalPages,
+                CurrentPage = page,
+                Articles = await this.blogArticlesService.AllAsync<IndexArticleListingModel>(page),
             };
 
             return this.View(model);

@@ -8,8 +8,10 @@
     {
         Task<int> CreateAsync(CreateBlogArticleServiceModel model);
 
-        Task<IEnumerable<TOut>> AllAsync<TOut>(bool newestFirst = true);
+        Task<IEnumerable<TOut>> AllAsync<TOut>(int page = 1, bool newestFirst = true);
 
         Task<TOut> GetByIdAsync<TOut>(int id);
+
+        Task<int> CountAsync();
     }
 }

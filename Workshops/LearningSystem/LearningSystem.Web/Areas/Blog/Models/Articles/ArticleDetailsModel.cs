@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Models.Articles
+﻿namespace LearningSystem.Web.Areas.Blog.Models.Articles
 {
     using Data.Models;
     using Services.Mapping;

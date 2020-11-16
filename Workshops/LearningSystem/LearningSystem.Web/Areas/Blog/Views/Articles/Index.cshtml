@@ -6,22 +6,29 @@
 
 <h2>@this.ViewData["Title"]</h2>
 
-<div class="list-group">
-    @foreach (var article in this.Model.Articles)
-    {
-    <div class="list-group-item list-group-item-action my-4">
-        <a asp-area="" asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id">
-            <div>
-                <h5 class="mb-1">@article.Title</h5>
-            </div>
-        </a>
-        @this.Html.Raw(article.DisplayContent)
-        <div>
-            <div class="d-flex w-100 justify-content-between">
-                <small>By: @article.AuthorName</small>
-                <small>@article.PublishedDaysAgo @(article.PublishedDaysAgo != 1 ? "days" : "day") ago</small>
+@foreach (var article in this.Model.Articles)
+{
+    <div>
+        <div class="list-group">
+            <div class="list-group-item list-group-item-action my-4">
+                <a asp-area="" asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id">
+                    <div>
+                        <h5 class="mb-1">@article.Title</h5>
+                    </div>
+                </a>
+                <p>&nbsp;</p>
+
+                @this.Html.Raw(article.DisplayContent)
+            
+                <div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <small>By: @article.AuthorName</small>
+                        <small>@article.PublishedDaysAgo @(article.PublishedDaysAgo != 1 ? "days" : "day") ago</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    }
-</div>
+}
+
+<pagination total-pages="@this.Model.TotalPages" current-page="@this.Model.CurrentPage" link-url="/Blog/Articles/Index"></pagination>
