@@ -1,9 +1,7 @@
 namespace LearningSystem.Web
 {
-    using System.Reflection;
     using Data;
     using Data.Seeding;
-    using Ganss.XSS;
     using Infrastructure.Extensions;
 
     using LearningSystem.Data.Models;
@@ -15,9 +13,7 @@ namespace LearningSystem.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Models;
     using Services;
-    using Services.Mapping;
 
     public class Startup
     {
@@ -50,13 +46,10 @@ namespace LearningSystem.Web
             services.AddDatabaseDeveloperPageExceptionFilter(); // This filter is used to produce database developer exception page
 
             // Automapper 
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly); // Configuration
-            services.AddSingleton(AutoMapperConfig.MapperInstance); // Register Service
+            services.AddAutoMapper();
 
             // HtmlSanitizer
-            var sanitizer = new HtmlSanitizer();
-            sanitizer.AllowedAttributes.Add("class");
-            services.AddSingleton<IHtmlSanitizer>(sanitizer);
+            services.AddHtmlSanitizer(); // Or sanitizer can be added to service and service registered in DI container (better abstraction)
 
             // Add application services.
             services.AddDomainServices(typeof(IService));

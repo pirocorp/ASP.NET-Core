@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Models.Articles;
-    using Services.Admin;
+    using Services.Blog;
     using Services.Models.Admin.Blog;
     using static Common.GlobalConstants;
 
@@ -18,23 +18,28 @@
     public class ArticlesController : Controller
     {
         private readonly UserManager<User> userManager;
-        private readonly IAdminArticlesService adminArticlesService;
+        private readonly IBlogArticlesService blogArticlesService;
         private readonly IHtmlSanitizer htmlSanitizer;
 
         public ArticlesController(
             UserManager<User> userManager,
-            IAdminArticlesService adminArticlesService, 
+            IBlogArticlesService blogArticlesService, 
             IHtmlSanitizer htmlSanitizer)
         {
             this.userManager = userManager;
-            this.adminArticlesService = adminArticlesService;
+            this.blogArticlesService = blogArticlesService;
             this.htmlSanitizer = htmlSanitizer;
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return await Task.FromResult(this.View());
+            var model = new BlogIndexViewModel()
+            {
+                Articles = await this.blogArticlesService.AllAsync<IndexArticleListingModel>(),
+            };
+
+            return this.View(model);
         }
 
         public async Task<IActionResult> Create()
@@ -60,7 +65,7 @@
                 PublishedDate = DateTime.UtcNow
             };
 
-            await this.adminArticlesService.CreateAsync(serviceModel);
+            await this.blogArticlesService.CreateAsync(serviceModel);
             this.TempData.AddSuccessMessage($"Article {model.Title} is created successfully.");
 
             return this.RedirectToAction(nameof(this.Index));

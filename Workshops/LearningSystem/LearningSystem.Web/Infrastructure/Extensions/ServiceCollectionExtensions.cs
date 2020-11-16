@@ -3,8 +3,11 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using Models;
+    using Services.Mapping;
 
     public static class ServiceCollectionExtensions
     {
@@ -57,6 +60,33 @@
                 .ToList()
                 .ForEach(s => services.AddTransient(s.Interface, s.Implementation));
            
+            return services;
+        }
+
+        /// <summary>
+        /// Add HtmlSanitizer in IServiceCollection (DI Container)
+        /// </summary>
+        /// <param name="services">IServiceCollection (DI Container)</param>
+        /// <returns>IServiceCollection (DI Container) with added HtmlSanitizer</returns>
+        public static IServiceCollection AddHtmlSanitizer(this IServiceCollection services)
+        {
+            var sanitizer = new HtmlSanitizer();
+            sanitizer.AllowedAttributes.Add("class");
+            services.AddSingleton<IHtmlSanitizer>(sanitizer);
+
+            return services;
+        }
+
+        /// <summary>
+        /// Add AutoMapper in IServiceCollection (DI Container)
+        /// </summary>
+        /// <param name="services">IServiceCollection (DI Container)</param>
+        /// <returns>IServiceCollection (DI Container) with added AutoMapper</returns>
+        public static IServiceCollection AddAutoMapper(this IServiceCollection services)
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly); // Configuration
+            services.AddSingleton(AutoMapperConfig.MapperInstance); // Register Service
+
             return services;
         }
     }
