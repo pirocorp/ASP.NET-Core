@@ -1,0 +1,6 @@
+﻿@if (this.User.Identity?.IsAuthenticated ?? false)
+{
+    <li>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Profile" asp-route-username="@this.User.Identity.Name">Profile</a>
+    </li>
+}

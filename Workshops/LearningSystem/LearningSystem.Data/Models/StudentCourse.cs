@@ -13,6 +13,8 @@
 
         public virtual Course Course { get; set; }
 
+        public Grade? Grade { get; set; }
+
         public void Configure(EntityTypeBuilder<StudentCourse> studentCourse)
         {
             studentCourse

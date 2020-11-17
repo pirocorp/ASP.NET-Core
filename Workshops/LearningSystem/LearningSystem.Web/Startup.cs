@@ -84,7 +84,7 @@ namespace LearningSystem.Web
                 app.UseHsts();
             }
 
-            //app.UseStatusCodePagesWithRedirects("/home/error");
+            app.UseStatusCodePagesWithRedirects("/home/error");
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
@@ -105,12 +105,24 @@ namespace LearningSystem.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "profile",
+                    pattern: "users/{username}", 
+                    new
+                    {
+                        controller = "Users",
+                        action = "Profile"
+                    }
+                );
+
+                endpoints.MapControllerRoute(
                     name: "blog",
-                    pattern: "{area:exists}/{controller=articles}/{id}/{title}", new {action = "details"});
+                    pattern: "{area:exists}/{controller=articles}/{id}/{title}", 
+                    new { action = "details" });
 
                 endpoints.MapControllerRoute(
                     name: "courses",
-                    pattern: "{controller=courses}/{id}/{title}", new {action = "details"});
+                    pattern: "{controller=courses}/{id}/{title}", 
+                    new { action = "details" });
 
                 endpoints.MapControllerRoute(
                     name:"areas", 
