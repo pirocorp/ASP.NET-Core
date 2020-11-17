@@ -34,10 +34,10 @@
     {
         <p>&nbsp;</p>
         <p>This course already started</p>
-        <a class="btn btn-primary disabled" href="#">Запиши се</a>
+        <a class="btn btn-secondary disabled" href="#">Изтекъл</a>
     }
 }
 else
 {
-    <a class="btn btn-primary" asp-area="Identity" asp asp-page="/Account/Login" asp-route-returnurl="@(this.Context.Request.Path))">Запиши се</a>
+<a class="btn btn-primary" asp-area="Identity" asp asp-page="/Account/Login" asp-route-returnurl="@(this.Context.Request.Path))">Запиши се</a>
 }
