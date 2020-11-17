@@ -1,14 +1,43 @@
 ﻿@model CourseDetailsViewModel
 
-<h1>@this.Model.Name</h1>
-<h5>By: @this.Model.TrainerName</h5>
-<h6>@this.Model.StartDate.ToString(DateTimePreferredFormat) - @this.Model.EndDate.ToString(DateTimePreferredFormat)</h6>
+@{
+    this.ViewData["Title"] = this.Model.Course.Name;
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<h5>By: @this.Model.Course.TrainerName</h5>
+<h6>@this.Model.Course.StartDate.ToString(DateTimePreferredFormat) - @this.Model.Course.EndDate.ToString(DateTimePreferredFormat)</h6>
 
 <p>&nbsp;</p>
 
-@this.Html.Raw(this.Model.Description)
+@this.Html.Raw(this.Model.Course.Description)
 
-<form method="post" asp-area="" asp-controller="Courses" asp-action="Enlist">
-    <input type="hidden" name="courseId" value="@this.Model.Id"/>
-    <input class="btn btn-primary" type="submit" value="Запиши се"/>
-</form>
+@if (this.User.Identity?.IsAuthenticated ?? false)
+{
+    if (this.Model.Course.StartDate > DateTime.UtcNow)
+    {
+        @if (this.Model.UserIsSignedInCourse)
+        {
+            <form method="post" asp-area="" asp-controller="Courses" asp-action="SignOut">
+                <input type="hidden" name="courseId" value="@this.Model.Course.Id" />
+                <input class="btn btn-primary" type="submit" value="Отпиши се" />
+            </form>
+        }
+        else
+        {
+            <form method="post" asp-area="" asp-controller="Courses" asp-action="SignIn" asp-route-courseId="@this.Model.Course.Id">
+                <input class="btn btn-primary" type="submit" value="Запиши се" />
+            </form>
+        }
+    }
+    else
+    {
+        <p>&nbsp;</p>
+        <p>This course already started</p>
+        <a class="btn btn-primary disabled" href="#">Запиши се</a>
+    }
+}
+else
+{
+    <a class="btn btn-primary" asp-area="Identity" asp asp-page="/Account/Login" asp-route-returnurl="@(this.Context.Request.Path))">Запиши се</a>
+}

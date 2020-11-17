@@ -84,7 +84,7 @@ namespace LearningSystem.Web
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithRedirects("/home/error");
+            //app.UseStatusCodePagesWithRedirects("/home/error");
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

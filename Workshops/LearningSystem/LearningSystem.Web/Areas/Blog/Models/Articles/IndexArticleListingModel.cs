@@ -19,7 +19,10 @@
 
         public string DisplayContent => this.Content.Length <= ContentDemoLength 
             ? this.Content
-            : this.Content.Substring(0, ContentDemoLength) + "...";
+            : this.Content
+                .Substring(0, ContentDemoLength)
+                .TrimEnd('/')
+                .TrimEnd('<')+ "...";
 
         public int PublishedDaysAgo => this.DaysAgo();
 
