@@ -4,6 +4,11 @@
 
     public class BlogIndexViewModel
     {
+        public BlogIndexViewModel()
+        {
+            this.Articles = new List<IndexArticleListingModel>();
+        }
+
         public int CurrentPage { get; set; }
 
         public int TotalPages { get; set; }

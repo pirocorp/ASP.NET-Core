@@ -6,11 +6,13 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Data.Models;
+    using Ganss.XSS;
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Courses;
+    using Services;
     using Services.Admin;
     using Services.Models.Admin.Courses;
     using Web.Controllers;
@@ -18,17 +20,20 @@
 
     public class CoursesController : AdminController
     {
-        private readonly IAdminCourseService adminCourseService;
+        private readonly ICourseService courseService;
         private readonly UserManager<User> userManager;
+        private readonly IHtmlSanitizer htmlSanitizer;
         private readonly IMapper mapper;
 
         public CoursesController(
-            IAdminCourseService adminCourseService,
+            ICourseService courseService,
             UserManager<User> userManager,
+            IHtmlSanitizer htmlSanitizer,
             IMapper mapper)
         {
-            this.adminCourseService = adminCourseService;
+            this.courseService = courseService;
             this.userManager = userManager;
+            this.htmlSanitizer = htmlSanitizer;
             this.mapper = mapper;
         }
 
@@ -54,8 +59,10 @@
                 return this.View(model);
             }
 
+            model.Description = this.htmlSanitizer.Sanitize(model.Description);
+
             var serviceModel = this.mapper.Map<AddCourseFormModel, CreateCourseServiceModel>(model);
-            await this.adminCourseService.CreateAsync(serviceModel);
+            await this.courseService.CreateAsync(serviceModel);
 
             this.TempData.AddSuccessMessage($"Course {model.Name} created successfully.");
             return this.RedirectToAction(nameof(HomeController.Index), "Home", new { area = string.Empty });

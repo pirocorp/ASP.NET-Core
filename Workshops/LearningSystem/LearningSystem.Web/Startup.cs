@@ -106,7 +106,11 @@ namespace LearningSystem.Web
             {
                 endpoints.MapControllerRoute(
                     name: "blog",
-                    pattern: "{area=blog}/{controller=articles}/{id?}/{title}", new {action = "details"});
+                    pattern: "{area:exists}/{controller=articles}/{id}/{title}", new {action = "details"});
+
+                endpoints.MapControllerRoute(
+                    name: "courses",
+                    pattern: "{controller=courses}/{id}/{title}", new {action = "details"});
 
                 endpoints.MapControllerRoute(
                     name:"areas", 

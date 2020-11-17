@@ -1,8 +1,33 @@
-﻿@{
-    this.ViewData["Title"] = "Home Page";
+﻿@model HomeIndexViewModel
+
+@{
+    this.ViewData["Title"] = "Active Courses";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Learning System</h1>
 </div>
+
+@foreach (var course in this.Model.Courses)
+{
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action my-4" asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id" asp-route-title="@course.Name.ToFriendlyUrl()">
+            <div>
+                <h5 class="mb-1">@course.Name</h5>
+            </div>
+
+            <p>&nbsp;</p>
+
+            <div>
+                @this.Html.Raw(course.DisplayDescription)
+            </div>
+
+            <div>
+                <div class="d-flex w-100 justify-content-between">
+                    <small>By: @course.TrainerName</small>
+                    <small>Start date: @course.StartDate.ToString(DateTimePreferredFormat)</small>
+                </div>
+            </div>
+        </a>
+    </div>
+}

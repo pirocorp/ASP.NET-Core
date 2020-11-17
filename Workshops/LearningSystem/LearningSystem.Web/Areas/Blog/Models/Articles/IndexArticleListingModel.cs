@@ -3,11 +3,10 @@
     using System;
     using Data.Models;
     using Services.Mapping;
+    using static Common.GlobalConstants;
 
     public class IndexArticleListingModel : IMapFrom<Article>
     {
-        private const int ContentDemoLength = 600;
-
         public int Id { get; set; }
 
         public string Title { get; set; }

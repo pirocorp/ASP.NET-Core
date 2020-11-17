@@ -1,0 +1,14 @@
+﻿@model CourseDetailsViewModel
+
+<h1>@this.Model.Name</h1>
+<h5>By: @this.Model.TrainerName</h5>
+<h6>@this.Model.StartDate.ToString(DateTimePreferredFormat) - @this.Model.EndDate.ToString(DateTimePreferredFormat)</h6>
+
+<p>&nbsp;</p>
+
+@this.Html.Raw(this.Model.Description)
+
+<form method="post" asp-area="" asp-controller="Courses" asp-action="Enlist">
+    <input type="hidden" name="courseId" value="@this.Model.Id"/>
+    <input class="btn btn-primary" type="submit" value="Запиши се"/>
+</form>

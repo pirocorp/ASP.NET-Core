@@ -1,15 +1,31 @@
-﻿using System.Diagnostics;
-using LearningSystem.Web.Models;
-
-using Microsoft.AspNetCore.Mvc;
-
-namespace LearningSystem.Web.Controllers
+﻿namespace LearningSystem.Web.Controllers
 {
+    using System.Threading.Tasks;
+    using Models.Courses;
+    using Services;
+    using System.Diagnostics;
+    using LearningSystem.Web.Models;
+
+    using Microsoft.AspNetCore.Mvc;
+
+
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ICourseService courseService;
+
+        public HomeController(ICourseService courseService)
         {
-            return this.View();
+            this.courseService = courseService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = new HomeIndexViewModel()
+            {
+                Courses = await this.courseService.ActiveAsync<HomeIndexCourseListingModel>(),
+            };
+
+            return this.View(model);
         }
 
         public IActionResult Privacy()
