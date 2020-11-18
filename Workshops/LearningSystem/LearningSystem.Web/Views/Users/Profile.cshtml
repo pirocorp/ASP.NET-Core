@@ -4,25 +4,35 @@
     this.ViewData["Title"] = $"{this.Model.UserName} Profile";
 }
 
-<h2>@this.ViewData["Title"]</h2>
-<h5>@this.Model.Name - @this.Model.BirthDate.ToString(DateTimePreferredFormat)</h5>
+<h2>@(this.ViewData["Title"])</h2>
+<h5>@(this.Model.Name) - @(this.Model.BirthDate.ToString(DateTimePreferredFormat))</h5>
 
-<table class="table table-bordered table-hover">
-    <thead>
+@if (this.Model.UserName.Equals(this.User.Identity?.Name))
+{
+    <p>&nbsp;</p>
+    <a asp-area="Identity" asp-page="/account/manage/index" class="btn btn-outline-secondary">Edit Profile</a>
+    <p>&nbsp;</p>
+}
+
+@if (this.Model.Courses.Count > 0)
+{
+    <table class="table table-bordered table-hover">
+        <thead>
         <tr>
             <th>Course</th>
             <th>Grade</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var course in this.Model.Courses)
         {
-        <tr>
-            <td>
-                <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id" asp-route-title="@course.Name.ToFriendlyUrl()">@course.Name</a>
-            </td>
-            <td>@course.Grade.ToString()</td>
-        </tr>
+            <tr>
+                <td>
+                    <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id" asp-route-title="@course.Name.ToFriendlyUrl()">@course.Name</a>
+                </td>
+                <td>@course.Grade.ToString()</td>
+            </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}

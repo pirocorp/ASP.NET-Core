@@ -4,13 +4,13 @@
     this.ViewData["Title"] = this.Model.Course.Name;
 }
 
-<h1>@this.ViewData["Title"]</h1>
-<h5>By: @this.Model.Course.TrainerName</h5>
-<h6>@this.Model.Course.StartDate.ToString(DateTimePreferredFormat) - @this.Model.Course.EndDate.ToString(DateTimePreferredFormat)</h6>
+<h1>@(this.ViewData["Title"])</h1>
+<h5>By: @(this.Model.Course.TrainerName)</h5>
+<h6>@(this.Model.Course.StartDate.ToString(DateTimePreferredFormat)) - @(this.Model.Course.EndDate.ToString(DateTimePreferredFormat))</h6>
 
 <p>&nbsp;</p>
 
-@this.Html.Raw(this.Model.Course.Description)
+@(this.Html.Raw(this.Model.Course.Description))
 
 @if (this.User.Identity?.IsAuthenticated ?? false)
 {
@@ -19,13 +19,13 @@
         @if (this.Model.UserIsSignedInCourse)
         {
             <form method="post" asp-area="" asp-controller="Courses" asp-action="SignOut">
-                <input type="hidden" name="courseId" value="@this.Model.Course.Id" />
+                <input type="hidden" name="courseId" value="@(this.Model.Course.Id)" />
                 <input class="btn btn-primary" type="submit" value="Отпиши се" />
             </form>
         }
         else
         {
-            <form method="post" asp-area="" asp-controller="Courses" asp-action="SignIn" asp-route-courseId="@this.Model.Course.Id">
+            <form method="post" asp-area="" asp-controller="Courses" asp-action="SignIn" asp-route-courseId="@(this.Model.Course.Id)">
                 <input class="btn btn-primary" type="submit" value="Запиши се" />
             </form>
         }

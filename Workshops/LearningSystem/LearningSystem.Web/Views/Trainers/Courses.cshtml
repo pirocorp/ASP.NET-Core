@@ -1,0 +1,43 @@
+﻿@model TrainersCoursesViewModel
+
+@{
+    this.ViewData["Title"] = $"{this.Model.Name} trainings";
+}
+
+<h2>Your Courses</h2>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Enrolled Students</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in this.Model.Courses)
+        {
+            <tr>
+                <td>@course.Name</td>
+                <td>@course.StartDate.ToString(DateTimePreferredFormat)</td>
+                <td>@course.EndDate.ToString(DateTimePreferredFormat)</td>
+                <td>
+                    @if (course.EndDate < DateTime.UtcNow)
+                    {
+                        <div class="d-flex align-items-baseline" >
+                            @course.StudentsCount
+                            <a asp-area="" asp-controller="Trainers" asp-action="Students" asp-route-courseId="@course.Id">
+                                <small class="ml-2">(Evaluate)</small>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        @course.StudentsCount
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

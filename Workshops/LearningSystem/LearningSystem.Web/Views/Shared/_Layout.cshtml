@@ -19,11 +19,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
+                        <partial name="_AdministratorPartial" />
+                        <partial name="_BlogAuthorPartial" />
+                        <partial name="_TrainerPartial" />
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Blog" asp-controller="Articles" asp-action="Index">Blog</a>
                         </li>
-                        <partial name="_AdministratorPartial" />
-                        <partial name="_BlogAuthorPartial" />
                     </ul>
                 </div>
             </div>

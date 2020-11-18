@@ -1,0 +1,47 @@
+﻿@model TrainersStudentsViewModel
+
+@{
+    this.ViewData["Title"] = $"{this.Model.Name} trainings";
+}
+
+<h2>Students in @($"{this.Model.Name}")</h2>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in this.Model.Students)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>
+                    @if (student.Grade is null 
+                      && this.Model.EndDate < DateTime.UtcNow)
+                    {
+                        <form method="post">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@this.Model.Input.CourseId" value="@this.Model.Id" />
+                                <input type="hidden" asp-for="@this.Model.Input.StudentId" value="@student.Id" />
+                                <div class="d-flex justify-content-between">
+                                    <select asp-for="@this.Model.Input.Grade" class="form-control" asp-items="this.Model.GradesDropDown"></select>
+                                    <input class="btn btn-primary ml-2"  type="submit" value="Grade"/>
+                                </div>
+                                <span asp-validation-for="@this.Model.Input.Grade" class="text-danger"></span>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        @student.Grade.ToString()
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
