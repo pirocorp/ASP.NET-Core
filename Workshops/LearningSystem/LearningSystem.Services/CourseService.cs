@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Formats.Asn1;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -57,13 +56,12 @@
                 .FirstOrDefaultAsync();
 
         public async Task<bool> UserIsSignedInCourse(int courseId, ClaimsPrincipal user)
-        {
-            var userId = this.userManager.GetUserId(user);
+            => await this.UserIsSignedInCourse(courseId, this.userManager.GetUserId(user));
 
-            return await this.dbContext.Courses
+        public async Task<bool> UserIsSignedInCourse(int courseId, string userId)
+            => await this.dbContext.Courses
                 .Where(c => c.Id.Equals(courseId))
                 .AnyAsync(c => c.Students.Any(s => s.StudentId.Equals(userId)));
-        }
 
         public async Task<bool> ExistsAsync(int courseId)
             => await this.dbContext.Courses

@@ -12,7 +12,7 @@
 
         public string Name { get; set; }
 
-        public Grade Grade { get; set; }
+        public Grade? Grade { get; set; }
 
         public void CreateMappings(IProfileExpression mapper)
         {

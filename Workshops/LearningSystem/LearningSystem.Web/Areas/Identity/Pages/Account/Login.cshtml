@@ -2,10 +2,10 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    this.ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@(this.ViewData["Title"])</h1>
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -27,7 +27,7 @@
                     <div class="checkbox">
                         <label asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            @(this.Html.DisplayNameFor(m => m.Input.RememberMe))
                         </label>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@(this.Model.ReturnUrl)">Register as a new user</a>
                     </p>
                     <p>
                         <a id="resend-confirmation" asp-page="./ResendUsernameConfirmation">Resend email confirmation</a>

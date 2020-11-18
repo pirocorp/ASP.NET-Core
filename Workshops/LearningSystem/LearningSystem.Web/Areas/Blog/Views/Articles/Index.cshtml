@@ -4,7 +4,7 @@
     this.ViewData["Title"] = "Learning System Blog";
 }
 
-<h2>@this.ViewData["Title"]</h2>
+<h2>@(this.ViewData["Title"])</h2>
 
 @foreach (var article in this.Model.Articles)
 {
@@ -19,7 +19,7 @@
                 <p>&nbsp;</p>
 
                 <div>
-                    @this.Html.Raw(article.DisplayContent)
+                    @(this.Html.Raw(article.DisplayContent))
                 </div>
             
                 <div>
@@ -33,4 +33,4 @@
     </div>
 }
 
-<pagination total-pages="@this.Model.TotalPages" current-page="@this.Model.CurrentPage" link-url="/Blog/Articles/Index"></pagination>
+<pagination total-pages="@(this.Model.TotalPages)" current-page="@(this.Model.CurrentPage)" link-url="/Blog/Articles/Index"></pagination>
