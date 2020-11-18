@@ -9,6 +9,8 @@
     {
         Task<int> CreateAsync(CreateCourseServiceModel model);
 
+        Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter = "");
+
         Task<IEnumerable<TOut>> ActiveAsync<TOut>();
 
         Task<TOut> GetById<TOut>(int id);

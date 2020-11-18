@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Common;
     using Data.Models;
     using Ganss.XSS;
     using Infrastructure.Extensions;
@@ -59,7 +60,7 @@
             {
                 TotalPages = totalPages,
                 CurrentPage = page,
-                Articles = await this.blogArticlesService.AllAsync<IndexArticleListingModel>(page),
+                Articles = await this.blogArticlesService.AllAsync<IndexArticleListingModel>(ArticlesPageSize, page),
             };
 
             return this.View(model);

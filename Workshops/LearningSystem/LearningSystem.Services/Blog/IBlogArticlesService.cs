@@ -8,7 +8,9 @@
     {
         Task<int> CreateAsync(CreateBlogArticleServiceModel model);
 
-        Task<IEnumerable<TOut>> AllAsync<TOut>(int page = 1, bool newestFirst = true);
+        Task<IEnumerable<TOut>> AllAsync<TOut>(int pageSize, int page = 1, bool newestFirst = true);
+
+        Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter);
 
         Task<TOut> GetByIdAsync<TOut>(int id);
 

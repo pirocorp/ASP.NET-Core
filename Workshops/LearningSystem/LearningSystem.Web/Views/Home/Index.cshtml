@@ -8,6 +8,29 @@
     <h1 class="display-4">Welcome to Learning System</h1>
 </div>
 
+<form>
+    <div class="input-group mb-3">
+        <input class="form-control" asp-for="@this.Model.SearchText" placeholder="Search">
+        <div class="input-group-append">
+            <input type="submit" class="input-group-text" value="Search" />
+        </div>
+    </div>
+
+    <div class="input-group mb-3">
+        @for (var i = 0; i < this.Model.Searches.Count; i++)
+        {
+            var searchType = this.Model.Searches[i];
+
+            <div class="input-group-prepend @(i is 0 ? string.Empty : $"ml-2")">
+                <div class="input-group-text">
+                    <input type="radio" asp-for="Search" value="@searchType" id="@searchType"/>
+                </div>
+                <label for="@searchType" class="input-group-text">@searchType</label>
+            </div>
+        }
+    </div>
+</form>
+
 @foreach (var course in this.Model.Courses)
 {
     <div class="list-group">
@@ -30,4 +53,53 @@
             </div>
         </a>
     </div>
+}
+
+@foreach (var article in this.Model.Articles)
+{
+    <div>
+        <div class="list-group">
+            <div class="list-group-item list-group-item-action my-4">
+                <a asp-area="Blog" asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" asp-route-title="@article.Title.ToFriendlyUrl()">
+                    <div>
+                        <h5 class="mb-1">@article.Title</h5>
+                    </div>
+                </a>
+                <p>&nbsp;</p>
+
+                <div>
+                    @(this.Html.Raw(article.DisplayContent))
+                </div>
+
+                <div>
+                    <div class="d-flex w-100 justify-content-between">
+                        <small>By: @article.AuthorName</small>
+                        <small>@article.PublishedDaysAgo @(article.PublishedDaysAgo != 1 ? "days" : "day") ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (this.Model.Users.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in this.Model.Users)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
 }

@@ -42,6 +42,24 @@
             return course.Id;
         }
 
+        public async Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter = "")
+        {
+            var query = this.dbContext.Courses.Select(x => x);
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                filter = filter.ToLower();
+
+                query = query.Where(x 
+                       => x.Name.ToLower().Contains(filter)
+                       || x.Description.ToLower().Contains(filter));
+            }
+
+            return await query
+                .To<TOut>()
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<TOut>> ActiveAsync<TOut>()
             => await this.dbContext.Courses
                 .Where(c => c.StartDate > DateTime.UtcNow)
