@@ -43,6 +43,7 @@
             var skip = (page - 1) * pageSize;
 
             var collection =  await query
+                .OrderBy(x => x.UserName)
                 .Skip(skip)
                 .Take(pageSize)
                 .To<TOut>()

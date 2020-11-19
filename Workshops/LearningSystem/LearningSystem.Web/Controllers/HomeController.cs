@@ -45,10 +45,27 @@
                 model.Page = 1;
             }
 
+            await this.ProcessSearch(model);
+            return this.View(model);
+        }
+
+        public IActionResult Privacy()
+        {
+            return this.View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+        }
+
+        private async Task ProcessSearch(HomeIndexViewModel model)
+        {
             if (model.Search is SearchType.Articles)
             {
                 var (collection, count) = await this.articlesService
-                        .SearchAsync<HomeIndexArticleListingModel>(model.SearchText, ArticlesPageSize, model.Page);
+                    .SearchAsync<HomeIndexArticleListingModel>(model.SearchText, ArticlesPageSize, model.Page);
 
                 model.Articles = collection;
                 model.TotalPages = count;
@@ -71,19 +88,6 @@
                 model.Users = collection;
                 model.TotalPages = count;
             }
-
-            return this.View(model);
-        }
-
-        public IActionResult Privacy()
-        {
-            return this.View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
     }
 }

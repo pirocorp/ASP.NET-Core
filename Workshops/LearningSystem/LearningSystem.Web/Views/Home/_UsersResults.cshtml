@@ -1,0 +1,25 @@
+﻿@model IEnumerable<HomeIndexUserListingModel>
+
+@if (this.Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in this.Model)
+        {
+            <tr>
+                <td>
+                    <a asp-area="" asp-controller="Users" asp-action="Profile" asp-route-username="@user.Username">@user.Username</a>
+                </td>
+                <td>@user.Email</td>
+            </tr>
+
+        }
+        </tbody>
+    </table>
+}
