@@ -24,5 +24,9 @@
         Task SignInUserAsync(int courseId, ClaimsPrincipal user);
 
         Task SignOutUserAsync(int courseId, ClaimsPrincipal user);
+
+        Task<bool> SaveExamSubmission(int courseId, string studentId, byte[] examSubmission);
+
+        Task<bool> ExamIsSubmittedAsync(int courseId, string studentId);
     }
 }

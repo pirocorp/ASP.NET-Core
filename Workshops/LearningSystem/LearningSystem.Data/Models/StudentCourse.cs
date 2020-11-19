@@ -1,5 +1,7 @@
 ﻿namespace LearningSystem.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using LearningSystem.Common;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,6 +16,9 @@
         public virtual Course Course { get; set; }
 
         public Grade? Grade { get; set; }
+
+        [MaxLength(GlobalConstants.AllowedExamUploadFileSize)]
+        public byte[] ExamSubmission { get; set; }
 
         public void Configure(EntityTypeBuilder<StudentCourse> studentCourse)
         {

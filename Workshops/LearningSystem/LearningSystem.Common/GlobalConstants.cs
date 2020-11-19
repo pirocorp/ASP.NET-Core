@@ -2,6 +2,8 @@
 {
     public static class GlobalConstants
     {
+        public const int AllowedExamUploadFileSize = 2 * 1024 * 1024;
+
         public const string AdministratorArea = "Admin";
         public const string BlogArea = "Blog";
 

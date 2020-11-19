@@ -16,12 +16,42 @@
 {
     if (this.Model.Course.StartDate > DateTime.UtcNow)
     {
+        @if (this.Model.ExamIsSubmitted)
+        {
+            <h6>Вече имате качено решение за този курс.</h6>
+        }
+
         @if (this.Model.UserIsSignedInCourse)
         {
-            <form method="post" asp-area="" asp-controller="Courses" asp-action="SignOut">
-                <input type="hidden" name="courseId" value="@(this.Model.Course.Id)" />
-                <input class="btn btn-primary" type="submit" value="Отпиши се" />
-            </form>
+            <div class="row mt-5 justify-content-between">
+                <div class="col-md-6">
+                    @if (this.Model.Course.EndDate.AddDays(1) >= DateTime.UtcNow)
+                    {
+                        <form method="post" asp-action="Upload" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="Course.Id" value="@this.Model.Course.Id"/>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input style="cursor: pointer" type="file" class="custom-file-input" asp-for="@this.Model.Solution" accept=".zip" id="file-upload" required>
+                                        <label class="custom-file-label" asp-for="@this.Model.Solution" id="file-upload-label" for="file-upload">Exam solution zip file</label>
+                                    </div>
+                                    <input class="btn btn-primary ml-2" type="submit" value="Submit" />
+                                </div>
+                                <small class="text-secondary">Upload your exam (zip file less than 2048Kb)</small>
+                            </div>
+                        </form>
+                    }
+                </div>
+
+                <div class="col-md-6">
+                    <form method="post" asp-area="" asp-controller="Courses" asp-action="SignOut">
+                        <input type="hidden" name="courseId" value="@(this.Model.Course.Id)" />
+                        <div class="float-right clearfix">
+                            <input class="btn btn-danger" type="submit" value="Отпиши се" />
+                        </div>
+                    </form>
+                </div>
+            </div>
         }
         else
         {
@@ -38,5 +68,9 @@
 }
 else
 {
-<a class="btn btn-primary" asp-area="Identity" asp asp-page="/Account/Login" asp-route-returnurl="@(this.Context.Request.Path))">Запиши се</a>
+    <a class="btn btn-primary" asp-area="Identity" asp asp-page="/Account/Login" asp-route-returnurl="@(this.Context.Request.Path))">Запиши се</a>
+}
+
+@section Scripts{
+    <script src="~/js/courseDetails.js"></script>
 }

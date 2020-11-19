@@ -124,5 +124,32 @@
             this.dbContext.Remove(studentCourse);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> SaveExamSubmission(int courseId, string studentId, byte[] examSubmission)
+        {
+            var studentInCourse = await this.dbContext.FindAsync<StudentCourse>(studentId, courseId);
+
+            if (studentInCourse is null)
+            {
+                return false;
+            }
+
+            studentInCourse.ExamSubmission = examSubmission;
+            await this.dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> ExamIsSubmittedAsync(int courseId, string studentId)
+        {
+            var studentInCourse = await this.dbContext.FindAsync<StudentCourse>(studentId, courseId);
+
+            if (studentInCourse?.ExamSubmission is null)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
