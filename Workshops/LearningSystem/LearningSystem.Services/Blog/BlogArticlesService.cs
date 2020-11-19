@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Services.Blog
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -56,7 +57,7 @@
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter)
+        public async Task<(IEnumerable<TOut> Collection, int Count)> SearchAsync<TOut>(string filter, int pageSize, int page = 1)
         {
             var query = this.dbContext.Articles.Select(x => x);
 
@@ -70,9 +71,18 @@
                            || a.Content.ToLower().Contains(filter));
             }
 
-            return await query
+            var skip = (page - 1) * pageSize;
+
+            var count = (int)Math.Ceiling((query.Count() / (double)pageSize));
+
+            var collection =  await query
+                .OrderByDescending(a => a.PublishedDate)
                 .To<TOut>()
+                .Skip(skip)
+                .Take(pageSize)
                 .ToListAsync();
+
+            return (collection, count);
         }
 
         public async Task<TOut> GetByIdAsync<TOut>(int id)

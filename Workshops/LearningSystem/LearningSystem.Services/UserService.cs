@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -23,7 +24,7 @@
                 .To<TOut>(new{ studentId = userId })
                 .SingleOrDefaultAsync();
 
-        public async Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter = "")
+        public async Task<(IEnumerable<TOut> collection, int count)> SearchAsync<TOut>(string filter, int pageSize, int page = 1)
         {
             var query = this.dbContext.Users.Select(x => x);
 
@@ -37,9 +38,17 @@
                        || x.Name.Contains(filter));
             }
 
-            return await query
+            var count = (int)Math.Ceiling((query.Count() / (double) pageSize));
+
+            var skip = (page - 1) * pageSize;
+
+            var collection =  await query
+                .Skip(skip)
+                .Take(pageSize)
                 .To<TOut>()
                 .ToListAsync();
+
+            return (collection, count);
         }
     }
 }

@@ -6,11 +6,10 @@
     using System.Diagnostics;
     using Infrastructure.Enum;
     using LearningSystem.Web.Models;
-
     using Microsoft.AspNetCore.Mvc;
     using Models.Home;
     using Services.Blog;
-
+    using static Common.GlobalConstants;
 
     public class HomeController : Controller
     {
@@ -30,8 +29,6 @@
 
         public async Task<IActionResult> Index(HomeIndexViewModel model)
         {
-            // TODO Pagination
-
             if (model.Search is null)
             {
                 model.Courses = await this.courseService.ActiveAsync<HomeIndexCourseListingModel>();
@@ -43,19 +40,36 @@
                 return this.View(model);
             }
 
+            if (model.Page < 1)
+            {
+                model.Page = 1;
+            }
+
             if (model.Search is SearchType.Articles)
             {
-                model.Articles = await this.articlesService.SearchAsync<HomeIndexArticleListingModel>(model.SearchText);
+                var (collection, count) = await this.articlesService
+                        .SearchAsync<HomeIndexArticleListingModel>(model.SearchText, ArticlesPageSize, model.Page);
+
+                model.Articles = collection;
+                model.TotalPages = count;
             }
 
             if (model.Search is SearchType.Courses)
             {
-                model.Courses = await this.courseService.SearchAsync<HomeIndexCourseListingModel>(model.SearchText);
+                var (collection, count) = await this.courseService
+                    .SearchAsync<HomeIndexCourseListingModel>(model.SearchText, CoursesPageSize, model.Page);
+
+                model.Courses = collection;
+                model.TotalPages = count;
             }
 
             if (model.Search is SearchType.Users)
             {
-                model.Users = await this.userService.SearchAsync<HomeIndexUserListingModel>(model.SearchText);
+                var (collection, count) = await this.userService
+                    .SearchAsync<HomeIndexUserListingModel>(model.SearchText, UsersPageSize, model.Page);
+
+                model.Users = collection;
+                model.TotalPages = count;
             }
 
             return this.View(model);

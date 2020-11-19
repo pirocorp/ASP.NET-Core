@@ -19,6 +19,10 @@
 
         public SearchType? Search { get; set; }
 
+        public int Page { get; set; }
+
+        public int TotalPages { get; set; }
+
         public List<string> Searches => Enum.GetValues<SearchType>().Select(e => e.ToString()).ToList();
 
         public IEnumerable<HomeIndexArticleListingModel> Articles { get; set; }

@@ -103,3 +103,8 @@
         </tbody>
     </table>
 }
+
+@if (this.Model.TotalPages > 1)
+{
+    <pagination total-pages="@(this.Model.TotalPages)" current-page="@(this.Model.Page)" link-url="/" query-params="@($"SearchText={this.Model.SearchText}&Search={this.Model.Search.ToString()}")"></pagination>
+}

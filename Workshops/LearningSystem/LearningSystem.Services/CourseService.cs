@@ -42,7 +42,7 @@
             return course.Id;
         }
 
-        public async Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter = "")
+        public async Task<(IEnumerable<TOut> collection, int count)> SearchAsync<TOut>(string filter, int pageSize, int page = 1)
         {
             var query = this.dbContext.Courses.Select(x => x);
 
@@ -55,9 +55,18 @@
                        || x.Description.ToLower().Contains(filter));
             }
 
-            return await query
+            var skip = (page - 1) * pageSize;
+
+            var count = (int)Math.Ceiling(query.Count() / (double) pageSize);
+
+            var collection =  await query
+                .OrderByDescending(x => x.StartDate)
+                .Skip(skip)
+                .Take(pageSize)
                 .To<TOut>()
                 .ToListAsync();
+
+            return (collection, count);
         }
 
         public async Task<IEnumerable<TOut>> ActiveAsync<TOut>()

@@ -9,7 +9,7 @@
     {
         Task<int> CreateAsync(CreateCourseServiceModel model);
 
-        Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter = "");
+        Task<(IEnumerable<TOut> collection, int count)> SearchAsync<TOut>(string filter, int pageSize, int page = 1);
 
         Task<IEnumerable<TOut>> ActiveAsync<TOut>();
 

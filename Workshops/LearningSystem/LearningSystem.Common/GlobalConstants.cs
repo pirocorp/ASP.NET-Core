@@ -17,6 +17,7 @@
 
         public const int ArticlesPageSize = 5;
         public const int CoursesPageSize = 5;
+        public const int UsersPageSize = 5;
 
         public const int ContentDemoLength = 600;
         public const string DateTimePreferredFormat = "dd/MM/yyyy";

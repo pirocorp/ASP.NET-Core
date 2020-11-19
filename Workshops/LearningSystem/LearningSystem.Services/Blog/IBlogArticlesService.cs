@@ -10,7 +10,7 @@
 
         Task<IEnumerable<TOut>> AllAsync<TOut>(int pageSize, int page = 1, bool newestFirst = true);
 
-        Task<IEnumerable<TOut>> SearchAsync<TOut>(string filter);
+        Task<(IEnumerable<TOut> Collection, int Count)> SearchAsync<TOut>(string filter, int pageSize, int page = 1);
 
         Task<TOut> GetByIdAsync<TOut>(int id);
 

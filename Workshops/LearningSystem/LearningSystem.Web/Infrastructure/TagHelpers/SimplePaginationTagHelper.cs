@@ -15,6 +15,9 @@
         [HtmlAttributeName("link-url")]
         public string Url { get; set; }
 
+        [HtmlAttributeName("query-params")]
+        public string QueryParameters { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";
@@ -60,7 +63,7 @@
         {
             output.Content.AppendHtml($@"
                 <li class=""page-item"">
-	                <a class=""page-link"" href=""{this.Url}?page={page}"">{btnName}</a>
+	                <a class=""page-link"" href=""{this.Url}?page={page}&{this.QueryParameters}"">{btnName}</a>
                 </li>");
         }
 
