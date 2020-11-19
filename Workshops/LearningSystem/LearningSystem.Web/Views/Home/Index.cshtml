@@ -95,7 +95,9 @@
             @foreach (var user in this.Model.Users)
             {
                 <tr>
-                    <td>@user.Username</td>
+                    <td>
+                        <a asp-area="" asp-controller="Users" asp-action="Profile" asp-route-username="@user.Username">@user.Username</a>
+                    </td>
                     <td>@user.Email</td>
                 </tr>
 
@@ -106,5 +108,9 @@
 
 @if (this.Model.TotalPages > 1)
 {
-    <pagination total-pages="@(this.Model.TotalPages)" current-page="@(this.Model.Page)" link-url="/" query-params="@($"SearchText={this.Model.SearchText}&Search={this.Model.Search.ToString()}")"></pagination>
+    <pagination 
+        total-pages="@(this.Model.TotalPages)" 
+        current-page="@(this.Model.Page)" 
+        link-url="/" 
+        query-params="@($"SearchText={this.Model.SearchText}&Search={this.Model.Search.ToString()}")"></pagination>
 }
