@@ -17,6 +17,10 @@
             var writer = PdfWriter.GetInstance(pdfDocument, memoryStream);
             pdfDocument.Open();
 
+            var bfComic = BaseFont.CreateFont(".\\Assets\\Fonts\\ARIAL.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            var font1 = new Font(bfComic, 12);
+            pdfDocument.Add(new Paragraph("Test", font1));
+            
             using (var stringReader = new StringReader(html))
             {
                 htmlParser.Parse(stringReader);
