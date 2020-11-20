@@ -94,6 +94,9 @@
             => await this.dbContext.Courses
                 .AnyAsync(c => c.Id.Equals(courseId));
 
+        public async Task<string> GetCourseNameAsync(int courseId)
+            => (await this.dbContext.Courses.FirstOrDefaultAsync(c => c.Id.Equals(courseId)))?.Name;
+
         public async Task SignInUserAsync(int courseId, ClaimsPrincipal user)
         {
             var course = await this.dbContext

@@ -1,6 +1,5 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
-    using System.Net.Mime;
     using System.Threading.Tasks;
     using AutoMapper;
     using Data.Models;
@@ -121,7 +120,8 @@
                 return this.BadRequest();
             }
 
-            return this.File(examContents, "application/zip");
+            var courseName = await this.courseService.GetCourseNameAsync(courseId);
+            return this.File(examContents, "application/zip", $"{student.Name} - {courseName} Exam-Submission.zip");
         }
 
         private async Task<TrainersStudentsViewModel> LoadTrainersStudentsViewModelAsync(int courseId)

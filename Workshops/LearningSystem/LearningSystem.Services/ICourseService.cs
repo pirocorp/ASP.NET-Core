@@ -21,6 +21,8 @@
 
         Task<bool> ExistsAsync(int courseId);
 
+        Task<string> GetCourseNameAsync(int courseId);
+
         Task SignInUserAsync(int courseId, ClaimsPrincipal user);
 
         Task SignOutUserAsync(int courseId, ClaimsPrincipal user);
