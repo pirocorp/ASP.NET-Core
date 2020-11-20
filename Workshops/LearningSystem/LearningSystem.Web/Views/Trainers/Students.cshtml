@@ -11,37 +11,68 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>Exam Submission</th>
             <th>Grade</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var student in this.Model.Students)
         {
-            <tr>
-                <td>@student.Name</td>
-                <td>@student.Email</td>
-                <td>
-                    @if (student.Grade is null 
-                      && this.Model.EndDate < DateTime.UtcNow)
-                    {
+        <tr>
+            <td>@student.Name</td>
+            <td>@student.Email</td>
+            @if (this.Model.EndDate.AddDays(1) < DateTime.UtcNow)
+            {
+                if (student.ExamIsSubmitted)
+                {
+                    <td>
+                        <a asp-area="" asp-controller="Trainers" asp-action="DownloadExam" asp-route-courseid="@this.Model.Id" asp-route-studentid="@student.Id">Download</a>
+                    </td>
+                }
+                else
+                {
+                    <td>Няма качени изпитни работи.</td>
+                }
+            }
+            else
+            {
+                <td>Курсът все още не е приключил.</td>
+            }
+
+            @if (student.Grade is null
+                 && this.Model.EndDate.AddDays(1) < DateTime.UtcNow)
+                {
+                    <td>
                         <form method="post">
                             <div class="form-group">
                                 <input type="hidden" asp-for="@this.Model.Input.CourseId" value="@this.Model.Id" />
                                 <input type="hidden" asp-for="@this.Model.Input.StudentId" value="@student.Id" />
                                 <div class="d-flex justify-content-between">
                                     <select asp-for="@this.Model.Input.Grade" class="form-control" asp-items="this.Model.GradesDropDown"></select>
-                                    <input class="btn btn-primary ml-2"  type="submit" value="Grade"/>
+                                    <input class="btn btn-primary ml-2" type="submit" value="Grade" />
                                 </div>
                                 <span asp-validation-for="@this.Model.Input.Grade" class="text-danger"></span>
                             </div>
                         </form>
-                    }
-                    else
-                    {
-                        @student.Grade.ToString()
-                    }
-                </td>
-            </tr>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <form method="post">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="@this.Model.Input.CourseId" value="@this.Model.Id" />
+                                <input type="hidden" asp-for="@this.Model.Input.StudentId" value="@student.Id" />
+                                <div class="d-flex justify-content-between">
+                                    <select asp-for="@this.Model.Input.Grade" class="form-control" asp-items="this.Model.GradesDropDown.Select(o => o.SelectCurrentGradeOption(student.Grade))"></select>
+                                    <input class="btn btn-primary ml-2" type="submit" value="Change Grade" />
+                                </div>
+                                <span asp-validation-for="@this.Model.Input.Grade" class="text-danger"></span>
+                            </div>
+                        </form>
+                    </td>
+                }
+        </tr>
         }
     </tbody>
 </table>

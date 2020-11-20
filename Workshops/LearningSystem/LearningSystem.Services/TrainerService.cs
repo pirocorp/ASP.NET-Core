@@ -51,19 +51,22 @@
 
         public async Task<bool> Grade(GradeServiceModel model)
         {
-            var grade = await this.dbContext.StudentCourses
+            var studentInCourse = await this.dbContext.StudentCourses
                 .SingleOrDefaultAsync(g => g.CourseId.Equals(model.CourseId) && g.StudentId.Equals(model.StudentId));
 
-            if (grade is null)
+            if (studentInCourse is null)
             {
                 return false;
             }
 
-            grade.Grade = model.Grade;
+            studentInCourse.Grade = model.Grade;
 
-            this.dbContext.Update(grade);
+            this.dbContext.Update(studentInCourse);
             await this.dbContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<byte[]> GetExamSubmission(int courseId, string studentId)
+            => (await this.dbContext.FindAsync<StudentCourse>(studentId, courseId))?.ExamSubmission;
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
+    using System.Net.Mime;
     using System.Threading.Tasks;
     using AutoMapper;
     using Data.Models;
@@ -95,6 +96,32 @@
             await this.trainerService.Grade(serviceModel);
 
             return this.RedirectToAction(nameof(this.Students), new{ courseId });
+        }
+
+        public async Task<IActionResult> DownloadExam(int courseId, string studentId)
+        {
+            var student = await this.userManager.FindByIdAsync(studentId);
+
+            if (!await this.courseService.ExistsAsync(courseId)
+                || student is null)
+            {
+                return this.NotFound();
+            }
+
+            if (!await this.trainerService.IsTrainerAsync(courseId, this.User)
+                || !await this.courseService.UserIsSignedInCourse(courseId, studentId))
+            {
+                return this.BadRequest();
+            }
+
+            var examContents = await this.trainerService.GetExamSubmission(courseId, studentId);
+
+            if (examContents is null)
+            {
+                return this.BadRequest();
+            }
+
+            return this.File(examContents, "application/zip");
         }
 
         private async Task<TrainersStudentsViewModel> LoadTrainersStudentsViewModelAsync(int courseId)

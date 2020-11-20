@@ -16,6 +16,8 @@
 
         public Grade? Grade { get; set; }
 
+        public bool ExamIsSubmitted { get; set; }
+
         public void CreateMappings(IProfileExpression mapper)
         {
             var courseId = default(int);
@@ -26,7 +28,11 @@
                     .MapFrom(u => u.Courses
                         .Where(c => c.CourseId.Equals(courseId))
                         .Select(c => c.Grade)
-                        .FirstOrDefault()));
+                        .FirstOrDefault()))
+                .ForMember(s => s.ExamIsSubmitted, opt => opt
+                    .MapFrom(u => u.Courses
+                        .Where(c => c.CourseId.Equals(courseId))
+                        .Any(c => c.ExamSubmission != null)));
         }
     }
 }
