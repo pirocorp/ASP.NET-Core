@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Data.Models;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -94,6 +95,7 @@
             var serviceModel = this.mapper.Map<GradeServiceModel>(model.Input);
             await this.trainerService.Grade(serviceModel);
 
+            this.TempData.AddSuccessMessage($"Student {student.Name} get grade {model.Input.Grade}");
             return this.RedirectToAction(nameof(this.Students), new{ courseId });
         }
 

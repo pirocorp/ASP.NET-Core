@@ -13,13 +13,16 @@
     {
         private readonly UserManager<User> userManager;
         private readonly IUserService userService;
+        private readonly ICourseService courseService;
 
         public UsersController(
             UserManager<User> userManager,
-            IUserService userService)
+            IUserService userService,
+            ICourseService courseService)
         {
             this.userManager = userManager;
             this.userService = userService;
+            this.courseService = courseService;
         }
 
         public async Task<IActionResult> Profile(string username)
@@ -36,6 +39,32 @@
             var model = await this.userService.GetByUsernameAsync<UserProfileUserModel>(studentId);
 
             return this.View(model);
+        }
+
+        public async Task<IActionResult> DownloadCertificate(int id)
+        {
+            var student = await this.userManager.GetUserAsync(this.User);
+
+            if (!await this.courseService.ExistsAsync(id))
+            {
+                return this.BadRequest();
+            }
+
+            if (!await this.courseService.UserIsSignedInCourse(id, student.Id))
+            {
+                return this.BadRequest();
+            }
+
+            var courseName = await this.courseService.GetCourseNameAsync(id);
+
+            var certificateContents = await this.userService.GetPdfCertificate(id, student.Id);
+
+            if (certificateContents is null)
+            {
+                return this.BadRequest();
+            }
+
+            return this.File(certificateContents, "application/pdf", $"{student.Name} - {courseName} Certificate.pdf");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model UserProfileUserModel
+﻿@using LearningSystem.Data
+@model UserProfileUserModel
 
 @{
     this.ViewData["Title"] = $"{this.Model.UserName} Profile";
@@ -21,6 +22,7 @@
         <tr>
             <th>Course</th>
             <th>Grade</th>
+            <th>Certificate</th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +33,18 @@
                     <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id" asp-route-title="@course.Name.ToFriendlyUrl()">@course.Name</a>
                 </td>
                 <td>@course.Grade.ToString()</td>
+                <td>
+                    @if (course.Grade is Grade.A
+                        || course.Grade is Grade.B
+                        || course.Grade is Grade.C)
+                    {
+                        <a asp-area="" asp-controller="Users" asp-action="DownloadCertificate" asp-route-id="@course.Id">Download</a>
+                    }
+                    else
+                    {
+                        <p>Not applicable</p>
+                    }
+                </td>
             </tr>
         }
         </tbody>
