@@ -34,17 +34,17 @@
 
             var Y = new NeuralData(4);
             Y.Add(0);
-            Y.Add(0);
-            Y.Add(0);
+            Y.Add(1);
+            Y.Add(1);
             Y.Add(1);
 
-            model.Train(X, Y, iterations: 10  , learningRate: 0.1);
+            model.Train(X, Y, iterations: 11  , learningRate: 0.1);
             Console.WriteLine();
             Console.WriteLine("----After Training------------");
             model.Print();
 
             Console.WriteLine("Press any key to create next network");
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }
