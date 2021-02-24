@@ -82,6 +82,7 @@ HDEL user:1234 age              // delete an object property
 ## Designing a database
 
 You need to design what kind of keys you are going to use
+
 For example, storing users:
 
 ```redis
@@ -91,3 +92,12 @@ HSET users antirez 1000
 ```
 
 [Redis database example](https://redis.io/topics/twitter-clone)
+
+## REDIS Configuration
+
+[Redis v6.0 configuration file example](https://raw.githubusercontent.com/redis/redis/6.0/redis.conf)
+Redis configuration for WSL (Ubuntu 20.04) is lacated at ```/etc/redis/redis.conf```
+
+Password can be set in config file at ```# masterauth <master-password>```
+And using conecting to redis server with redis-cli can be done with ```redis-cli -h localhost -a YOURPASSWORD```
+
