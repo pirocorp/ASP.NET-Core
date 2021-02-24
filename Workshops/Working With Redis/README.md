@@ -112,8 +112,9 @@ save 60 10000    //after 60 sec if at least 10000 keys changed
 ```
 
 
-Configure AOF persistence
+##### Configure AOF persistence
 
+Append sec has three settings: ```no```, ```everysec```, ```always```. ```no```: don't fsync, just let the OS flush the data when it wants. ```everysec```: flush the output buffer every sec. "always" that's very slow but a bit safer than everysec.
 ```
 ############################## APPEND ONLY MODE ###############################
 appendfsync no 
