@@ -49,6 +49,7 @@ LLEN my:cats             // get the length of the list
 ```
 
 Set – contains unique elements without any order
+
 ```
 SADD my:cars BMW           // add values to the set
 SADD my:cars Mercedes      // add more values to the set
@@ -76,4 +77,15 @@ HGET user:1234 name             // get object name
 HGETALL user:1234               // get all object values
 HINCRBY user:1234 age 1         // increment an integer
 HDEL user:1234 age              // delete an object property
+```
+
+## Designing a database
+
+You need to design what kind of keys you are going to use
+For example, storing users:
+
+```redis
+INCR next_user_id => 1000                  
+HMSET user:1000 username antirez password somepasshash
+HSET users antirez 1000
 ```
