@@ -11,3 +11,6 @@ To start running your Redis server: ```sudo service redis-server start```
 Check to see if redis is working (redis-cli is the command line interface utility to talk with Redis): ```redis-cli ping``` this should return a reply of "PONG".
 
 To stop running your Redis server: ```sudo service redis-server stop```
+
+For more information about working with a Redis database, see the [Redis docs](https://redis.io/topics/quickstart)
+
