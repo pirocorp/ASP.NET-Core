@@ -101,7 +101,7 @@ Redis configuration for WSL (Ubuntu 20.04) is located at ```/etc/redis/redis.con
 Password can be set in config file at ```# masterauth <master-password>```
 Connecting with password to redis-server ```redis-cli -h localhost -a YOURPASSWORD```
 
-RDB Configure RDB persistence
+##### RDB Configure RDB persistence
 
 Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred.
 ```
