@@ -12,5 +12,6 @@ Check to see if redis is working (redis-cli is the command line interface utilit
 
 To stop running your Redis server: ```sudo service redis-server stop```
 
-For more information about working with a Redis database, see the [Redis docs](https://redis.io/topics/quickstart)
+To restart your Redis server: ```sudo service redis-server restart```
 
+For more information about working with a Redis database, see the [Redis docs](https://redis.io/topics/quickstart)
