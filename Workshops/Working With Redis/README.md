@@ -99,5 +99,5 @@ HSET users antirez 1000
 Redis configuration for WSL (Ubuntu 20.04) is lacated at ```/etc/redis/redis.conf```
 
 Password can be set in config file at ```# masterauth <master-password>```
-And using conecting to redis server with redis-cli can be done with ```redis-cli -h localhost -a YOURPASSWORD```
+Connecting with password to redis-server ```redis-cli -h localhost -a YOURPASSWORD```
 
