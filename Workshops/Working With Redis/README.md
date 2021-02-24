@@ -55,3 +55,23 @@ SISMEMBER my:cars Opel     // check if a value is in the set
 SMEMBERS my:cars           // return all values in the set
 SUNION my:cars your:cars   // combines two sets
 ```
+
+Sorted Set – contains unique elements with sorted scores
+
+```
+ZADD expensive:cars 100000 BMW       // add a value with a score
+ZADD expensive:cars 80000 Audi       // add a value with a score
+ZADD expensive:cars 120000 Mercedes  // add a value with a score
+ZRANGE expensive:cars 0 1            // return sorted values
+```
+
+Hashes – maps between field, useful for objects
+
+```
+HSET user:1234 name Ivaylo      // set object name
+HSET user:1234 age 5            // set object age
+HGET user:1234 name             // get object name
+HGETALL user:1234               // get all object values
+HINCRBY user:1234 age 1         // increment an integer
+HDEL user:1234 age              // delete an object property
+```
