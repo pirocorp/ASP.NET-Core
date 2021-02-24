@@ -32,3 +32,15 @@ EXPIRE cats 120       // set an expiration time in seconds
 TTL cats              // check the expiration time
 PERSIST cats          // remove an expiration time
 ```
+
+## Complex data structures Commands
+
+```
+RPUSH my:cats Sharo      // add values at the end of the list
+LPUSH my:cats Lady       // add values at the beginning of the list
+LRANGE my:cats 0 -1      // return subset of the list
+LPOP my:cats             // remove a value from the beginning 
+RPOP my:cats             // remove a value from the end
+LLEN my:cats             // get the length of the list
+```
+
