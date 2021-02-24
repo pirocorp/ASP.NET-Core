@@ -35,6 +35,8 @@ PERSIST cats          // remove an expiration time
 
 ## Complex data structures Commands
 
+### List – contains series of values
+
 ```
 RPUSH my:cats Sharo      // add values at the end of the list
 LPUSH my:cats Lady       // add values at the beginning of the list
