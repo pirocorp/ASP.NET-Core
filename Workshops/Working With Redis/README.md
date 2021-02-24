@@ -112,5 +112,7 @@ save 60 10000    //after 60 sec if at least 10000 keys changed will save the DB
 
 Configure AOF persistence
 
+
 ############################## APPEND ONLY MODE ###############################
+
 appendfsync no 
