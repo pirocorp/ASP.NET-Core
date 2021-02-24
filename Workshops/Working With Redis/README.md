@@ -15,3 +15,18 @@ To stop running your Redis server: ```sudo service redis-server stop```
 To restart your Redis server: ```sudo service redis-server restart```
 
 For more information about working with a Redis database, see the [Redis docs](https://redis.io/topics/quickstart)
+
+## Common Redis commands
+
+```redis
+SET my:key value      // set a text value by key
+GET my:key            // get the value by key
+EXISTS my:key         // check whether a key exists
+DEL my:key            // delete a key
+SET cats 10           // set an integer value by key
+INCR cats             // atomically increment a value by 1
+INCRBY cats 10        // atomically increment a value by 10
+EXPIRE cats 120       // set an expiration time in seconds
+TTL cats              // check the expiration time
+PERSIST cats          // remove an expiration time
+```
