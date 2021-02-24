@@ -89,3 +89,5 @@ INCR next_user_id => 1000
 HMSET user:1000 username antirez password somepasshash
 HSET users antirez 1000
 ```
+
+[Redis database example](https://redis.io/topics/twitter-clone)
