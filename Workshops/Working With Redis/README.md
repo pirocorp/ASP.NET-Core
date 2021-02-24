@@ -102,6 +102,7 @@ Password can be set in config file at ```# masterauth <master-password>```
 Connecting with password to redis-server ```redis-cli -h localhost -a YOURPASSWORD```
 
 RDB Configure RDB persistence
+
 ################################ SNAPSHOTTING  ################################
 
 save 900 1       //after 900 sec (15 min) if at least 1 key changed will save the DB
@@ -110,5 +111,6 @@ save 60 10000    //after 60 sec if at least 10000 keys changed will save the DB
 
 
 Configure AOF persistence
+
 ############################## APPEND ONLY MODE ###############################
 appendfsync no 
