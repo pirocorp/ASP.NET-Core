@@ -103,6 +103,7 @@ Connecting with password to redis-server ```redis-cli -h localhost -a YOURPASSWO
 
 RDB Configure RDB persistence
 
+Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred.
 ```
 ################################ SNAPSHOTTING  ################################
 save 900 1       //after 900 sec (15 min) if at least 1 key changed
