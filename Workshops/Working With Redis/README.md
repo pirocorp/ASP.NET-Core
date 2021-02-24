@@ -18,6 +18,8 @@ For more information about working with a Redis database, see the [Redis docs](h
 
 ## Common Redis commands
 
+The commands are atomic in a multithread environment.
+
 ```redis
 SET my:key value      // set a text value by key
 GET my:key            // get the value by key
