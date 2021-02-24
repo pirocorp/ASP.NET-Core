@@ -35,7 +35,7 @@ PERSIST cats          // remove an expiration time
 
 ## Complex data structures Commands
 
-### List – contains series of values
+List – contains series of values
 
 ```
 RPUSH my:cats Sharo      // add values at the end of the list
@@ -46,3 +46,12 @@ RPOP my:cats             // remove a value from the end
 LLEN my:cats             // get the length of the list
 ```
 
+Set – contains unique elements without any order
+```
+SADD my:cars BMW           // add values to the set
+SADD my:cars Mercedes      // add more values to the set
+SREM my:cars Audi          // remove a value from the set
+SISMEMBER my:cars Opel     // check if a value is in the set
+SMEMBERS my:cars           // return all values in the set
+SUNION my:cars your:cars   // combines two sets
+```
