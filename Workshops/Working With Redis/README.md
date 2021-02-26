@@ -96,13 +96,14 @@ HSET users antirez 1000
 ## REDIS Configuration
 
 [Redis v6.0 configuration file example](https://raw.githubusercontent.com/redis/redis/6.0/redis.conf)
-Redis configuration for WSL (Ubuntu 20.04) is lacated at ```/etc/redis/redis.conf```
+Redis configuration for WSL (Ubuntu 20.04) is located at ```/etc/redis/redis.conf```
 
 Password can be set in config file at ```# masterauth <master-password>```
 Connecting with password to redis-server ```redis-cli -h localhost -a YOURPASSWORD```
 
-RDB Configure RDB persistence
+##### RDB Configure RDB persistence
 
+Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred.
 ```
 ################################ SNAPSHOTTING  ################################
 save 900 1       //after 900 sec (15 min) if at least 1 key changed
@@ -111,8 +112,9 @@ save 60 10000    //after 60 sec if at least 10000 keys changed
 ```
 
 
-Configure AOF persistence
+##### Configure AOF persistence
 
+Append sec has three settings: ```no```, ```everysec``` and ```always```. ```no```: don't fsync, just let the OS flush the data when it wants. ```everysec```: flush the output buffer every sec. ```always``` that's very slow but a bit safer than everysec.
 ```
 ############################## APPEND ONLY MODE ###############################
 appendfsync no 
