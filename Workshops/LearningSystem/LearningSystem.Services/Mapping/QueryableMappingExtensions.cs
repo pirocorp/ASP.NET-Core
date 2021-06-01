@@ -23,6 +23,12 @@
         }
 
         public static IQueryable<TDestination> To<TDestination>(
+            this IQueryable source)
+        {
+            return source.ProjectTo<TDestination>(AutoMapperConfig.MapperInstance.ConfigurationProvider);
+        }
+
+        public static IQueryable<TDestination> To<TDestination>(
             this IQueryable source,
             object parameters)
         {
