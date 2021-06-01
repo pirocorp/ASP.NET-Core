@@ -23,7 +23,7 @@ namespace LearningSystem.Web.Tests.Services
         }
 
         [Fact]
-        public async Task AutoMapperIsConfiguredSuccessfullyForSingleMappings()
+        public void AutoMapperIsConfiguredSuccessfullyForSingleMappings()
         {
             var course = new Course()
             {
@@ -48,7 +48,7 @@ namespace LearningSystem.Web.Tests.Services
         }
 
         [Fact]
-        public async Task AutoMapperIsConfiguredSuccessfullyForQueryableMappings()
+        public void AutoMapperIsConfiguredSuccessfullyForQueryableMappings()
         {
             var courses = new List<Course>()
             {

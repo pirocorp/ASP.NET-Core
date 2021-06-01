@@ -4,14 +4,28 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using AutoMapper;
     using AutoMapper.Configuration;
 
     public static class AutoMapperConfig
     {
         private static bool initialized;
+        private static IMapper mapperInstance;
 
-        public static IMapper MapperInstance { get; set; }
+        public static IMapper MapperInstance
+        {
+            get
+            {
+                // This is stupid but for the test is fast, clean and easy fix
+                while (mapperInstance is null)
+                {
+                    Thread.Sleep(100);
+                }
+
+                return mapperInstance;
+            }
+        }
 
         /// <summary>
         /// Automatically adds maps for IMapFrom, IMapTo and custom mappings for IHaveCustomMappings interfaces to automapper.
@@ -51,7 +65,8 @@
                         map.CreateMappings(configuration);
                     }
                 });
-            MapperInstance = new Mapper(new MapperConfiguration(config));
+
+            mapperInstance = new Mapper(new MapperConfiguration(config));
         }
 
         private static IEnumerable<TypesMap> GetFromMaps(IEnumerable<Type> types)
