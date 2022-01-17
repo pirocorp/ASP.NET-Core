@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Web", "LearningSystem.Web\LearningSystem.Web.csproj", "{B8B209E5-21EC-498D-AD4C-DD1194DD6FA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Web", "LearningSystem.Web\LearningSystem.Web.csproj", "{B8B209E5-21EC-498D-AD4C-DD1194DD6FA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Data", "LearningSystem.Data\LearningSystem.Data.csproj", "{387825E7-A124-4E85-B048-CAC8BB434DB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Data", "LearningSystem.Data\LearningSystem.Data.csproj", "{387825E7-A124-4E85-B048-CAC8BB434DB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Services", "LearningSystem.Services\LearningSystem.Services.csproj", "{FC451A44-7EBA-467B-9012-A664D4AC6A36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Services", "LearningSystem.Services\LearningSystem.Services.csproj", "{FC451A44-7EBA-467B-9012-A664D4AC6A36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Common", "LearningSystem.Common\LearningSystem.Common.csproj", "{5564CB8C-2CAB-4935-B370-FDF1EEC75E3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Common", "LearningSystem.Common\LearningSystem.Common.csproj", "{5564CB8C-2CAB-4935-B370-FDF1EEC75E3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Web.Tests", "LearningSystem.Web.Tests\LearningSystem.Web.Tests.csproj", "{17D2FD5E-CEAD-4E40-972A-844A46916BDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5564CB8C-2CAB-4935-B370-FDF1EEC75E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5564CB8C-2CAB-4935-B370-FDF1EEC75E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5564CB8C-2CAB-4935-B370-FDF1EEC75E3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17D2FD5E-CEAD-4E40-972A-844A46916BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17D2FD5E-CEAD-4E40-972A-844A46916BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17D2FD5E-CEAD-4E40-972A-844A46916BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17D2FD5E-CEAD-4E40-972A-844A46916BDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

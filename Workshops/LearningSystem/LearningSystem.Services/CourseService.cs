@@ -56,7 +56,6 @@
             }
 
             var skip = (page - 1) * pageSize;
-
             var count = (int)Math.Ceiling(query.Count() / (double) pageSize);
 
             var collection =  await query

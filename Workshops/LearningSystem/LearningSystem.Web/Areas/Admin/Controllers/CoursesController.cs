@@ -13,7 +13,6 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Courses;
     using Services;
-    using Services.Admin;
     using Services.Models.Admin.Courses;
     using Web.Controllers;
     using static Common.GlobalConstants;
